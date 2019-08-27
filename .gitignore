@@ -3,3 +3,9 @@
 bin/
 obj/
 .vs/
+
+#healthCheck MiddleWare
+healthchecksdb
+
+#conexoes
+conexoes.json
