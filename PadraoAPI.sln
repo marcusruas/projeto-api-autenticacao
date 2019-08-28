@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{F5F7A581-6370-41F2-B800-FCBDD243DDF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{F5F7A581-6370-41F2-B800-FCBDD243DDF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{51AF8757-C494-46E2-BE42-CD8D90642915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F5F7A581-6370-41F2-B800-FCBDD243DDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5F7A581-6370-41F2-B800-FCBDD243DDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5F7A581-6370-41F2-B800-FCBDD243DDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51AF8757-C494-46E2-BE42-CD8D90642915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51AF8757-C494-46E2-BE42-CD8D90642915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51AF8757-C494-46E2-BE42-CD8D90642915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51AF8757-C494-46E2-BE42-CD8D90642915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
