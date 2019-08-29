@@ -7,11 +7,11 @@ namespace Comunicacao.ConexaoBanco.Interface
 {
    public interface IConexaoBanco
     {
-        string ObterConsultaArquivoSQL(string nomeArquivo);
-        IDbConnection CriarNovaConexao();
-        List<T> Consultar<T>(string consulta);
-        List<T> Consultar<T>(string consulta, T parametros);
-        int Executar(string consulta);
-        int Executar<T>(string consulta, T parametros);
+        string ObterConsultaArquivoSQL(string nomeArquivo, Banco banco);
+        IDbConnection CriarNovaConexao(Banco banco);
+        List<T> Consultar<T>(string consulta, Banco banco);
+        List<T> Consultar<T>(string consulta, T parametros, Banco banco);
+        int Executar(string consulta, Banco banco);
+        int Executar<T>(string consulta, T parametros, Banco banco);
     }
 }
