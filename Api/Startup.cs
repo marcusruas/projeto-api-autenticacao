@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using System.IO;
 using System.Reflection;
+using IoC;
 
 namespace Api
 {
@@ -49,6 +50,11 @@ namespace Api
                                     .AllowAnyHeader()
                                     .AllowAnyOrigin());
             });
+
+            //Injeções de dependência
+            IoC.IoC.ConfigurarCamadaComunicacao(services);
+            IoC.IoC.ConfigurarCamadaRepositorio(services);
+            IoC.IoC.ConfigurarCamadaServico(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
