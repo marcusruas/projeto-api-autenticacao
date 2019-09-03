@@ -4,44 +4,103 @@ using System.Collections.Generic;
 using System.Data;
 using Newtonsoft.Json;
 using System.Text;
+using System.Data.SqlClient;
+using Dapper;
+using System.Linq;
 
 namespace Comunicacao.ConexaoBanco.Implementacao
 {
-    public class ConexaoBanco : IConexaoBanco
+    class ConexaoBanco : IConexaoBanco
     {
-        public List<T> Consultar<T>(string consulta, Banco banco)
+        public string ObterConsultaArquivoSQL(string nomeArquivo)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<T> Consultar<T>(string consulta, T parametros, Banco banco)
-        {
-            throw new NotImplementedException();
+            return LeitorArquivos.LerArquivoSQL(nomeArquivo);
         }
 
         public IDbConnection CriarNovaConexao(Banco banco)
         {
-            throw new NotImplementedException();
+            return new SqlConnection(LeitorArquivos.ObterConnectionString(banco));
         }
 
-        public int Executar(string consulta, Banco banco)
+        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco)
         {
-            throw new NotImplementedException();
+            return (
+                ObterConsultaArquivoSQL(nomeArquivo),
+                CriarNovaConexao(banco)
+            );
         }
 
-        public int Executar<T>(string consulta, T parametros, Banco banco)
+        public List<T> Consultar<T>(string nomeArquivo, Banco banco)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
+                return conexao.Query<T>(consulta).ToList();
+            }
+            catch(SqlException)
+            {
+                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
+            }
+            catch(Exception)
+            {
+                throw;
+            }
         }
 
-        public string ObterConsultaArquivoSQL(string nomeArquivo, Banco banco)
+        public List<T> Consultar<T>(string nomeArquivo, T parametros, Banco banco)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
+                return conexao.Query<T>(consulta, parametros).ToList();
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int Executar(string nomeArquivo, Banco banco)
+        {
+            try
+            {
+                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
+                return conexao.Execute(consulta);
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int Executar<T>(string nomeArquivo, T parametros, Banco banco)
+        {
+            try
+            {
+                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
+                return conexao.Execute(consulta, parametros);
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private string ObterConnectionString(Banco banco)
         {
-            return LeitorArquivos.ObterStringBanco(banco);
+            return LeitorArquivos.ObterConnectionString(banco);
         }
     }
 }

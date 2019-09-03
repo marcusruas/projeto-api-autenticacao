@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using System.IO;
+using System.Reflection;
 
 namespace Api
 {
@@ -37,7 +39,6 @@ namespace Api
 
             //HealthChecks
             services.AddHealthChecks();
-                //.AddSqlServer(Configuration["ConnectionStrings:SHAREDB"], name: "SHAREDB");
             services.AddHealthChecksUI();
 
             //Cors
@@ -69,11 +70,11 @@ namespace Api
             });
 
             //HealthChecks
-            app.UseHealthChecks("/status", new HealthCheckOptions() {
+            app.UseHealthChecks("/health/json", new HealthCheckOptions() {
                 Predicate = _ => true,
                 ResponseWriter= UIResponseWriter.WriteHealthCheckUIResponse
             });
-            app.UseHealthChecksUI(config => config.UIPath = "/home");
+            app.UseHealthChecksUI(config => config.UIPath = "/health");
 
             //Cors
             app.UseCors("PermissionamentoReact");

@@ -1,5 +1,4 @@
-﻿using Comunicacao.ConexaoBanco.Implementacao;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,22 +6,26 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Comunicacao.ConexaoBanco
+namespace Comunicacao.ConexaoBanco.Implementacao
 {
-    public class LeitorArquivos
+    class LeitorArquivos
     {
-        private static string DiretorioArquivosBuild = Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName;
+        private static string DirBuildComunicacao = Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName;
 
-        public static string CarregarArquivoSQL(string nomeArquivo)
+        public static string LerArquivoSQL(string nomeArquivo)
         {
-            string pathArquivo = Path.Combine(DiretorioArquivosBuild, "ConexaoBanco", "SQL", $"{nomeArquivo}.sql");
+            string pathApi = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             string conteudoArquivo = string.Empty;
-            string[] linhas;
 
-            if (!File.Exists(pathArquivo))
-                throw new Exception("Não foi possível localizar o arquivo de consulta ao banco com este nome.");
             try
             {
+                string[] projetoArquivo = nomeArquivo.Split('/');
+                string pathArquivo = Path.Combine(pathApi, "Repositorio", projetoArquivo[0], "SQL", $"{nomeArquivo[1]}.sql");
+                string[] linhas;
+
+                if (!File.Exists(pathArquivo))
+                    throw new Exception("Não foi possível localizar o arquivo de consulta ao banco com este nome.");
+
                 linhas = File.ReadAllLines(pathArquivo);
                 foreach (string linha in linhas)
                     conteudoArquivo += (linha + " ");
@@ -31,12 +34,16 @@ namespace Comunicacao.ConexaoBanco
             {
                 throw new Exception("O arquivo de consulta ao banco de dados está vazio.");
             }
+            catch (Exception)
+            {
+                throw new Exception("Ocorreu um erro ao ler o arquivo SQL indicado.");
+            }
             return conteudoArquivo;
         }
 
-        public static string ObterStringBanco(Banco banco)
+        public static string ObterConnectionString(Banco banco)
         {
-            string arquivoConexao = Path.Combine(DiretorioArquivosBuild, "conexoes.json");
+            string arquivoConexao = Path.Combine(DirBuildComunicacao, "ConexaoBanco" , "conexoes.json");
             List<ConexaoModel> conexoes;
             try
             {
@@ -52,7 +59,7 @@ namespace Comunicacao.ConexaoBanco
             }
             catch (Exception)
             {
-                throw new Exception("Não foi possível realizar a conexão ao banco de dados.");
+                throw new Exception("Não foi possível localizar a conexão da base desejada.");
             }
         }
     }
