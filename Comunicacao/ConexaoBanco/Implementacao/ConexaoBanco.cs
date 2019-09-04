@@ -10,19 +10,19 @@ using System.Linq;
 
 namespace Comunicacao.ConexaoBanco.Implementacao
 {
-    class ConexaoBanco : IConexaoBanco
+    public class ConexaoBanco : IConexaoBanco
     {
         public string ObterConsultaArquivoSQL(string nomeArquivo)
         {
             return LeitorArquivos.LerArquivoSQL(nomeArquivo);
         }
 
-        public IDbConnection CriarNovaConexao(Banco banco)
+        public IDbConnection CriarNovaConexao(Banco banco = Banco.SHAREDB)
         {
             return new SqlConnection(LeitorArquivos.ObterConnectionString(banco));
         }
 
-        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco)
+        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco = Banco.SHAREDB)
         {
             return (
                 ObterConsultaArquivoSQL(nomeArquivo),
@@ -30,7 +30,7 @@ namespace Comunicacao.ConexaoBanco.Implementacao
             );
         }
 
-        public List<T> Consultar<T>(string nomeArquivo, Banco banco)
+        public List<T> Consultar<T>(string nomeArquivo, Banco banco = Banco.SHAREDB)
         {
             try
             {
@@ -47,12 +47,29 @@ namespace Comunicacao.ConexaoBanco.Implementacao
             }
         }
 
-        public List<T> Consultar<T>(string nomeArquivo, T parametros, Banco banco)
+        public List<T> Consultar<T>(string nomeArquivo, T parametros, Banco banco = Banco.SHAREDB)
         {
             try
             {
                 var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
                 return conexao.Query<T>(consulta, parametros).ToList();
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<TRetorno> Consultar<TRetorno, TParametros>(string nomeArquivo, TParametros parametros, Banco banco = Banco.SHAREDB)
+        {
+            try
+            {
+                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
+                return conexao.Query<TRetorno>(consulta, parametros).ToList();
             }
             catch (SqlException)
             {

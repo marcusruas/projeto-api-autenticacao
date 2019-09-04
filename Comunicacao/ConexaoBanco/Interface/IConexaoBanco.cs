@@ -12,6 +12,7 @@ namespace Comunicacao.ConexaoBanco.Interface
         (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco);
         List<T> Consultar<T>(string nomeArquivo, Banco banco);
         List<T> Consultar<T>(string nomeArquivo, T parametros, Banco banco);
+        List<TRetorno> Consultar<TRetorno, TParametros>(string nomeArquivo, TParametros parametros, Banco banco);
         int Executar(string nomeArquivo, Banco banco);
         int Executar<T>(string nomeArquivo, T parametros, Banco banco);
     }
