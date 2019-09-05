@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using Comunicacao.ConexaoBanco.Interface;
 using Comunicacao.ConexaoBanco.Implementacao;
+using Repositorio.Usuario.Implementacao;
+using Repositorio.Usuario.Interface;
 
 namespace IoC
 {
@@ -15,7 +17,7 @@ namespace IoC
         }
         public static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
         {
-
+            servicos.AddScoped<IUsuarioRep, UsuarioRep>();
         }
         public static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
