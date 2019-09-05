@@ -6,6 +6,8 @@ using Comunicacao.ConexaoBanco.Interface;
 using Comunicacao.ConexaoBanco.Implementacao;
 using Repositorio.Usuario.Implementacao;
 using Repositorio.Usuario.Interface;
+using Servico.Usuario.Implementacao;
+using Servico.Usuario.Interface;
 
 namespace IoC
 {
@@ -21,7 +23,7 @@ namespace IoC
         }
         public static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
-
+            servicos.AddScoped<IUsuarioSrv, UsuarioSrv>();
         }
     }
 }
