@@ -16,16 +16,17 @@ namespace Api.Controllers.Usuario
     public class UsuarioController
     {
         private IUsuarioSrv _servico;
-        public UsuarioController(IUsuarioSrv servico)
+        private IMapper _mapeador;
+        public UsuarioController(IUsuarioSrv servico, IMapper mapper)
         {
             _servico = servico;
+            _mapeador = mapper;
         }
 
         [HttpGet]
         public UsuarioDto ObterUsuarioPorNome(string nome)
         {
-            var map = new Mapper(Mapeamento.PrepararMapeamentoDtoDominio());
-            return map.Map<UsuarioDto>(_servico.BuscarUsuarioPorNome(nome));
+            return _mapeador.Map<UsuarioDto>(_servico.BuscarUsuarioPorNome(nome));
         }
     }
 }

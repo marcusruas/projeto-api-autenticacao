@@ -17,6 +17,7 @@ using System.IO;
 using System.Reflection;
 using IoC;
 using Aplicacao;
+using AutoMapper;
 
 namespace Api
 {
@@ -57,9 +58,12 @@ namespace Api
             IoC.IoC.ConfigurarCamadaRepositorio(services);
             IoC.IoC.ConfigurarCamadaServico(services);
 
-            //Mapeamentos
+            //Mapeamentos da camada de Aplicacao com Dominio
             var mapeamentoDominio = Mapeamento.PrepararMapeamentoDtoDominio();
             mapeamentoDominio.CompileMappings();
+            mapeamentoDominio.AssertConfigurationIsValid();
+
+            services.AddScoped<IMapper>(x => new Mapper(mapeamentoDominio));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
