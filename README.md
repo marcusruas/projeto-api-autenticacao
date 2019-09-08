@@ -6,8 +6,8 @@ O Projeto foi desenvolvido utilizando a arquitetura de Microserviços, afim de f
 
 ## Configurações iniciais necessárias
 Para começar a desenvolver neste Scaffold, é necessário somente algumas coisas:
-- Alterar o nome da solution principal (NomeAPI.sln) para o nome da futura api;
-- Alterar a parte onde diz "Nome da API" na classe de Startup da api para o nome da api desejada, bem como o nome do documento na invocação do serviço;
+- Alterar o nome da solution principal (PadraoAPI.sln) para o nome da futura api;
+- Alterar a parte onde diz "PadraoAPI" na classe de Startup da api para o nome da api desejada, bem como o nome do documento na invocação do serviço;
 - Adicionar um arquivo de conexoes.json válido em Comunicacao/.
 
 ## conexoes.json
@@ -17,7 +17,7 @@ Para começar a desenvolver neste Scaffold, é necessário somente algumas coisa
 [
 	{
 		"Nome": "Insira aqui o nome do banco de dados",
-		"StringConexao": "Insira aqui a connection string ao banco de dados"
+		"ConnectionString": "Insira aqui a connection string ao banco de dados"
 	}
 ]
 ```
@@ -28,11 +28,11 @@ O Scaffold retorna e consome informações no formato JSON.
 # Adicionando um novo micro serviço
 
 ## Criando o Dominio
-Na camada de domínio, crie uma nova pasta com as classes de domínio que representarão as regras de negócio da sua aplicação.
+Na camada de domínio, Crie uma nova pasta com o nome do micro serviço, respeitando as subpastas de implementacao/interfaces. as classes devem desta camada ter o Sufixo apropriado, conforme o arquivo Arquitetura.png.
 Nestas classes deverão ficar todas as regras referentes aos objetos criados e como os mesmos funcionam.
 
 ## Criando chamadas de Repositorio
-Na camada de Repositorio, Crie uma nova pasta com a classe de repositório, respeitando as subpastas de implementacao/interfaces, utilizando o sufixo Repositorio para o nome da classe que acessará o banco de dados. Esta camada usa a interface da classe ConexaoBanco para fazer suas chamadas.
+Na camada de Repositorio, Crie uma nova pasta com a classe de repositório, respeitando as subpastas de implementacao/interfaces, utilizando o sufixo Repositorio para o nome da classe que acessará o banco de dados. as classes devem desta camada ter o Sufixo apropriado, conforme o arquivo Arquitetura.png. Esta camada usa a interface da classe ConexaoBanco, advinda da camada de comunicação para fazer suas chamadas.
 
 ### Um pouco sobre a IConexaoBanco
 Em caso de necessidade de realizar uma conexão/consulta/update no banco, utilizar os métodos da interface IConexaoBanco, podendo também Optar pelo uso dos métodos do pacote Dapper, abrindo e fechando as conexões usando os métodos IConexaoBanco.AbrirConexao(passando o nome do banco de dados) e IConexaoBanco.FecharConexao(). A interface IConexaoBanco também dispõe de métodos para criação e encerramento de transactions.
