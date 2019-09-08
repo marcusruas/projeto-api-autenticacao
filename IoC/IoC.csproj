@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Comunicacao\Comunicacao.csproj" />
+    <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
+    <ProjectReference Include="..\Servico\Servico.csproj" />
   </ItemGroup>
 
 </Project>

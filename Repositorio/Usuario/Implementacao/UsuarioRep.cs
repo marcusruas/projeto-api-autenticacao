@@ -1,4 +1,5 @@
 ﻿using Comunicacao.ConexaoBanco.Interface;
+using Dapper;
 using Dominio.Usuario.Interface;
 using Repositorio.Usuario.Interface;
 using System;
@@ -18,7 +19,8 @@ namespace Repositorio.Usuario.Implementacao
 
         public IUsuario BuscarUsuarioPorNome(string nome)
         {
-            return _conexao.Consultar<IUsuario, string>("Usuario/buscarUsuarioPorNome", nome, Comunicacao.ConexaoBanco.Banco.SHAREDB).FirstOrDefault();
+            var (script, conexao) = _conexao.ObterComandoSQLParaBanco("Usuario/buscarUsuarioPorNome", Comunicacao.ConexaoBanco.Banco.SHAREDB);
+            return conexao.Query<IUsuario>(script, new { nome }).FirstOrDefault();
         }
     }
 }

@@ -71,8 +71,9 @@ namespace Comunicacao.ConexaoBanco.Implementacao
                 var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
                 return conexao.Query<TRetorno>(consulta, parametros).ToList();
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
+                throw e;
                 throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
             }
             catch (Exception)
