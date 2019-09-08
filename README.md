@@ -40,12 +40,15 @@ Essa arquitetura utiliza os seguintes sufixos em cada camada (ex: Serviço usuá
 Na camada de domínio, Crie uma nova pasta com o nome do micro serviço, respeitando as subpastas de implementacao/interfaces.
 Nestas classes deverão ficar todas as regras de negócio referentes aos objetos criados e como os mesmos funcionam.
 Ex:
+
+```
 +-- Dominio
 |	+-- Usuario
 |	+-- Implementacao
 |	+-- UsuarioDom
 |	+-- Interface
 |	+-- IUsuarioDom
+```
 
 ## Criando chamadas de Repositorio
 Na camada de Repositorio, Crie uma nova pasta com a classe de repositório, respeitando as subpastas de implementacao/interfaces. utilizando o sufixo Repositorio para o nome da classe que acessará o banco de dados. as classes devem desta camada ter o Sufixo apropriado, conforme o arquivo Arquitetura.png. Esta camada usa a interface da classe ConexaoBanco, advinda da camada de comunicação para fazer suas chamadas.
