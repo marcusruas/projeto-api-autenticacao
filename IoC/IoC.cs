@@ -15,11 +15,9 @@ namespace IoC
         }
         public static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
         {
-
         }
         public static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
-
         }
     }
 }

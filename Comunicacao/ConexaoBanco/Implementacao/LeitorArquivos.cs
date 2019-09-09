@@ -14,13 +14,15 @@ namespace Comunicacao.ConexaoBanco.Implementacao
 
         public static string LerArquivoSQL(string nomeArquivo)
         {
-            string pathApi = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            string pathApi = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             string conteudoArquivo = string.Empty;
 
             try
             {
                 string[] projetoArquivo = nomeArquivo.Split('/');
-                string pathArquivo = Path.Combine(pathApi, "Repositorio", projetoArquivo[0], "SQL", $"{nomeArquivo[1]}.sql");
+                string pathArquivo = Path.Combine(pathApi, projetoArquivo[0], "SQL", $"{projetoArquivo[1]}.sql");
+                pathArquivo = pathArquivo.Replace("file:\\", "");
+
                 string[] linhas;
 
                 if (!File.Exists(pathArquivo))

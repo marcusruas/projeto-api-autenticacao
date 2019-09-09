@@ -16,6 +16,8 @@ using HealthChecks.UI.Client;
 using System.IO;
 using System.Reflection;
 using IoC;
+using Aplicacao;
+using AutoMapper;
 
 namespace Api
 {
@@ -55,6 +57,13 @@ namespace Api
             IoC.IoC.ConfigurarCamadaComunicacao(services);
             IoC.IoC.ConfigurarCamadaRepositorio(services);
             IoC.IoC.ConfigurarCamadaServico(services);
+
+            //Mapeamentos da camada de Aplicacao com Dominio
+            var mapeamentoDominio = Mapeamento.PrepararMapeamentoDtoDominio();
+            mapeamentoDominio.CompileMappings();
+            mapeamentoDominio.AssertConfigurationIsValid();
+
+            services.AddScoped<IMapper>(x => new Mapper(mapeamentoDominio));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -72,7 +81,7 @@ namespace Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PadraoAPI V2");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
             });
 
             //HealthChecks
