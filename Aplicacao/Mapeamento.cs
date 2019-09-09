@@ -1,6 +1,4 @@
-﻿using Aplicacao.Usuario;
-using AutoMapper;
-using Dominio.Usuario.Interface;
+﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +10,9 @@ namespace Aplicacao
         public static MapperConfiguration PrepararMapeamentoDtoDominio()
         {
             return new MapperConfiguration(cfg => {
-                cfg.CreateMap<IUsuario, UsuarioDto>();
+
+                //Exemplo de mapeamento: cfg.CreateMap<IUsuario, UsuarioDto>();
+
             });
         }
     }

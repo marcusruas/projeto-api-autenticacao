@@ -13,11 +13,5 @@
     <ProjectReference Include="..\Comunicacao\Comunicacao.csproj" />
     <ProjectReference Include="..\Dominio\Dominio.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Usuario\SQL\buscarUsuarioPorNome.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   
 </Project>
