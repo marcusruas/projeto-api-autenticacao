@@ -17,103 +17,17 @@ namespace Comunicacao.ConexaoBanco.Implementacao
             return LeitorArquivos.LerArquivoSQL(nomeArquivo);
         }
 
-        public IDbConnection CriarNovaConexao(Banco banco = Banco.SHAREDB)
+        public IDbConnection CriarNovaConexao(Banco banco)
         {
             return new SqlConnection(LeitorArquivos.ObterConnectionString(banco));
         }
 
-        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco = Banco.SHAREDB)
+        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco)
         {
             return (
                 ObterConsultaArquivoSQL(nomeArquivo),
                 CriarNovaConexao(banco)
             );
-        }
-
-        public List<T> Consultar<T>(string nomeArquivo, Banco banco = Banco.SHAREDB)
-        {
-            try
-            {
-                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
-                return conexao.Query<T>(consulta).ToList();
-            }
-            catch(SqlException)
-            {
-                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
-            }
-            catch(Exception)
-            {
-                throw;
-            }
-        }
-
-        public List<T> Consultar<T>(string nomeArquivo, T parametros, Banco banco = Banco.SHAREDB)
-        {
-            try
-            {
-                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
-                return conexao.Query<T>(consulta, parametros).ToList();
-            }
-            catch (SqlException)
-            {
-                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public List<TRetorno> Consultar<TRetorno, TParametros>(string nomeArquivo, TParametros parametros, Banco banco = Banco.SHAREDB)
-        {
-            try
-            {
-                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
-                return conexao.Query<TRetorno>(consulta, parametros).ToList();
-            }
-            catch (SqlException e)
-            {
-                throw e;
-                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public int Executar(string nomeArquivo, Banco banco)
-        {
-            try
-            {
-                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
-                return conexao.Execute(consulta);
-            }
-            catch (SqlException)
-            {
-                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public int Executar<T>(string nomeArquivo, T parametros, Banco banco)
-        {
-            try
-            {
-                var (consulta, conexao) = ObterComandoSQLParaBanco(nomeArquivo, banco);
-                return conexao.Execute(consulta, parametros);
-            }
-            catch (SqlException)
-            {
-                throw new Exception("Ocorreu um erro ao se conectar ao banco de dados");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         private string ObterConnectionString(Banco banco)
