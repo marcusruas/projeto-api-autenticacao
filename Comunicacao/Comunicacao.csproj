@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.60.1" />
+    <PackageReference Include="MongoDB.Bson" Version="2.9.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
@@ -16,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ConexaoBanco\conexoes.json">
+    <None Update="Conexoes\conexoes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
