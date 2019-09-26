@@ -1,5 +1,4 @@
-﻿using Comunicacao.ConexaoBanco.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using Newtonsoft.Json;
@@ -7,10 +6,11 @@ using System.Text;
 using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
+using Comunicacao.Conexoes.ConexaoSQL.Interface;
 
-namespace Comunicacao.ConexaoBanco.Implementacao
+namespace Comunicacao.Conexoes.ConexaoSQL.Implementacao
 {
-    public class ConexaoBanco : IConexaoBanco
+    public class ConexaoSQL : IConexaoSQL
     {
         public string ObterConsultaArquivoSQL(string nomeArquivo)
         {

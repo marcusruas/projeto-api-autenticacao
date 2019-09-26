@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Comunicacao.ConexaoBanco.Implementacao
+namespace Comunicacao.Conexoes
 {
     class LeitorArquivos
     {
@@ -45,7 +45,7 @@ namespace Comunicacao.ConexaoBanco.Implementacao
 
         public static string ObterConnectionString(Banco banco)
         {
-            string arquivoConexao = Path.Combine(DirBuildComunicacao, "ConexaoBanco" , "conexoes.json");
+            string arquivoConexao = Path.Combine(DirBuildComunicacao, "conexoes.json");
             List<ConexaoModel> conexoes;
             try
             {

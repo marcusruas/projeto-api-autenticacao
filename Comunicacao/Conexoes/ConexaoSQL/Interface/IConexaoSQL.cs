@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Comunicacao.ConexaoBanco.Interface
+namespace Comunicacao.Conexoes.ConexaoSQL.Interface
 {
-    public interface IConexaoBanco
+    public interface IConexaoSQL
     {
         string ObterConsultaArquivoSQL(string nomeArquivo);
         IDbConnection CriarNovaConexao(Banco banco);

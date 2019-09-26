@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Comunicacao.ConexaoBanco
+namespace Comunicacao.Conexoes.ConexaoSQL
 {
     public enum Banco
     {
