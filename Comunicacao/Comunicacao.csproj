@@ -16,9 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ConexaoBanco\conexoes.json">
+    <None Update="Conexoes\conexoes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Conexoes\ConexaoMongo\Interface\" />
   </ItemGroup>
 
 </Project>
