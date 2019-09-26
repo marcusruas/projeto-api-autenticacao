@@ -1,4 +1,5 @@
-﻿using Comunicacao.Conexoes.ConexaoSQL;
+﻿using Comunicacao.Conexoes.ConexaoMongo;
+using Comunicacao.Conexoes.ConexaoSQL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,28 @@ namespace Comunicacao.Conexoes
                 }
                 foreach (var con in conexoes)
                     if (con.Nome == banco.ToString())
+                        return con.ConnectionString;
+                return null;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Não foi possível localizar a conexão da base desejada.");
+            }
+        }
+
+        public static string ObterConnectionString(Colecao colecao)
+        {
+            string arquivoConexao = Path.Combine(DirBuildComunicacao, "conexoes.json");
+            List<ConexaoModel> conexoes;
+            try
+            {
+                using (StreamReader r = new StreamReader(arquivoConexao))
+                {
+                    var json = r.ReadToEnd();
+                    conexoes = JsonConvert.DeserializeObject<ConexaoModel[]>(json).ToList();
+                }
+                foreach (var con in conexoes)
+                    if (con.Nome == colecao.ToString())
                         return con.ConnectionString;
                 return null;
             }
