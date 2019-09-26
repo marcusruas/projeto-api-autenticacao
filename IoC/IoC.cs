@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using Comunicacao.ConexaoBanco.Interface;
-using Comunicacao.ConexaoBanco.Implementacao;
+using Comunicacao.Conexoes.ConexaoSQL.Interface;
+using Comunicacao.Conexoes.ConexaoSQL.Implementacao;
 
 namespace IoC
 {
@@ -11,7 +11,7 @@ namespace IoC
     {
         public static void ConfigurarCamadaComunicacao(IServiceCollection servicos)
         {
-            servicos.AddScoped<IConexaoBanco, ConexaoBanco>();
+            servicos.AddScoped<IConexaoSQL, ConexaoSQL>();
         }
         public static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
         {
