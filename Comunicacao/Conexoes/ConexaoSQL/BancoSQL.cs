@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Comunicacao.Conexoes.ConexaoSQL
 {
-    public enum Banco
+    public enum BancoSQL
     {
         SHAREDB,
         APPS,

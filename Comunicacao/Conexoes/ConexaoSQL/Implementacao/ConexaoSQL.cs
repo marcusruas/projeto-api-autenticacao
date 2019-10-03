@@ -17,12 +17,12 @@ namespace Comunicacao.Conexoes.ConexaoSQL.Implementacao
             return LeitorArquivos.LerArquivoSQL(nomeArquivo);
         }
 
-        public IDbConnection CriarNovaConexao(Banco banco)
+        public IDbConnection CriarNovaConexao(BancoSQL banco)
         {
             return new SqlConnection(LeitorArquivos.ObterConnectionString(banco));
         }
 
-        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco)
+        public (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, BancoSQL banco)
         {
             return (
                 ObterConsultaArquivoSQL(nomeArquivo),
@@ -30,7 +30,7 @@ namespace Comunicacao.Conexoes.ConexaoSQL.Implementacao
             );
         }
 
-        private string ObterConnectionString(Banco banco)
+        private string ObterConnectionString(BancoSQL banco)
         {
             return LeitorArquivos.ObterConnectionString(banco);
         }
