@@ -9,25 +9,15 @@ namespace Comunicacao.Conexoes.ConexaoMongo.Implementacao
 {
     public class ConexaoMongo : IConexaoMongo
     {
-        public string ObterConsultaArquivoJSON(string nomeArquivo)
+
+        public IMongoCollection<T> CriarNovaConexao<T>(BancoMongo banco, string colecao)
         {
-            return LeitorArquivos.LerArquivoJSON(nomeArquivo);
+            return new MongoClient(LeitorArquivos.ObterConnectionString(banco))
+                .GetDatabase(banco.ToString())
+                .GetCollection<T>(colecao);
         }
 
-        public MongoClient CriarNovaConexao(Colecao colecao)
-        {
-            return new MongoClient(LeitorArquivos.ObterConnectionString(colecao));
-        }
-
-        public (string, MongoClient) ObterComandoJSONParaBanco(string nomeArquivo, Colecao colecao)
-        {
-            return (
-                ObterConsultaArquivoJSON(nomeArquivo),
-                CriarNovaConexao(colecao)
-            );
-        }
-
-        private string ObterConnectionString(Colecao colecao)
+        private string ObterConnectionString(BancoMongo colecao)
         {
             return LeitorArquivos.ObterConnectionString(colecao);
         }

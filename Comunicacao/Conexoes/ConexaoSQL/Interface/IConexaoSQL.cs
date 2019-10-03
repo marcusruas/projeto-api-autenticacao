@@ -8,7 +8,7 @@ namespace Comunicacao.Conexoes.ConexaoSQL.Interface
     public interface IConexaoSQL
     {
         string ObterConsultaArquivoSQL(string nomeArquivo);
-        IDbConnection CriarNovaConexao(Banco banco);
-        (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, Banco banco);
+        IDbConnection CriarNovaConexao(BancoSQL banco);
+        (string, IDbConnection) ObterComandoSQLParaBanco(string nomeArquivo, BancoSQL banco);
     }
 }

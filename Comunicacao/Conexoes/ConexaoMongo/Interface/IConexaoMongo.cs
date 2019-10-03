@@ -7,8 +7,6 @@ namespace Comunicacao.Conexoes.ConexaoMongo.Interface
 {
     public interface IConexaoMongo
     {
-        string ObterConsultaArquivoJSON(string nomeArquivo);
-        MongoClient CriarNovaConexao(Colecao colecao);
-        (string, MongoClient) ObterComandoJSONParaBanco(string nomeArquivo, Colecao colecao);
+        IMongoCollection<T> CriarNovaConexao<T>(BancoMongo banco, string colecao);
     }
 }

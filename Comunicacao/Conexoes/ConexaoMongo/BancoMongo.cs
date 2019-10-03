@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Comunicacao.Conexoes.ConexaoMongo
 {
-    public enum Colecao
-
+    public enum BancoMongo
     {
         Dinastia,
     }
