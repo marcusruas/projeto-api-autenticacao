@@ -1,5 +1,4 @@
-﻿using Comunicacao.Conexoes.ConexaoMongo;
-using Comunicacao.Conexoes.ConexaoSQL;
+﻿using Comunicacao.Conexoes.ConexaoSQL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,13 +13,11 @@ namespace Comunicacao.Conexoes
     {
         private static string DirBuildComunicacao = Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName;
 
-        public static string LerArquivoSQL(string nomeArquivo)
-        {
+        public static string LerArquivoSQL(string nomeArquivo) {
             string pathApi = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             string conteudoArquivo = string.Empty;
 
-            try
-            {
+            try {
                 string[] projetoArquivo = nomeArquivo.Split('/');
                 string pathArquivo = Path.Combine(pathApi, projetoArquivo[0], "SQL", $"{projetoArquivo[1]}.sql");
                 pathArquivo = pathArquivo.Replace("file:\\", "");
@@ -33,26 +30,19 @@ namespace Comunicacao.Conexoes
                 linhas = File.ReadAllLines(pathArquivo);
                 foreach (string linha in linhas)
                     conteudoArquivo += (linha + " ");
-            }
-            catch (ArgumentNullException)
-            {
+            } catch (ArgumentNullException) {
                 throw new Exception("O arquivo de consulta ao banco de dados está vazio.");
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 throw new Exception("Ocorreu um erro ao ler o arquivo SQL indicado.");
             }
             return conteudoArquivo;
         }
 
-        public static string ObterConnectionString(BancoSQL banco)
-        {
-            string arquivoConexao = Path.Combine(DirBuildComunicacao, "conexoes.json");
+        public static string ObterConnectionString(BancoSQL banco) {
+            string arquivoConexao = Path.Combine(DirBuildComunicacao, "Conexoes", "conexoes.json");
             List<ConexaoModel> conexoes;
-            try
-            {
-                using (StreamReader r = new StreamReader(arquivoConexao))
-                {
+            try {
+                using (StreamReader r = new StreamReader(arquivoConexao)) {
                     var json = r.ReadToEnd();
                     conexoes = JsonConvert.DeserializeObject<ConexaoModel[]>(json).ToList();
                 }
@@ -60,31 +50,7 @@ namespace Comunicacao.Conexoes
                     if (con.Nome == banco.ToString())
                         return con.ConnectionString;
                 return null;
-            }
-            catch (Exception)
-            {
-                throw new Exception("Não foi possível localizar a conexão da base desejada.");
-            }
-        }
-
-        public static string ObterConnectionString(BancoMongo colecao)
-        {
-            string arquivoConexao = Path.Combine(DirBuildComunicacao, "conexoes.json");
-            List<ConexaoModel> conexoes;
-            try
-            {
-                using (StreamReader r = new StreamReader(arquivoConexao))
-                {
-                    var json = r.ReadToEnd();
-                    conexoes = JsonConvert.DeserializeObject<ConexaoModel[]>(json).ToList();
-                }
-                foreach (var con in conexoes)
-                    if (con.Nome == colecao.ToString())
-                        return con.ConnectionString;
-                return null;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 throw new Exception("Não foi possível localizar a conexão da base desejada.");
             }
         }

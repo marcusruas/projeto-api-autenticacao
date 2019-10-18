@@ -11,7 +11,7 @@ namespace Aplicacao
         {
             return new MapperConfiguration(cfg => {
 
-                //Exemplo de mapeamento: cfg.CreateMap<IUsuario, UsuarioDto>();
+                //Exemplo de mapeamento: cfg.CreateMap<UsuarioDom, UsuarioDto>().ReverseMap();
 
             });
         }
