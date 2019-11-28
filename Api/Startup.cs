@@ -54,7 +54,6 @@ namespace Api
             });
 
             //Injeções de dependência
-            IoC.IoC.ConfigurarCamadaComunicacao(services);
             IoC.IoC.ConfigurarCamadaRepositorio(services);
             IoC.IoC.ConfigurarCamadaServico(services);
 

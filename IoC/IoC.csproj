@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ConexaoDB" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Comunicacao\Comunicacao.csproj" />
     <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
     <ProjectReference Include="..\Servico\Servico.csproj" />
   </ItemGroup>
