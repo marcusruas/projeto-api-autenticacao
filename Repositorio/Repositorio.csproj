@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConexaoDB" Version="1.0.0" />
+    <PackageReference Include="ConexaoDB" Version="1.0.1" />
     <PackageReference Include="Dapper" Version="1.60.1" />
     <PackageReference Include="MongoDB.Bson" Version="2.9.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
@@ -14,6 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="conexoes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>
