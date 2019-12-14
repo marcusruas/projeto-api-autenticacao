@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using MandradePkgs.Conexoes.Configuracao;
 
 namespace Api
 {
@@ -20,6 +21,8 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //Implementãndo conexões de BD
+            services.ImplementarConexaoSQL(GetType());
 
             //Swagger
             services.AddSwaggerGen(c => {
