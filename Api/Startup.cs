@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using MandradePkgs.Conexoes.Configuracao;
+using MandradePkgs.Retornos.Configuracao;
 
 namespace Api
 {
@@ -20,9 +21,14 @@ namespace Api
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //Implementãndo conexões de BD
+            services.AddMvc(
+                cnf => cnf.ImplementarFiltrosRetorno()
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Implementando conexões de BD
             services.ImplementarConexaoSQL(GetType());
+            //Implementando Mensageria
+            services.ImplementarMensagensRetorno();
 
             //Swagger
             services.AddSwaggerGen(c => {
