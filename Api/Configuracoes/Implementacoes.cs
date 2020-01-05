@@ -1,0 +1,54 @@
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Api.Configuracoes
+{
+    public class Implementacoes
+    {
+        private IApplicationBuilder Aplicacao { get; }
+        private IHostingEnvironment Ambiente { get; }
+
+        public Implementacoes(IApplicationBuilder aplicacao, IHostingEnvironment ambiente) {
+            Aplicacao = aplicacao;
+            Ambiente = ambiente;
+        }
+
+        public void ConfigurarAplicacao() {
+            if (Ambiente.IsDevelopment()) {
+                EmDesenvolvimento();
+            } else {
+                EmProducao();
+            }
+        }
+
+        private void EmDesenvolvimento() {
+            Aplicacao.UseDeveloperExceptionPage();
+            Aplicacao.UseSwagger();
+            Aplicacao.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
+            });
+
+            Aplicacao.UseCors("PermissionamentoReact");
+            Aplicacao.UseHttpsRedirection();
+
+            Aplicacao.UseMvc();
+        }
+
+        private void EmProducao() {
+            Aplicacao.UseHsts();
+            Aplicacao.UseSwagger();
+            Aplicacao.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
+            });
+
+            Aplicacao.UseCors("PermissionamentoReact");
+            Aplicacao.UseHttpsRedirection();
+
+            Aplicacao.UseMvc();
+        }
+    }
+}
