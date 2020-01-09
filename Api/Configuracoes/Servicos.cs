@@ -1,14 +1,12 @@
 ﻿using Aplicacao;
 using AutoMapper;
 using MandradePkgs.Conexoes.Configuracao;
+using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Api.Configuracoes
 {
@@ -47,7 +45,7 @@ namespace Api.Configuracoes
 
         private void ConfigurarPacotesApi(IServiceCollection servicos, Type startup) {
             servicos.ImplementarConexaoSQL(startup);
-            servicos.ImplementarMensagensRetorno();
+            servicos.ImplementarMensagensServico();
         }
 
         private Action<MvcOptions> ConfigurarOpcoesMvc() {

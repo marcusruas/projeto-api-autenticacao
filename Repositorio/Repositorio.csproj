@@ -7,11 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Conexoes" Version="0.0.2" />
     <PackageReference Include="Dapper" Version="1.60.1" />
+    <PackageReference Include="Mensagens" Version="0.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.9.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Retornos" Version="0.3.12" />
   </ItemGroup>
 
   <ItemGroup>
