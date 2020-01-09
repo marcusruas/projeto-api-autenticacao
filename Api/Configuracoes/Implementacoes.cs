@@ -32,7 +32,7 @@ namespace Api.Configuracoes
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
             });
 
-            Aplicacao.UseCors("PermissionamentoReact");
+            Aplicacao.UseCors("Permissionamentos");
             Aplicacao.UseHttpsRedirection();
 
             Aplicacao.UseMvc();
@@ -45,7 +45,7 @@ namespace Api.Configuracoes
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
             });
 
-            Aplicacao.UseCors("PermissionamentoReact");
+            Aplicacao.UseCors("Permissionamentos");
             Aplicacao.UseHttpsRedirection();
 
             Aplicacao.UseMvc();

@@ -58,11 +58,11 @@ namespace Api.Configuracoes
             });
 
             servicos.AddCors(options => {
-                options.AddPolicy("PermissionamentoReact",
-                    builder => builder.WithOrigins("http://localhost:3000")
-                                    .AllowAnyMethod()
-                                    .AllowAnyHeader()
-                                    .AllowAnyOrigin());
+                options.AddPolicy("Permissionamentos",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .AllowAnyOrigin());
             });
         }
     }
