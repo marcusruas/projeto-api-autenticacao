@@ -54,7 +54,7 @@ namespace Api.Configuracoes
 
         private void AdicionarMiddlewares(IServiceCollection servicos) {
             servicos.AddSwaggerGen(c => {
-                c.SwaggerDoc("v2", new Info { Title = "PadraoAPI", Version = "v2" });
+                c.SwaggerDoc("v1", new Info { Title = "Autenticacao API", Version = "v1" });
             });
 
             servicos.AddCors(options => {

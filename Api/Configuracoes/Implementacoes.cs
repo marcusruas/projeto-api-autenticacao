@@ -29,7 +29,7 @@ namespace Api.Configuracoes
             Aplicacao.UseDeveloperExceptionPage();
             Aplicacao.UseSwagger();
             Aplicacao.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Autenticacao API v1");
             });
 
             Aplicacao.UseCors("Permissionamentos");
@@ -42,7 +42,7 @@ namespace Api.Configuracoes
             Aplicacao.UseHsts();
             Aplicacao.UseSwagger();
             Aplicacao.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "PadraoAPI V2");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Autenticacao API v1");
             });
 
             Aplicacao.UseCors("Permissionamentos");
