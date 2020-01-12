@@ -1,4 +1,6 @@
-﻿namespace Helpers
+﻿using System.Text.RegularExpressions;
+
+namespace Helpers
 {
     public class CpfFormat
     {
@@ -16,6 +18,11 @@
             }
 
             return cpfFormatado;
+        }
+
+        public static long RemoverFormatacao(string cpf) {
+            return long.Parse(cpf.Replace(".", string.Empty)
+                                 .Replace("-", string.Empty));
         }
     }
 }

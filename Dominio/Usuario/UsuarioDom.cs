@@ -1,4 +1,5 @@
 ﻿using Dominio.Grupo;
+using Dominio.Pessoa;
 using Helpers;
 using System;
 using System.Collections.Generic;
@@ -8,58 +9,35 @@ namespace Dominio.Usuario
 {
     public class UsuarioDom
     {
-        public UsuarioDom(string nome, string usuario, string senha, GrupoDom grupo, DateTime dataCriacao, bool ativo, string cpf, bool formatarCpf = false) {
-            Nome = nome;
+        public UsuarioDom(string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDom grupo, PessoaDom pessoa) {
             Usuario = usuario;
             Senha = senha;
-            Grupo = grupo;
             DataCriacao = dataCriacao;
             Ativo = ativo;
-            Cpf = formatarCpf ? CpfFormat.FormatarCpf(cpf) : cpf;
+            Grupo = grupo;
+            Pessoa = pessoa;
         }
 
-        public UsuarioDom(string nome, string usuario, string senha, GrupoDom grupo, string cpf, bool formatarCpf = false) {
-            Nome = nome;
+        public UsuarioDom(string usuario, string senha, GrupoDom grupo, PessoaDom pessoa) {
             Usuario = usuario;
             Senha = senha;
             Grupo = grupo;
+            Pessoa = pessoa;
             DataCriacao = DateTime.Now;
             Ativo = true;
-            Cpf = formatarCpf ? CpfFormat.FormatarCpf(cpf) : cpf;
         }
 
-        public string Nome { get; }
         public string Usuario { get; }
         public string Senha { get; }
-        public GrupoDom Grupo { get; }
         public DateTime DataCriacao { get; }
         public bool Ativo { get; }
-        public string Cpf { get; }
-
-        public List<string> DadosInvalidos() {
-            List<string> camposInvalidos = new List<string>();
-
-            if (string.IsNullOrEmpty(Cpf))
-                camposInvalidos.Add("Cpf");
-            if (Grupo == null) 
-                camposInvalidos.Add("Grupo");
-            if (string.IsNullOrEmpty(Nome))
-                camposInvalidos.Add("Nome");
-            if (string.IsNullOrEmpty(Senha))
-                camposInvalidos.Add("Senha");
-            if (string.IsNullOrEmpty(Usuario))
-                camposInvalidos.Add("Usuario");
-
-            return camposInvalidos;
-        }
-
-         public bool SenhaValida() =>
-                char.IsUpper(Senha[0]) && Senha.Length >= 8 && Senha.Count(c => char.IsNumber(c)) >= 3;
-
-        public bool CpfValido() =>
-            Cpf.Length == 14 && Cpf[3] == '.' && Cpf[7] == '.' && Cpf[12] == '-';
+        public GrupoDom Grupo { get; }
+        public PessoaDom Pessoa { get; }
 
         public bool UsuarioValido() =>
-            char.IsUpper(Usuario[0]);
+            char.IsUpper(Usuario[0]) && Usuario.Length > 4;
+
+        public bool SenhaValida() =>
+            char.IsUpper(Senha[0]) && Senha.Length >= 8 && Senha.Count(c => char.IsNumber(c)) >= 3;
     }
 }
