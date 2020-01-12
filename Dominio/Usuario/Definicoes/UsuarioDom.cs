@@ -1,11 +1,9 @@
-﻿using Dominio.Grupo;
-using Dominio.Pessoa;
-using Helpers;
+﻿using Dominio.Grupo.Definicoes;
+using Dominio.Pessoa.Definicoes;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace Dominio.Usuario
+namespace Dominio.Usuario.Definicoes
 {
     public class UsuarioDom
     {

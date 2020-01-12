@@ -1,9 +1,4 @@
-﻿]using Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dominio.Pessoa
+﻿namespace Dominio.Pessoa.Definicoes
 {
     public class PessoaDom
     {
