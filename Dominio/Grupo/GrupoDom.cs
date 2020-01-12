@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dominio.Grupo
@@ -13,5 +14,7 @@ namespace Dominio.Grupo
 
         public string Nome { get; }
         public int Nivel { get; }
+
+        public bool NomeValido() => Nome.Length > 5 && !Nome.Any(x => char.IsNumber(x));
     }
 }
