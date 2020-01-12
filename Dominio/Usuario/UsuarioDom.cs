@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using Dominio.Grupo;
+using Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ namespace Dominio.Usuario
 {
     public class UsuarioDom
     {
-        public UsuarioDom(string nome, string usuario, string senha, string grupo, DateTime dataCriacao, bool ativo, string cpf, bool formatarCpf = false) {
+        public UsuarioDom(string nome, string usuario, string senha, GrupoDom grupo, DateTime dataCriacao, bool ativo, string cpf, bool formatarCpf = false) {
             Nome = nome;
             Usuario = usuario;
             Senha = senha;
@@ -17,10 +18,20 @@ namespace Dominio.Usuario
             Cpf = formatarCpf ? CpfFormat.FormatarCpf(cpf) : cpf;
         }
 
+        public UsuarioDom(string nome, string usuario, string senha, GrupoDom grupo, string cpf, bool formatarCpf = false) {
+            Nome = nome;
+            Usuario = usuario;
+            Senha = senha;
+            Grupo = grupo;
+            DataCriacao = DateTime.Now;
+            Ativo = true;
+            Cpf = formatarCpf ? CpfFormat.FormatarCpf(cpf) : cpf;
+        }
+
         public string Nome { get; }
         public string Usuario { get; }
         public string Senha { get; }
-        public string Grupo { get; }
+        public GrupoDom Grupo { get; }
         public DateTime DataCriacao { get; }
         public bool Ativo { get; }
         public string Cpf { get; }
@@ -30,7 +41,7 @@ namespace Dominio.Usuario
 
             if (string.IsNullOrEmpty(Cpf))
                 camposInvalidos.Add("Cpf");
-            if (string.IsNullOrEmpty(Grupo)) 
+            if (Grupo == null) 
                 camposInvalidos.Add("Grupo");
             if (string.IsNullOrEmpty(Nome))
                 camposInvalidos.Add("Nome");
