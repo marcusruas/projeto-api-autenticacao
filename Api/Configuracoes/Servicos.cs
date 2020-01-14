@@ -1,5 +1,6 @@
 ﻿using Aplicacao;
 using AutoMapper;
+using Dapper.FluentMap;
 using MandradePkgs.Conexoes.Configuracao;
 using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;
@@ -23,8 +24,7 @@ namespace Api.Configuracoes
         public void ConfigurarServicos() {
             ServicosStartup.AddMvc(ConfigurarOpcoesMvc()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            ConfigurarMapeamentos(ServicosStartup);
-            ConfigurarMapeamentos(ServicosStartup);
+            ConfigurarMapeamentos();
             ConfigurarPacotesApi(ServicosStartup, Startup);
             ConfigurarInjecoesDependencia(ServicosStartup);
             AdicionarMiddlewares(ServicosStartup);
@@ -35,12 +35,11 @@ namespace Api.Configuracoes
             IoC.IoC.ConfigurarCamadaServico(servicos);
         }
 
-        private void ConfigurarMapeamentos(IServiceCollection servicos) {
-            var mapeamentoDominio = Mapeamento.PrepararMapeamentoDtoDominio();
-            mapeamentoDominio.CompileMappings();
-            mapeamentoDominio.AssertConfigurationIsValid();
-
-            servicos.AddScoped<IMapper>(x => new Mapper(mapeamentoDominio));
+        private void ConfigurarMapeamentos() {
+            FluentMapper.Initialize(configuracoes =>
+            {
+                configuracoes.MapearObjetosBanco();
+            });
         }
 
         private void ConfigurarPacotesApi(IServiceCollection servicos, Type startup) {
