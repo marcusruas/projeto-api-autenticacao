@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Dominio.Grupo.Definicoes
+namespace Aplicacao.Grupo
 {
-    public class GrupoDho
+    public class GrupoDbo
     {
         [Description("ID_GRUPO")]
         public int IdGrupo { get; set; }
