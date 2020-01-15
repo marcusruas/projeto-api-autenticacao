@@ -1,6 +1,5 @@
 ﻿using Aplicacao;
 using AutoMapper;
-using Dapper.FluentMap;
 using MandradePkgs.Conexoes.Configuracao;
 using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;
@@ -36,10 +35,7 @@ namespace Api.Configuracoes
         }
 
         private void ConfigurarMapeamentos() {
-            FluentMapper.Initialize(configuracoes =>
-            {
-                configuracoes.MapearObjetosBanco();
-            });
+            Mapeamentos.Mapear();
         }
 
         private void ConfigurarPacotesApi(IServiceCollection servicos, Type startup) {

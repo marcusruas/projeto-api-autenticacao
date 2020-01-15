@@ -1,6 +1,7 @@
 ﻿using Aplicacao.Grupo;
 using Dapper;
 using MandradePkgs.Conexoes;
+using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
 using Repositorio.Grupo.Interface;
 
 namespace Repositorio.Grupo.Implementacao
@@ -15,7 +16,8 @@ namespace Repositorio.Grupo.Implementacao
 
         public bool AdicionarGrupo(GrupoDbo grupo) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertGrupo", "SHAREDB");
-            return conexao.Execute(comando, grupo) == 1;
+            var parametros = MapearParaDbo(grupo);
+            return conexao.Execute(comando, parametros) == 1;
         }
     }
 }
