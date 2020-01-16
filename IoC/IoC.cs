@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using Repositorio.Grupo.Interface;
 using Repositorio.Grupo.Implementacao;
+using Servico.Grupo.Interface;
+using Servico.Grupo.Implementacao;
 
 namespace IoC
 {
@@ -16,6 +18,7 @@ namespace IoC
 
         public static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
+            servicos.AddScoped<IGrupoSrv, GrupoSrv>();
         }
     }
 }
