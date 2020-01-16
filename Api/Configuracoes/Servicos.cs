@@ -23,7 +23,7 @@ namespace Api.Configuracoes
         public void ConfigurarServicos() {
             ServicosStartup.AddMvc(ConfigurarOpcoesMvc()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            ConfigurarMapeamentos();
+            ConfigurarMapeamentos(ServicosStartup);
             ConfigurarPacotesApi(ServicosStartup, Startup);
             ConfigurarInjecoesDependencia(ServicosStartup);
             AdicionarMiddlewares(ServicosStartup);
@@ -34,8 +34,8 @@ namespace Api.Configuracoes
             IoC.IoC.ConfigurarCamadaServico(servicos);
         }
 
-        private void ConfigurarMapeamentos() {
-            Mapeamentos.Mapear();
+        private void ConfigurarMapeamentos(IServiceCollection servicos) {
+            servicos.AddSingleton<IMapper>(new Mapper(Mapeamentos.DefinirConfiguracoesMapeamento()));
         }
 
         private void ConfigurarPacotesApi(IServiceCollection servicos, Type startup) {
