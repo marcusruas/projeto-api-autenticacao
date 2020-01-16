@@ -1,4 +1,4 @@
-﻿using Dominio.Grupo.Definicoes;
+﻿using Dominio.Grupo;
 using Dominio.Pessoa.Definicoes;
 using System;
 using System.Linq;
