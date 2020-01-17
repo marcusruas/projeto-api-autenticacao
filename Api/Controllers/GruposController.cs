@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Dominio.Grupo;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,8 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public RespostaApi IncluirNovoGrupo(string nome, int nivel) {
-            return RespostaPadrao(_servico.InserirNovoUsuario(nome, nivel));
+        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) {
+            return RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
         }
     }
 }

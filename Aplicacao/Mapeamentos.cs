@@ -1,6 +1,7 @@
 ﻿using Aplicacao.Grupo;
 using AutoMapper;
 using Dominio.Grupo;
+using System;
 
 namespace Aplicacao
 {
@@ -14,6 +15,7 @@ namespace Aplicacao
             #region Grupos
             cnf.CreateMap<GrupoDom, GrupoDbo>()
                 .ForMember(dbo => dbo.IdGrupo, opt => opt.Ignore())
+                .ForMember(dbo => dbo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
             #endregion
         }

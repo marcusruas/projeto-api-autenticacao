@@ -19,8 +19,8 @@ namespace Servico.Grupo.Implementacao
             _mensagens = mensagens;
         }
 
-        public bool InserirNovoUsuario(string nome, int nivel) {
-            var dominio = new GrupoDom(nome, nivel);
+        public bool InserirNovoUsuario(string nome, string descricao, NivelGrupo nivel) {
+            var dominio = new GrupoDom(nome, descricao, nivel);
             if (!dominio.NomeValido())
                 throw new RegraNegocioException("Nome do grupo deve conter mais de 5 caractéres e não possuir números.");
             var grupo = _mapper.Map<GrupoDbo>(dominio);
