@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Dominio.Grupo;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Aplicacao.Grupo
@@ -10,6 +11,9 @@ namespace Aplicacao.Grupo
         [Description("NOME")]
         [StringLength(80)]
         public string Nome { get; set; }
+        [Description("DESCRICAO")]
+        [StringLength(200)]
+        public string Descricao { get; set; }
         [Description("NIVEL")]
         public int Nivel { get; set; }
     }
