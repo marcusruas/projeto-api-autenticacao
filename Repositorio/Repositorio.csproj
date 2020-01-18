@@ -23,6 +23,9 @@
     <None Update="conexoes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Grupo\SQL\updateNivelGrupo.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Grupo\SQL\selectGruposNivel.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

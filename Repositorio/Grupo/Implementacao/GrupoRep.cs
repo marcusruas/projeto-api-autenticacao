@@ -27,5 +27,11 @@ namespace Repositorio.Grupo.Implementacao
             var parametros = MapearParaDbo(new { Nivel = nivel });
             return conexao.Query<GrupoDbo>(comando, parametros).ToList();
         }
+
+        public bool AtualizarNivelGrupo(string grupo, int nivel) {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateNivelGrupo", "SHAREDB");
+            var parametros = MapearParaDbo(new { Nome = grupo, Nivel = nivel });
+            return conexao.Execute(comando, parametros) == 1;
+        }
     }
 }

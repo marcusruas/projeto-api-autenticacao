@@ -44,11 +44,8 @@ namespace Servico.Grupo.Implementacao
         }
 
         public List<GrupoDom> GruposPorNivel(int nivel) {
-            try { 
-                bool nivelValido = Enum.GetValues(typeof(NivelGrupo)).Cast<int>()
-                    .Any(grupo => grupo == nivel);
-
-                if (!nivelValido)
+            try {
+                if (!GrupoExiste(nivel))
                     throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
                 var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
@@ -59,5 +56,20 @@ namespace Servico.Grupo.Implementacao
                 throw new FalhaExecucaoException(ex.Message);
             }
         }
+
+        public bool AtualizarNivelGrupo(string grupo, int nivel) {
+            if (!GrupoExiste(nivel))
+                throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
+
+            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel);
+            if (!sucesso)
+                throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+
+            _mensagens.AdicionarMensagem("Nível do grupo atualizado com sucesso!");
+            return sucesso;
+        }
+
+        private bool GrupoExiste(int nivel) =>
+            Enum.GetValues(typeof(NivelGrupo)).Cast<int>().Any(grupo => grupo == nivel);
     }
 }

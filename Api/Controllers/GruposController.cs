@@ -21,12 +21,8 @@ namespace Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) =>
-            RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
-
         [HttpGet]
-        public RespostaApi<List<NivelGrupoDto>> ListarNiveisGrupo() {
+        public RespostaApi<List<NivelGrupoDto>> ListarNiveisPorGrupo() {
             var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
             return RespostaPadrao(niveis);
         }
@@ -34,5 +30,13 @@ namespace Api.Controllers
         [HttpGet]
         public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(int nivel) =>
             RespostaPadrao(_mapper.Map<List<GrupoDto>>(_servico.GruposPorNivel(nivel)));
+
+        [HttpPost]
+        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) =>
+            RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
+
+        [HttpPut]
+        public RespostaApi AlterarNivelGrupo(string grupo, int nivel) =>
+            RespostaPadrao(_servico.AtualizarNivelGrupo(grupo, nivel));
     }
 }
