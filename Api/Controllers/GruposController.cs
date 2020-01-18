@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Dominio.Grupo;
 using MandradePkgs.Retornos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Servico.Grupo.Interface;
+using Aplicacao.Grupo;
+using Dominio.Grupo;
 
 namespace Api.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class GruposController : ControllerApi
-    {
+    public class GruposController : ControllerApi {
         private IGrupoSrv _servico { get; }
         private IMapper _mapper { get; }
 
@@ -24,8 +22,13 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) {
-            return RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
+        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) =>
+            RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
+
+        [HttpGet]
+        public RespostaApi<List<NivelGrupoDto>> ListarNiveisGrupo() {
+            var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
+            return RespostaPadrao(niveis);
         }
     }
 }

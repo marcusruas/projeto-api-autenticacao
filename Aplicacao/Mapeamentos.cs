@@ -17,6 +17,10 @@ namespace Aplicacao
                 .ForMember(dbo => dbo.IdGrupo, opt => opt.Ignore())
                 .ForMember(dbo => dbo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
+
+            cnf.CreateMap<NivelGrupo, NivelGrupoDto>()
+                .ForMember(dto => dto.Nivel, opt => opt.MapFrom(map => (int)map))
+                .ForMember(dto => dto.Descricao, opt => opt.MapFrom(map => map.ToString()));
             #endregion
         }
     }
