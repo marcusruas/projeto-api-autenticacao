@@ -30,5 +30,9 @@ namespace Api.Controllers
             var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
             return RespostaPadrao(niveis);
         }
+
+        [HttpGet]
+        public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(int nivel) =>
+            RespostaPadrao(_mapper.Map<List<GrupoDto>>(_servico.GruposPorNivel(nivel)));
     }
 }
