@@ -3,6 +3,8 @@ using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
 using Repositorio.Grupo.Interface;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Repositorio.Grupo.Implementacao
 {
@@ -18,6 +20,12 @@ namespace Repositorio.Grupo.Implementacao
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertGrupo", "SHAREDB");
             var parametros = MapearParaDbo(grupo);
             return conexao.Execute(comando, parametros) == 1;
+        }
+
+        public List<GrupoDbo> ObterGruposPorNivel(int nivel) {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGruposNivel", "SHAREDB");
+            var parametros = MapearParaDbo(new { Nivel = nivel });
+            return conexao.Query<GrupoDbo>(comando, parametros).ToList();
         }
     }
 }
