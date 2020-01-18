@@ -38,5 +38,9 @@ namespace Api.Controllers
         [HttpPut]
         public RespostaApi AlterarNivelGrupo(string grupo, int nivel) =>
             RespostaPadrao(_servico.AtualizarNivelGrupo(grupo, nivel));
+
+        [HttpDelete]
+        public RespostaApi ExcluirGrupo(string grupo) =>
+            RespostaPadrao(_servico.ExcluirGrupo(grupo));
     }
 }

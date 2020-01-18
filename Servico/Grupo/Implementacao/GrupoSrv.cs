@@ -45,7 +45,7 @@ namespace Servico.Grupo.Implementacao
 
         public List<GrupoDom> GruposPorNivel(int nivel) {
             try {
-                if (!GrupoExiste(nivel))
+                if (!NivelExiste(nivel))
                     throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
                 var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
@@ -58,18 +58,32 @@ namespace Servico.Grupo.Implementacao
         }
 
         public bool AtualizarNivelGrupo(string grupo, int nivel) {
-            if (!GrupoExiste(nivel))
+            if (!NivelExiste(nivel))
                 throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
             var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel);
             if (!sucesso)
                 throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
-            _mensagens.AdicionarMensagem("Nível do grupo atualizado com sucesso!");
+            _mensagens.AdicionarMensagem($"Nível do grupo {grupo} foi atualizado com sucesso!");
             return sucesso;
         }
 
-        private bool GrupoExiste(int nivel) =>
+        public bool ExcluirGrupo(string grupo) {
+            try {
+                var sucesso = _repositorio.DeletarGrupo(grupo);
+                if (!sucesso)
+                    throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+
+                _mensagens.AdicionarMensagem($"Grupo {grupo} foi excluído com sucesso!");
+                return sucesso;
+            } catch (Exception ex) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, ex.Message);
+                throw new FalhaExecucaoException(ex.Message);
+            }
+        }
+
+        private bool NivelExiste(int nivel) =>
             Enum.GetValues(typeof(NivelGrupo)).Cast<int>().Any(grupo => grupo == nivel);
     }
 }

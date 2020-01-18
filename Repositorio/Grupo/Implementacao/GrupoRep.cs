@@ -33,5 +33,11 @@ namespace Repositorio.Grupo.Implementacao
             var parametros = MapearParaDbo(new { Nome = grupo, Nivel = nivel });
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public bool DeletarGrupo(string grupo) {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
+            var parametros = MapearParaDbo(new { Nome = grupo });
+            return conexao.Execute(comando, parametros) == 1;
+        }
     }
 }

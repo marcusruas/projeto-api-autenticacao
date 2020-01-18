@@ -8,5 +8,6 @@ namespace Servico.Grupo.Interface
         bool InserirNovoUsuario(string nome, string descricao, NivelGrupo nivel);
         List<GrupoDom> GruposPorNivel(int nivel);
         bool AtualizarNivelGrupo(string grupo, int nivel);
+        bool ExcluirGrupo(string grupo);
     }
 }
