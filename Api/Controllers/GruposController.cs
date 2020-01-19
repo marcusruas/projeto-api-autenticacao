@@ -22,7 +22,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public RespostaApi<List<NivelGrupoDto>> ListarNiveisPorGrupo() {
+        public RespostaApi<List<NivelGrupoDto>> ListarNiveis() {
             var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
             return RespostaPadrao(niveis);
         }
