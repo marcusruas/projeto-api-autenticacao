@@ -12,6 +12,7 @@ namespace Api.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Produces("application/json")]
     public class GruposController : ControllerApi {
         private IGrupoSrv _servico { get; }
         private IMapper _mapper { get; }
