@@ -26,6 +26,9 @@
     <None Update="Grupo\SQL\deleteGrupo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Pessoa\SQL\insertPessoa.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Grupo\SQL\updateNivelGrupo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
