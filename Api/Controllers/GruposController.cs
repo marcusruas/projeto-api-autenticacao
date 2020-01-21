@@ -11,8 +11,8 @@ using Dominio.Grupo;
 namespace Api.Controllers
 {
     [Route("[controller]/[action]")]
-    [ApiController]
     [Produces("application/json")]
+    [ApiController]
     public class GruposController : ControllerApi {
         private IGrupoSrv _servico { get; }
         private IMapper _mapper { get; }
@@ -33,8 +33,8 @@ namespace Api.Controllers
             RespostaPadrao(_mapper.Map<List<GrupoDto>>(_servico.GruposPorNivel(nivel)));
 
         [HttpPost]
-        public RespostaApi IncluirNovoGrupo(string nome, string descricao, NivelGrupo nivel) =>
-            RespostaPadrao(_servico.InserirNovoUsuario(nome, descricao, nivel));
+        public RespostaApi IncluirNovoGrupo(GrupoDto grupo) =>
+            RespostaPadrao(_servico.InserirNovoUsuario(grupo));
 
         [HttpPut]
         public RespostaApi AlterarNivelGrupo(string grupo, int nivel) =>
