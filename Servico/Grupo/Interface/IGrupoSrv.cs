@@ -1,11 +1,12 @@
-﻿using Dominio.Grupo;
+﻿using Aplicacao.Grupo;
+using Dominio.Grupo;
 using System.Collections.Generic;
 
 namespace Servico.Grupo.Interface
 {
     public interface IGrupoSrv
     {
-        bool InserirNovoUsuario(string nome, string descricao, NivelGrupo nivel);
+        bool InserirNovoUsuario(GrupoDto grupo);
         List<GrupoDom> GruposPorNivel(int nivel);
         bool AtualizarNivelGrupo(string grupo, int nivel);
         bool ExcluirGrupo(string grupo);

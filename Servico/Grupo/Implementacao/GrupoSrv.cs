@@ -22,14 +22,14 @@ namespace Servico.Grupo.Implementacao
             _mensagens = mensagens;
         }
 
-        public bool InserirNovoUsuario(string nome, string descricao, NivelGrupo nivel) {
+        public bool InserirNovoUsuario(GrupoDto grupo) {
             try {
-                var dominio = new GrupoDom(nome, descricao, nivel);
+                var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel);
                 if (!dominio.NomeValido())
                     throw new RegraNegocioException("Nome do grupo deve conter mais de 5 caractéres e não possuir números.");
-                var grupo = _mapper.Map<GrupoDbo>(dominio);
+                var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
 
-                var sucesso = _repositorio.AdicionarGrupo(grupo);
+                var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
                 if (!sucesso)
                     throw new RegraNegocioException("Já existe um grupo registrado com este nome.");
