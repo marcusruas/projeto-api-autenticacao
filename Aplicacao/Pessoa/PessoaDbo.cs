@@ -9,9 +9,9 @@ namespace Aplicacao.Pessoa
     public class PessoaDbo
     {
         [Description("ID_PESSOA")]
-        public int Id { get; }
+        public int Id { get; set; }
         [StringLength(80)]
-        public string Nome { get; }
+        public string Nome { get; set; }
         public long Cpf { get; set; }
         [StringLength(100)]
         public string Email { get; set; }

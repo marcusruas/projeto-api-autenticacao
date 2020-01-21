@@ -16,7 +16,7 @@ namespace Repositorio.Pessoa.Implementacao
 
         public bool InserirPessoa(PessoaDbo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPessoa", "SHAREDB");
-            var parametros = MapearParaDbo(pessoa);
+            var parametros = MapearParaDbo(pessoa, new { pessoa.Id });
             return conexao.Execute(comando, parametros) == 1;
         }
     }

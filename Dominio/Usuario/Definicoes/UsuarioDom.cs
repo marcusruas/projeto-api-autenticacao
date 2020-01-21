@@ -1,5 +1,5 @@
 ﻿using Dominio.Grupo;
-using Dominio.Pessoa.Definicoes;
+using Dominio.Pessoa;
 using System;
 using System.Linq;
 

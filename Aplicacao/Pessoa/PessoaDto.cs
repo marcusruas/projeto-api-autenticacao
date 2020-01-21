@@ -8,8 +8,8 @@ namespace Aplicacao.Pessoa
 {
     public class PessoaDto
     {
-        public int Id { get; }
-        public string Nome { get; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
         public long Cpf { get; set; }
         public string Email { get; set; }
         public long Telefone { get; set; }

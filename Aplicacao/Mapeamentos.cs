@@ -26,6 +26,7 @@ namespace Aplicacao
 
             #region Pessoas
             cnf.CreateMap<PessoaDom, PessoaDbo>()
+                .ForMember(dbo => dbo.Id, opt => opt.Ignore())
                 .ReverseMap();
             #endregion
         }
@@ -41,6 +42,11 @@ namespace Aplicacao
 
             #region Pessoas
             cnf.CreateMap<PessoaDom, PessoaDto>()
+                .ForMember(dto => dto.Id, opt => opt.Ignore())
+                .ReverseMap();
+
+            cnf.CreateMap<PessoaDto, PessoaDbo>()
+                
                 .ReverseMap();
             #endregion
         }
