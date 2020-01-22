@@ -1,5 +1,6 @@
 ﻿using Aplicacao.Pessoa;
 using AutoMapper;
+using Helpers;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorio.Pessoa.Interface;
@@ -21,21 +22,22 @@ namespace Servico.Pessoa.Implementacao
         }
 
         public bool IncluirPessoa(PessoaDto pessoa) {
-            try {
-                var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
+            bool cpfValido = CpfFormat.ValidarCpf(pessoa.Cpf.ToString());
 
-                var sucesso = _repositorio.InserirPessoa(pessoaBanco);
+            if (!cpfValido)
+                throw new RegraNegocioException("CPF informado invalido!");
 
-                if (!sucesso)
-                    throw new RegraNegocioException("Já existe uma pessoa registrada com este CPF.");
+            if (string.IsNullOrWhiteSpace(pessoa.Nome))
+                throw new RegraNegocioException("Necessário informar o nome da pessoa");
 
-                _mensagens.AdicionarMensagem("Pessoa adicionada com sucesso!");
+            var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
+            var sucesso = _repositorio.InserirPessoa(pessoaBanco);
 
-                return sucesso;
-            } catch (Exception ex) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, ex.Message);
-                throw new FalhaExecucaoException(ex.Message);
-            }
+            if (!sucesso)
+                throw new RegraNegocioException("Já existe uma pessoa registrada para este CPF.");
+
+            _mensagens.AdicionarMensagem("Pessoa adicionada com sucesso!");
+            return sucesso;
         }
     }
 }
