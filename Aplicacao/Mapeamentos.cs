@@ -3,7 +3,9 @@ using Aplicacao.Pessoa;
 using AutoMapper;
 using Dominio.Grupo;
 using Dominio.Pessoa;
-using System;
+using System.ComponentModel;
+using System.Reflection;
+using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
 
 namespace Aplicacao
 {
@@ -22,12 +24,16 @@ namespace Aplicacao
                 .ForMember(dbo => dbo.IdGrupo, opt => opt.Ignore())
                 .ForMember(dbo => dbo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
+
+            MapearRetornoObjeto<GrupoDbo>();
             #endregion
 
             #region Pessoas
             cnf.CreateMap<PessoaDom, PessoaDbo>()
                 .ForMember(dbo => dbo.Id, opt => opt.Ignore())
                 .ReverseMap();
+
+            MapearRetornoObjeto<PessoaDbo>();
             #endregion
         }
 
@@ -46,7 +52,6 @@ namespace Aplicacao
                 .ReverseMap();
 
             cnf.CreateMap<PessoaDto, PessoaDbo>()
-                
                 .ReverseMap();
             #endregion
         }
