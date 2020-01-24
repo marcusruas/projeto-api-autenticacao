@@ -3,6 +3,7 @@ using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
 using Repositorio.Pessoa.Interface;
+using System.Data;
 
 namespace Repositorio.Pessoa.Implementacao
 {
@@ -16,8 +17,15 @@ namespace Repositorio.Pessoa.Implementacao
 
         public bool InserirPessoa(PessoaDbo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPessoa", "SHAREDB");
-            var parametros = MapearParaDbo(pessoa, new { pessoa.Id });
+            var parametros = DboParaParametros(pessoa, new { pessoa.Id });
             return conexao.Execute(comando, parametros) == 1;
+        }
+
+        public PessoaDbo BuscarPessoaCpf(long cpf) {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaCpf", "SHAREDB");
+            var parametros = new DynamicParameters();
+            parametros.Add("cpf", cpf);
+            return conexao.QueryFirstOrDefault<PessoaDbo>(comando, parametros);
         }
     }
 }

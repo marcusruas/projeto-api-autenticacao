@@ -8,5 +8,6 @@ namespace Repositorio.Pessoa.Interface
     public interface IPessoaRep
     {
         bool InserirPessoa(PessoaDbo pessoa);
+        PessoaDbo BuscarPessoaCpf(long cpf);
     }
 }

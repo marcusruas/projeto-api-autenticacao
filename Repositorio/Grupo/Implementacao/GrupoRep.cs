@@ -18,25 +18,25 @@ namespace Repositorio.Grupo.Implementacao
 
         public bool AdicionarGrupo(GrupoDbo grupo) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertGrupo", "SHAREDB");
-            var parametros = MapearParaDbo(grupo);
+            var parametros = DboParaParametros(grupo);
             return conexao.Execute(comando, parametros) == 1;
         }
 
         public List<GrupoDbo> ObterGruposPorNivel(int nivel) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGruposNivel", "SHAREDB");
-            var parametros = MapearParaDbo(new { Nivel = nivel });
+            var parametros = DboParaParametros(new { Nivel = nivel });
             return conexao.Query<GrupoDbo>(comando, parametros).ToList();
         }
 
         public bool AtualizarNivelGrupo(string grupo, int nivel) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateNivelGrupo", "SHAREDB");
-            var parametros = MapearParaDbo(new { Nome = grupo, Nivel = nivel });
+            var parametros = DboParaParametros(new { Nome = grupo, Nivel = nivel });
             return conexao.Execute(comando, parametros) == 1;
         }
 
         public bool DeletarGrupo(string grupo) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
-            var parametros = MapearParaDbo(new { Nome = grupo });
+            var parametros = DboParaParametros(new { Nome = grupo });
             return conexao.Execute(comando, parametros) == 1;
         }
     }
