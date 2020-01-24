@@ -23,38 +23,28 @@ namespace Servico.Grupo.Implementacao
         }
 
         public bool InserirNovoUsuario(GrupoDto grupo) {
-            try {
-                var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel);
-                if (!dominio.NomeValido())
-                    throw new RegraNegocioException("Nome do grupo deve conter mais de 5 caractéres e não possuir números.");
-                var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
+            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel);
+            if (!dominio.NomeValido())
+                throw new RegraNegocioException("Nome do grupo deve conter mais de 5 caractéres e não possuir números.");
+            var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
 
-                var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
+            var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
-                if (!sucesso)
-                    throw new RegraNegocioException("Já existe um grupo registrado com este nome.");
+            if (!sucesso)
+                throw new RegraNegocioException("Já existe um grupo registrado com este nome.");
 
-                _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
+            _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
 
-                return sucesso;
-            }catch(Exception ex) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, ex.Message);
-                throw new FalhaExecucaoException(ex.Message);
-            }
+            return sucesso;
         }
 
         public List<GrupoDom> GruposPorNivel(int nivel) {
-            try {
-                if (!NivelExiste(nivel))
-                    throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
+            if (!NivelExiste(nivel))
+                throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
-                var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
+            var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
 
-                return _mapper.Map<List<GrupoDom>>(listaGrupos);
-            } catch (Exception ex) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, ex.Message);
-                throw new FalhaExecucaoException(ex.Message);
-            }
+            return _mapper.Map<List<GrupoDom>>(listaGrupos);
         }
 
         public bool AtualizarNivelGrupo(string grupo, int nivel) {
@@ -70,17 +60,12 @@ namespace Servico.Grupo.Implementacao
         }
 
         public bool ExcluirGrupo(string grupo) {
-            try {
-                var sucesso = _repositorio.DeletarGrupo(grupo);
-                if (!sucesso)
-                    throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+            var sucesso = _repositorio.DeletarGrupo(grupo);
+            if (!sucesso)
+                throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
-                _mensagens.AdicionarMensagem($"Grupo {grupo} foi excluído com sucesso!");
-                return sucesso;
-            } catch (Exception ex) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, ex.Message);
-                throw new FalhaExecucaoException(ex.Message);
-            }
+            _mensagens.AdicionarMensagem($"Grupo {grupo} foi excluído com sucesso!");
+            return sucesso;
         }
 
         private bool NivelExiste(int nivel) =>
