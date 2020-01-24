@@ -8,5 +8,6 @@ namespace Servico.Pessoa.Interface
     public interface IPessoaSrv
     {
         bool IncluirPessoa(PessoaDto pessoa);
+        PessoaDto PesquisarPessoaCpf(string cpf);
     }
 }

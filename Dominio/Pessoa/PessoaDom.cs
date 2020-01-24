@@ -1,4 +1,6 @@
-﻿namespace Dominio.Pessoa
+﻿using Helpers;
+
+namespace Dominio.Pessoa
 {
     public class PessoaDom
     {
@@ -13,5 +15,8 @@
         public long Cpf { get; }
         public string Email { get; }
         public long Telefone { get; } 
+
+        public bool CpfValido => CpfHelper.ValidarCpf(Cpf.ToString());
+
     }
 }

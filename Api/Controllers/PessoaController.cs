@@ -22,5 +22,10 @@ namespace Api.Controllers
         public RespostaApi CadastrarPessoa(PessoaDto pessoa) {
             return RespostaPadrao(_servico.IncluirPessoa(pessoa));
         }
+
+        [HttpGet]
+        public RespostaApi<PessoaDto> ObterPessoa(string cpf) {
+            return RespostaPadrao(_servico.PesquisarPessoaCpf(cpf));
+        }
     }
 }

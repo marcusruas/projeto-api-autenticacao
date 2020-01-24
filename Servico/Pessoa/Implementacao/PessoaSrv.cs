@@ -1,5 +1,6 @@
 ﻿using Aplicacao.Pessoa;
 using AutoMapper;
+using Dominio.Pessoa;
 using Helpers;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
@@ -22,9 +23,9 @@ namespace Servico.Pessoa.Implementacao
         }
 
         public bool IncluirPessoa(PessoaDto pessoa) {
-            bool cpfValido = CpfFormat.ValidarCpf(pessoa.Cpf.ToString());
+            var dominio = _mapper.Map<PessoaDom>(pessoa);
 
-            if (!cpfValido)
+            if (!dominio.CpfValido)
                 throw new RegraNegocioException("CPF informado invalido!");
 
             if (string.IsNullOrWhiteSpace(pessoa.Nome))
@@ -38,6 +39,18 @@ namespace Servico.Pessoa.Implementacao
 
             _mensagens.AdicionarMensagem("Pessoa adicionada com sucesso!");
             return sucesso;
+        }
+
+        public PessoaDto PesquisarPessoaCpf(string cpf) {
+            bool cpfValido = CpfHelper.ValidarCpf(cpf);
+            if (!cpfValido)
+                throw new RegraNegocioException("CPF informado invalido!");
+
+            long cpfFormatado = CpfHelper.RemoverFormatacao(cpf);
+
+            var pessoa = _repositorio.BuscarPessoaCpf(cpfFormatado);
+
+            return _mapper.Map<PessoaDto>(pessoa);
         }
     }
 }
