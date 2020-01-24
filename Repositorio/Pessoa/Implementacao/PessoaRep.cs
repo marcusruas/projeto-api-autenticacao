@@ -27,5 +27,11 @@ namespace Repositorio.Pessoa.Implementacao
             parametros.Add("cpf", cpf);
             return conexao.QueryFirstOrDefault<PessoaDbo>(comando, parametros);
         }
+
+        public bool UpdateDadosPessoa(PessoaDbo pessoa) {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updatePessoa", "SHAREDB");
+            var parametros = DboParaParametros(pessoa);
+            return conexao.Execute(comando, parametros) == 1;
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Api.Controllers
 
         [HttpPut]
         public RespostaApi AtualizarDadosPessoa(PessoaDto pessoa) {
-            return null;
+            return RespostaPadrao(_servico.AtualizarDadosPessoa(pessoa));
         }
     }
 }

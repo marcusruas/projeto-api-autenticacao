@@ -1,0 +1,7 @@
+UPDATE PESSOAS
+   SET NOME		= @NOME		
+      ,CPF		= @CPF		
+      ,EMAIL	= @EMAIL	
+      ,TELEFONE	= @TELEFONE
+WHERE
+	ID_PESSOA = @ID

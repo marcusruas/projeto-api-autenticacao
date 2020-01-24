@@ -9,5 +9,6 @@ namespace Repositorio.Pessoa.Interface
     {
         bool InserirPessoa(PessoaDbo pessoa);
         PessoaDbo BuscarPessoaCpf(long cpf);
+        bool UpdateDadosPessoa(PessoaDbo pessoa);
     }
 }
