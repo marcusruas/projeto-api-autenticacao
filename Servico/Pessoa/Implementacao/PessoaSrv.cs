@@ -50,6 +50,9 @@ namespace Servico.Pessoa.Implementacao
 
             var pessoa = _repositorio.BuscarPessoaCpf(cpfFormatado);
 
+            if (pessoa == null)
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Nenhum usuário encontrato com este CPF");
+
             return _mapper.Map<PessoaDto>(pessoa);
         }
     }
