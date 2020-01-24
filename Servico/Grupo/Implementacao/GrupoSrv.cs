@@ -38,13 +38,13 @@ namespace Servico.Grupo.Implementacao
             return sucesso;
         }
 
-        public List<GrupoDom> GruposPorNivel(int nivel) {
+        public List<GrupoDto> GruposPorNivel(int nivel) {
             if (!NivelExiste(nivel))
                 throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
             var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
 
-            return _mapper.Map<List<GrupoDom>>(listaGrupos);
+            return _mapper.Map<List<GrupoDto>>(listaGrupos);
         }
 
         public bool AtualizarNivelGrupo(string grupo, int nivel) {

@@ -7,7 +7,7 @@ namespace Aplicacao.Grupo
     public class GrupoDbo
     {
         [Description("ID_GRUPO")]
-        public int IdGrupo { get; set; }
+        public int Id { get; set; }
         [Description("NOME")]
         [StringLength(80)]
         public string Nome { get; set; }

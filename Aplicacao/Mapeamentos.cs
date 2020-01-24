@@ -21,7 +21,7 @@ namespace Aplicacao
         private static void MapeamentosDominioDbo(this IMapperConfigurationExpression cnf) {
             #region Grupos
             cnf.CreateMap<GrupoDom, GrupoDbo>()
-                .ForMember(dbo => dbo.IdGrupo, opt => opt.Ignore())
+                .ForMember(dbo => dbo.Id, opt => opt.Ignore())
                 .ForMember(dbo => dbo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
 
@@ -39,7 +39,12 @@ namespace Aplicacao
 
         private static void MapeamentosDominioDto(this IMapperConfigurationExpression cnf) {
             #region Grupos
-            cnf.CreateMap<GrupoDom, GrupoDto>().ReverseMap();
+            cnf.CreateMap<GrupoDom, GrupoDto>()
+                .ReverseMap();
+
+            cnf.CreateMap<GrupoDbo, GrupoDto>()
+                .ForMember(dto => (int)dto.Nivel, opt => opt.MapFrom(map => map.Nivel))
+                .ReverseMap();
 
             cnf.CreateMap<NivelGrupo, NivelGrupoDto>()
                 .ForMember(dto => dto.Nivel, opt => opt.MapFrom(map => (int)map))

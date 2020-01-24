@@ -27,5 +27,10 @@ namespace Api.Controllers
         public RespostaApi<PessoaDto> ObterPessoa(string cpf) {
             return RespostaPadrao(_servico.PesquisarPessoaCpf(cpf));
         }
+
+        [HttpPut]
+        public RespostaApi AtualizarDadosPessoa(PessoaDto pessoa) {
+            return null;
+        }
     }
 }
