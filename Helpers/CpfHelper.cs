@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Helpers
+﻿namespace Helpers
 {
-    public class CpfFormat
+    public class CpfHelper
     {
         public static string FormatarCpf(string cpf) {
             var cpfFormatado = string.Empty;
