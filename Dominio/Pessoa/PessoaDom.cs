@@ -1,4 +1,5 @@
 ﻿using Helpers;
+using System.Linq;
 
 namespace Dominio.Pessoa
 {
@@ -18,5 +19,17 @@ namespace Dominio.Pessoa
 
         public bool CpfValido => CpfHelper.ValidarCpf(Cpf.ToString());
 
+        public bool NomeValido() {
+            if (string.IsNullOrWhiteSpace(Nome))
+                return false;
+
+            var nomes = Nome.Split(' ').ToList();
+
+            foreach (var nome in nomes)
+                if (!char.IsUpper(nome[0]))
+                    return false;
+
+            return true;
+        }
     }
 }
