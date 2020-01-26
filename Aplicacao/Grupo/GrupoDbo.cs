@@ -1,4 +1,5 @@
 ﻿using Dominio.Grupo;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,5 +17,7 @@ namespace Aplicacao.Grupo
         public string Descricao { get; set; }
         [Description("NIVEL")]
         public int Nivel { get; set; }
+        [Description("JUSTIFICATIVA")]
+        public string Justificativa { get; set; }
     }
 }

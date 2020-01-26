@@ -1,4 +1,5 @@
 ﻿using Dominio.Grupo;
+using System;
 using System.ComponentModel;
 
 namespace Aplicacao.Grupo
@@ -9,5 +10,6 @@ namespace Aplicacao.Grupo
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public NivelGrupo Nivel { get; set; }
+        public string Justificativa { get; set; }
     }
 }
