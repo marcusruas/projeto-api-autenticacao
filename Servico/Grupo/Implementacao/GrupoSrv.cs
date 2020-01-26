@@ -23,7 +23,7 @@ namespace Servico.Grupo.Implementacao
         }
 
         public bool InserirNovoUsuario(GrupoDto grupo) {
-            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, _mensagens);
+            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, grupo.Justificativa, _mensagens);
 
             dominio.ValidarNome();
             dominio.ValidarJustificativaNivel();
