@@ -23,13 +23,13 @@ namespace Servico.Pessoa.Implementacao
         }
 
         public bool IncluirPessoa(PessoaDto pessoa) {
-            var dominio = _mapper.Map<PessoaDom>(pessoa);
+            var dominio = new PessoaDom(pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone, _mensagens);
 
-            if (!dominio.CpfValido)
-                throw new RegraNegocioException("CPF informado invalido!");
+            dominio.ValidarNome();
+            dominio.ValidarCpf();
 
-            if (!dominio.NomeValido())
-                throw new RegraNegocioException("Nome da pessoa inválido. Os sobrenomes devem começar com letras maiúsculas.");
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
             var sucesso = _repositorio.InserirPessoa(pessoaBanco);
@@ -42,11 +42,13 @@ namespace Servico.Pessoa.Implementacao
         }
 
         public PessoaDto PesquisarPessoaCpf(string cpf) {
-            bool cpfValido = CpfHelper.ValidarCpf(cpf);
-            if (!cpfValido)
-                throw new RegraNegocioException("CPF informado invalido!");
-
             long cpfFormatado = CpfHelper.RemoverFormatacao(cpf);
+            var dominio = new PessoaDom(cpfFormatado, _mensagens);
+
+            dominio.ValidarCpf();
+
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var pessoa = _repositorio.BuscarPessoaCpf(cpfFormatado);
 
@@ -57,13 +59,13 @@ namespace Servico.Pessoa.Implementacao
         }
 
         public bool AtualizarDadosPessoa(PessoaDto pessoa) {
-            var dominio = _mapper.Map<PessoaDom>(pessoa);
+            var dominio = new PessoaDom(pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone, _mensagens);
 
-            if (!dominio.CpfValido)
-                throw new RegraNegocioException("CPF informado invalido!");
+            dominio.ValidarNome();
+            dominio.ValidarCpf();
 
-            if (!dominio.NomeValido())
-                throw new RegraNegocioException("Nome da pessoa inválido. Os sobrenomes devem começar com letras maiúsculas.");
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
             var sucesso = _repositorio.UpdateDadosPessoa(pessoaBanco);
