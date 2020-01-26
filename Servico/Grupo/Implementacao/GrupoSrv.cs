@@ -23,18 +23,21 @@ namespace Servico.Grupo.Implementacao
         }
 
         public bool InserirNovoUsuario(GrupoDto grupo) {
-            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel);
-            if (!dominio.NomeValido())
-                throw new RegraNegocioException("Nome do grupo deve conter mais de 5 caractéres e não possuir números.");
-            var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
+            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, _mensagens);
 
+            dominio.ValidarNome();
+            dominio.ValidarJustificativaNivel();
+
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+
+            var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
                 throw new RegraNegocioException("Já existe um grupo registrado com este nome.");
 
             _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
-
             return sucesso;
         }
 

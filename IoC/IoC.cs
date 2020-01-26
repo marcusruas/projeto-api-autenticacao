@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Repositorio.Grupo.Interface;
 using Repositorio.Grupo.Implementacao;
 using Servico.Grupo.Interface;
