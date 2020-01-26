@@ -37,8 +37,8 @@ namespace Api.Controllers
             RespostaPadrao(_servico.InserirNovoUsuario(grupo));
 
         [HttpPut]
-        public RespostaApi AlterarNivelGrupo(string grupo, int nivel) =>
-            RespostaPadrao(_servico.AtualizarNivelGrupo(grupo, nivel));
+        public RespostaApi AlterarNivelGrupo(string grupo, int nivel, string justificativa) =>
+            RespostaPadrao(_servico.AtualizarNivelGrupo(grupo, nivel, justificativa));
 
         [HttpDelete]
         public RespostaApi ExcluirGrupo(string grupo) =>

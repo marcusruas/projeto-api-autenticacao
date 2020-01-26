@@ -35,7 +35,7 @@ namespace Servico.Grupo.Implementacao
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
-                throw new RegraNegocioException("Já existe um grupo registrado com este nome.");
+                throw new FalhaExecucaoException("Já existe um grupo registrado com este nome.");
 
             _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
             return sucesso;
@@ -50,13 +50,20 @@ namespace Servico.Grupo.Implementacao
             return _mapper.Map<List<GrupoDto>>(listaGrupos);
         }
 
-        public bool AtualizarNivelGrupo(string grupo, int nivel) {
+        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa) {
             if (!NivelExiste(nivel))
-                throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
+
+            var dominio = new GrupoDom(grupo, (NivelGrupo)nivel, justificativa, _mensagens);
+
+            dominio.ValidarJustificativaNivel();
+
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel);
             if (!sucesso)
-                throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
             _mensagens.AdicionarMensagem($"Nível do grupo {grupo} foi atualizado com sucesso!");
             return sucesso;
@@ -65,7 +72,7 @@ namespace Servico.Grupo.Implementacao
         public bool ExcluirGrupo(string grupo) {
             var sucesso = _repositorio.DeletarGrupo(grupo);
             if (!sucesso)
-                throw new RegraNegocioException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
             _mensagens.AdicionarMensagem($"Grupo {grupo} foi excluído com sucesso!");
             return sucesso;
