@@ -18,7 +18,7 @@ namespace AutenticacaoApi.Testes.Dominio
         }
 
         [Fact]
-        public void TesteValidacaoNomeCorreto() {
+        public void ValidacaoNomeCorreto() {
             var dominio = new GrupoDom("Teste", NivelGrupo.Geral, _mensagens);
             dominio.ValidarNome();
 
@@ -26,12 +26,24 @@ namespace AutenticacaoApi.Testes.Dominio
         }
 
         [Fact]
-        public void TesteValidacaoNomeNumeros() {
+        public void ValidacaoNomeNumeros() {
+            string mensagemErro = "Nome do grupo não pode conter números";
             var dominio = new GrupoDom("teste123", NivelGrupo.Geral, _mensagens);
             dominio.ValidarNome();
 
-            var validacao = _mensagens.Mensagens.Any(m => m.Texto == "Nome do grupo não pode conter números");
-            validacao &= !_mensagens.Mensagens.Any(m => m.Texto != "Nome do grupo não pode conter números");
+            var validacao = _mensagens.Mensagens.Any(m => m.Texto == mensagemErro);
+            validacao &= !_mensagens.Mensagens.Any(m => m.Texto != mensagemErro);
+
+            validacao.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void ValidacaoNivelJustificativa() {
+            string mensagemErro = "Grupos cadastrados com nivel acima de Gerente devem possuir justificativa.";
+            var dominio = new GrupoDom("Teste", NivelGrupo.Administrador, null, _mensagens);
+            dominio.ValidarJustificativaNivel();
+
+            var validacao = _mensagens.Mensagens.Any(m => m.Texto == mensagemErro);
 
             validacao.ShouldBeTrue();
         }
