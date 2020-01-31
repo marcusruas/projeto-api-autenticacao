@@ -26,7 +26,9 @@ namespace Servico.Grupo.Implementacao
             var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, grupo.Justificativa, _mensagens);
 
             dominio.ValidarNome();
-            dominio.ValidarJustificativaNivel();
+            dominio.ValidarDescricao();
+            dominio.ValidarJustificativa();
+            dominio.ValidarJustificativaParaNivel();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
@@ -56,7 +58,8 @@ namespace Servico.Grupo.Implementacao
 
             var dominio = new GrupoDom(grupo, (NivelGrupo)nivel, justificativa, _mensagens);
 
-            dominio.ValidarJustificativaNivel();
+            dominio.ValidarJustificativa();
+            dominio.ValidarJustificativaParaNivel();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
