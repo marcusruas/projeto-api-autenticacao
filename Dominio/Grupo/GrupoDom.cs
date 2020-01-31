@@ -34,6 +34,11 @@ namespace Dominio.Grupo
         private IMensagensApi _mensagens { get; }
 
         public void ValidarNome() {
+            if(string.IsNullOrEmpty(Nome)) {
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nome é obrigatório");
+                return;
+            }
+                
             if (Nome.Length <= 5)
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, 
                                              "Nome do grupo deve ter mais de 5 caractéres");
@@ -41,7 +46,7 @@ namespace Dominio.Grupo
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, 
                                              "Nome do grupo não pode conter números");
         }
-
+        
         public void ValidarDescricao(){
             if(!string.IsNullOrEmpty(Descricao))
                 if(Descricao.Length <= 15)

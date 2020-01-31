@@ -45,11 +45,15 @@ namespace AutenticacaoApi.Testes.Dominio
             _mensagens.PossuiFalhasValidacao().ShouldBeFalse();
         }
 
-        [Display(Name = "Criação de grupo de nome com menos de 5 caractéres")]
-        [Fact]
-        public void TesteCriacaoGrupoDeNomeCurto() {
+        [Display(Name = "Criação de grupo de nome com menos de 5 caractéres ou com Números")]
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        [InlineData("test")]
+        [InlineData("Teste123")]
+        public void TesteCriacaoGrupoDeNomeInvalido(string nome) {
             var dominio = new GrupoDom(
-                    "test",
+                    nome,
                     null,
                     NivelGrupo.Geral,
                     _mensagens
@@ -60,46 +64,17 @@ namespace AutenticacaoApi.Testes.Dominio
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
         }
 
-        [Display(Name = "Criação de um grupo com números no nome")]
-        [Fact]
-        public void TesteCriacaoGrupoDeNomeComNumeros() {
-            var dominio = new GrupoDom(
-                    "Teste123",
-                    null,
-                    NivelGrupo.Geral,
-                    _mensagens
-            );
-
-            dominio.ValidarNome();
-
-            _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
-        }
-
-        [Display(Name = "Criação de um grupo com justificativa de nível inferior a gerente")]
-        [Fact]
-        public void TesteCriacaoGrupoDeJustificativaSemNivel() {
+        [Display(Name = "Criação de um grupo com justificativa inválida")]
+        [Theory]
+        [InlineData(NivelGrupo.Geral, "Por que eu quero adicionar")]
+        [InlineData(NivelGrupo.Absoluto, null)]
+        [InlineData(NivelGrupo.Absoluto, "Por que sim")]
+        public void TesteCriacaoGrupoDeJustificativaInvalida(NivelGrupo nivel, string justificativa) {
             var dominio = new GrupoDom(
                     "Testes",
                     null,
-                    NivelGrupo.Geral,
-                    "Por que eu quero adicionar",
-                    _mensagens
-            );
-
-            dominio.ValidarJustificativa();
-            dominio.ValidarJustificativaParaNivel();
-
-            _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
-        }
-
-        [Display(Name = "Criação de um grupo sem justificativa com nível superior a gerente")]
-        [Fact]
-        public void TesteCriacaoGrupoSemJustificativaComNivel() {
-            var dominio = new GrupoDom(
-                    "Testes",
-                    null,
-                    NivelGrupo.Absoluto,
-                    null,
+                    nivel,
+                    justificativa,
                     _mensagens
             );
 
