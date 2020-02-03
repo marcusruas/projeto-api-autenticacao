@@ -33,6 +33,13 @@ namespace Dominio.Grupo
         public string Justificativa { get; }
         private IMensagensApi _mensagens { get; }
 
+        public void ValidarDados(){
+            ValidarNome();
+            ValidarDescricao();
+            ValidarJustificativa();
+            ValidarJustificativaParaNivel();
+        }
+
         public void ValidarNome() {
             if(string.IsNullOrEmpty(Nome)) {
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nome é obrigatório");
