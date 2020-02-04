@@ -11,13 +11,13 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 {
     public class GrupoTestes
     {
-        private readonly ITestOutputHelper _output;
         private IMensagensApi _mensagens { get; }
-        private GrupoBuilder _dadosGrupo { get; }
+        private GrupoBuilder _builder { get; }
+        private GrupoTestesLogs _logger { get; }
         public GrupoTestes(ITestOutputHelper output) {
             _mensagens = Mock.Of<MensagensApi>();
-            _dadosGrupo = new GrupoBuilder(_mensagens);
-            _output = output;
+            _builder = new GrupoBuilder(_mensagens);
+            _logger = new GrupoTestesLogs(_mensagens, output, _builder);
         }
 
         /*
@@ -32,24 +32,22 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoCorreto() {
-            _output.WriteLine("Teste: Criação correta de um grupo");
-            var dominio = _dadosGrupo.Build();
+            _logger.DefinirTeste("Teste: Criação correta de um grupo");
+            var dominio = _builder.Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.PossuiFalhasValidacao().ShouldBeFalse();
         }
 
         [Fact]
         public void CriacaoGrupoIncorreto() {
-            _output.WriteLine("Teste: Criação Incorreta de um grupo");
-            var dominio = _dadosGrupo.DefinirGrupoComDadosInvalidos().Build();
+            _logger.DefinirTeste("Teste: Criação Incorreta de um grupo");
+            var dominio = _builder.DefinirGrupoComDadosInvalidos().Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(4);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -57,12 +55,11 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoNomeCurto(){
-            _output.WriteLine("Teste: Criação de um grupo com nome inferior a 5 caractéres.");
-            var dominio = _dadosGrupo.DefinirNomeCurto().Build();
+            _logger.DefinirTeste("Teste: Criação de um grupo com nome inferior a 5 caractéres.");
+            var dominio = _builder.DefinirNomeCurto().Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -70,12 +67,11 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoNomeNumeros(){
-            _output.WriteLine("Teste: Criação de um grupo com nome contendo números.");
-            var dominio = _dadosGrupo.DefinirNomeComNumeros().Build();
+            _logger.DefinirTeste("Teste: Criação de um grupo com nome contendo números.");
+            var dominio = _builder.DefinirNomeComNumeros().Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -83,12 +79,11 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoDescricaoInvalida(){
-            _output.WriteLine("Teste: Criação de um grupo com descrição inválida.");
-            var dominio = _dadosGrupo.DefinirDescricaoInvalida().Build();
+            _logger.DefinirTeste("Teste: Criação de um grupo com descrição inválida.");
+            var dominio = _builder.DefinirDescricaoInvalida().Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -96,15 +91,14 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoNivelSuperiorSemJustificativa(){
-            _output.WriteLine("Teste: Criação de um grupo com superior a gerente sem justificativa.");
-            var dominio = _dadosGrupo
+            _logger.DefinirTeste("Teste: Criação de um grupo com superior a gerente sem justificativa.");
+            var dominio = _builder
                             .DefinirJustificativaNula()
                             .DefinirNivelSuperior()
                             .Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -112,15 +106,14 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoNivelInferiorComJustificativa(){
-            _output.WriteLine("Teste: Criação de um grupo com inferior a gerente com justificativa.");
-            var dominio = _dadosGrupo
+            _logger.DefinirTeste("Teste: Criação de um grupo com inferior a gerente com justificativa.");
+            var dominio = _builder
                             .DefinirJustificativaValida()
                             .DefinirNivelInferior()
                             .Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
@@ -128,33 +121,14 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
         [Fact]
         public void CriacaoGrupoJustificativaInvalida(){
-            _output.WriteLine("Teste: Criação de um grupo com justificativa inválida");
-            var dominio = _dadosGrupo.DefinirJustificativaInvalida().Build();
+            _logger.DefinirTeste("Teste: Criação de um grupo com justificativa inválida");
+            var dominio = _builder.DefinirJustificativaInvalida().Build();
 
             dominio.ValidarDados();
-            _output.WriteLine(ConfigurarMensagemDados(dominio));
-            _output.WriteLine(ConfigurarMensageria());
+            _logger.GravarLogs();
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
-        }
-
-        private string ConfigurarMensagemDados(GrupoDom grupo){
-            return $@"
-                Nome: {grupo.Nome},
-                Nivel: {grupo.Nivel},
-                Descricao: {grupo.Descricao},
-                Justificativa: {grupo.Justificativa}
-            ";
-        }
-
-        private string ConfigurarMensageria(){
-            var stringCompleta = "Mensagens: \n";
-
-            foreach(var msg in _mensagens.Mensagens)
-                stringCompleta += "\t"+msg.Texto+"\n";
-
-            return stringCompleta;
         }
     }
 }
