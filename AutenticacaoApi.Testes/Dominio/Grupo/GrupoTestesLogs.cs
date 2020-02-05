@@ -1,3 +1,4 @@
+using AutenticacaoApi.Testes.Builders;
 using MandradePkgs.Mensagens;
 using Xunit.Abstractions;
 
@@ -7,10 +8,10 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
     {
         private IMensagensApi _mensagens;
         private ITestOutputHelper _output;
-        private GrupoBuilder _builder;
+        private GrupoDomBuilder _builder;
         public string Teste { get; private set; }
 
-        public GrupoTestesLogs(IMensagensApi mensagens, ITestOutputHelper output, GrupoBuilder builder)
+        public GrupoTestesLogs(IMensagensApi mensagens, ITestOutputHelper output, GrupoDomBuilder builder)
         {
             _mensagens = mensagens;
             _output = output;

@@ -1,4 +1,5 @@
 ﻿using System;
+using AutenticacaoApi.Testes.Builders;
 using Dominio.Grupo;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Mensagens.Estrutura.Implementacao;
@@ -12,11 +13,11 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
     public class GrupoTestes
     {
         private IMensagensApi _mensagens { get; }
-        private GrupoBuilder _builder { get; }
+        private GrupoDomBuilder _builder { get; }
         private GrupoTestesLogs _logger { get; }
         public GrupoTestes(ITestOutputHelper output) {
             _mensagens = Mock.Of<MensagensApi>();
-            _builder = new GrupoBuilder(_mensagens);
+            _builder = new GrupoDomBuilder(_mensagens);
             _logger = new GrupoTestesLogs(_mensagens, output, _builder);
         }
 

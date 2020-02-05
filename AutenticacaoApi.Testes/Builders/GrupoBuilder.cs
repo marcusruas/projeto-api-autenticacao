@@ -2,14 +2,14 @@ using Bogus;
 using Dominio.Grupo;
 using MandradePkgs.Mensagens;
 
-namespace AutenticacaoApi.Testes.Dominio.Grupo
+namespace AutenticacaoApi.Testes.Builders
 {
-    public class GrupoBuilder
+    public class GrupoDomBuilder
     {
         private Faker _faker { get; }
         private GrupoDom Grupo;
         private IMensagensApi _mensagens;
-        public GrupoBuilder(IMensagensApi mensagens)
+        public GrupoDomBuilder(IMensagensApi mensagens)
         {
             _faker = new Faker();
             _mensagens = mensagens;
@@ -25,7 +25,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
                 _mensagens
             );
 
-        public GrupoBuilder DefinirGrupoComDadosInvalidos() {
+        public GrupoDomBuilder DefinirGrupoComDadosInvalidos() {
             Grupo = new GrupoDom(
                 _faker.Name.FullName().Substring(0, 5),
                 _faker.Random.String(10),
@@ -37,7 +37,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirNomeCurto() {
+        public GrupoDomBuilder DefinirNomeCurto() {
             var grupoAlterado = new GrupoDom(
                 _faker.Name.FullName().Substring(0, 5),
                 Grupo.Descricao,
@@ -51,7 +51,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirNomeNulo() {
+        public GrupoDomBuilder DefinirNomeNulo() {
             var grupoAlterado = new GrupoDom(
                 null,
                 Grupo.Descricao,
@@ -65,7 +65,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirNomeComNumeros() {
+        public GrupoDomBuilder DefinirNomeComNumeros() {
             var grupoAlterado = new GrupoDom(
                 _faker.Name.FullName().Insert(0, _faker.Random.Int(1, 5).ToString()),
                 Grupo.Descricao,
@@ -79,7 +79,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirDescricaoValida() {
+        public GrupoDomBuilder DefinirDescricaoValida() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 _faker.Lorem.Paragraph(),
@@ -93,7 +93,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirDescricaoInvalida() {
+        public GrupoDomBuilder DefinirDescricaoInvalida() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 _faker.Lorem.Paragraph().Substring(0, 10),
@@ -107,7 +107,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirDescricaoNula() {
+        public GrupoDomBuilder DefinirDescricaoNula() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 null,
@@ -121,7 +121,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirNivelInferior() {
+        public GrupoDomBuilder DefinirNivelInferior() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 Grupo.Descricao,
@@ -135,7 +135,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirNivelSuperior() {
+        public GrupoDomBuilder DefinirNivelSuperior() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 Grupo.Descricao,
@@ -149,7 +149,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirJustificativaValida() {
+        public GrupoDomBuilder DefinirJustificativaValida() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 Grupo.Descricao,
@@ -163,7 +163,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirJustificativaInvalida() {
+        public GrupoDomBuilder DefinirJustificativaInvalida() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 Grupo.Descricao,
@@ -177,7 +177,7 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
             return this;
         }
 
-        public GrupoBuilder DefinirJustificativaNula() {
+        public GrupoDomBuilder DefinirJustificativaNula() {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 Grupo.Descricao,
