@@ -16,16 +16,16 @@ namespace Repositorio.Grupo.Implementacao
             _conexao = conexao;
         }
 
-        public bool AdicionarGrupo(GrupoDbo grupo) {
+        public bool AdicionarGrupo(GrupoDpo grupo) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertGrupo", "SHAREDB");
             var parametros = DboParaParametros(grupo);
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public List<GrupoDbo> ObterGruposPorNivel(int nivel) {
+        public List<GrupoDpo> ObterGruposPorNivel(int nivel) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGruposNivel", "SHAREDB");
             var parametros = DboParaParametros(new { Nivel = nivel });
-            return conexao.Query<GrupoDbo>(comando, parametros).ToList();
+            return conexao.Query<GrupoDpo>(comando, parametros).ToList();
         }
 
         public bool AtualizarNivelGrupo(string grupo, int nivel) {

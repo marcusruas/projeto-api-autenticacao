@@ -33,7 +33,7 @@ namespace Servico.Grupo.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var grupoBanco = _mapper.Map<GrupoDbo>(dominio);
+            var grupoBanco = _mapper.Map<GrupoDpo>(dominio);
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)

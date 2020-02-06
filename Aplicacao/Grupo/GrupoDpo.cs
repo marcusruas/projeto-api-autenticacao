@@ -1,11 +1,9 @@
-﻿using Dominio.Grupo;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Aplicacao.Grupo
 {
-    public class GrupoDbo
+    public class GrupoDpo
     {
         [Description("ID_GRUPO")]
         public int Id { get; set; }

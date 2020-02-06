@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Aplicacao.Pessoa
 {
-    public class PessoaDbo
+    public class PessoaDpo
     {
         [Description("ID_PESSOA")]
         public int Id { get; set; }

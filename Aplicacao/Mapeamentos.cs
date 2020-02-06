@@ -3,8 +3,6 @@ using Aplicacao.Pessoa;
 using AutoMapper;
 using Dominio.Grupo;
 using Dominio.Pessoa;
-using System.ComponentModel;
-using System.Reflection;
 using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
 
 namespace Aplicacao
@@ -13,27 +11,27 @@ namespace Aplicacao
     {
         public static MapperConfiguration DefinirConfiguracoesMapeamento() {
             return new MapperConfiguration(cnf => {
-                cnf.MapeamentosDominioDbo();
+                cnf.MapeamentosDominiodpo();
                 cnf.MapeamentosDominioDto();
             });
         }
 
-        private static void MapeamentosDominioDbo(this IMapperConfigurationExpression cnf) {
+        private static void MapeamentosDominiodpo(this IMapperConfigurationExpression cnf) {
             #region Grupos
-            cnf.CreateMap<GrupoDom, GrupoDbo>()
-                .ForMember(dbo => dbo.Id, opt => opt.Ignore())
-                .ForMember(dbo => dbo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
+            cnf.CreateMap<GrupoDom, GrupoDpo>()
+                .ForMember(dpo => dpo.Id, opt => opt.Ignore())
+                .ForMember(dpo => dpo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
 
-            MapearRetornoObjeto<GrupoDbo>();
+            MapearRetornoObjeto<GrupoDpo>();
             #endregion
 
             #region Pessoas
-            cnf.CreateMap<PessoaDom, PessoaDbo>()
-                .ForMember(dbo => dbo.Id, opt => opt.Ignore())
+            cnf.CreateMap<PessoaDom, PessoaDpo>()
+                .ForMember(dpo => dpo.Id, opt => opt.Ignore())
                 .ReverseMap();
 
-            MapearRetornoObjeto<PessoaDbo>();
+            MapearRetornoObjeto<PessoaDpo>();
             #endregion
         }
 
@@ -42,7 +40,7 @@ namespace Aplicacao
             cnf.CreateMap<GrupoDom, GrupoDto>()
                 .ReverseMap();
 
-            cnf.CreateMap<GrupoDbo, GrupoDto>()
+            cnf.CreateMap<GrupoDpo, GrupoDto>()
                 .ForMember(dto => (int)dto.Nivel, opt => opt.MapFrom(map => map.Nivel))
                 .ReverseMap();
 
@@ -56,7 +54,7 @@ namespace Aplicacao
                 .ForMember(dto => dto.Id, opt => opt.Ignore())
                 .ReverseMap();
 
-            cnf.CreateMap<PessoaDto, PessoaDbo>()
+            cnf.CreateMap<PessoaDto, PessoaDpo>()
                 .ReverseMap();
             #endregion
         }

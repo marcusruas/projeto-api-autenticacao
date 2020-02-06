@@ -31,7 +31,7 @@ namespace Servico.Pessoa.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
+            var pessoaBanco = _mapper.Map<PessoaDpo>(pessoa);
             var sucesso = _repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
@@ -67,7 +67,7 @@ namespace Servico.Pessoa.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _mapper.Map<PessoaDbo>(pessoa);
+            var pessoaBanco = _mapper.Map<PessoaDpo>(pessoa);
             var sucesso = _repositorio.UpdateDadosPessoa(pessoaBanco);
 
             if (!sucesso)

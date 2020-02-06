@@ -15,20 +15,20 @@ namespace Repositorio.Pessoa.Implementacao
             _conexao = conexao;
         }
 
-        public bool InserirPessoa(PessoaDbo pessoa) {
+        public bool InserirPessoa(PessoaDpo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPessoa", "SHAREDB");
             var parametros = DboParaParametros(pessoa, new { pessoa.Id });
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public PessoaDbo BuscarPessoaCpf(long cpf) {
+        public PessoaDpo BuscarPessoaCpf(long cpf) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaCpf", "SHAREDB");
             var parametros = new DynamicParameters();
             parametros.Add("cpf", cpf);
-            return conexao.QueryFirstOrDefault<PessoaDbo>(comando, parametros);
+            return conexao.QueryFirstOrDefault<PessoaDpo>(comando, parametros);
         }
 
-        public bool UpdateDadosPessoa(PessoaDbo pessoa) {
+        public bool UpdateDadosPessoa(PessoaDpo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updatePessoa", "SHAREDB");
             var parametros = DboParaParametros(pessoa);
             return conexao.Execute(comando, parametros) == 1;
