@@ -3,7 +3,7 @@ using Aplicacao.Pessoa;
 using AutoMapper;
 using Dominio.Grupo;
 using Dominio.Pessoa;
-using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
+using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Aplicacao
 {

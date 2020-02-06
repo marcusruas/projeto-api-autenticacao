@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Conexoes" Version="0.1.9" />
+    <PackageReference Include="Conexoes" Version="0.2.9" />
     <PackageReference Include="Dapper" Version="1.60.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>

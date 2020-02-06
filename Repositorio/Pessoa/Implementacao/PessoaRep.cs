@@ -1,9 +1,8 @@
 ﻿using Aplicacao.Pessoa;
 using Dapper;
 using MandradePkgs.Conexoes;
-using static MandradePkgs.Conexoes.Mapeamentos.DboSqlMapper;
+using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorio.Pessoa.Interface;
-using System.Data;
 
 namespace Repositorio.Pessoa.Implementacao
 {
@@ -17,7 +16,7 @@ namespace Repositorio.Pessoa.Implementacao
 
         public bool InserirPessoa(PessoaDpo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPessoa", "SHAREDB");
-            var parametros = DboParaParametros(pessoa, new { pessoa.Id });
+            var parametros = DpoParaParametros(pessoa, new { pessoa.Id });
             return conexao.Execute(comando, parametros) == 1;
         }
 
@@ -30,7 +29,7 @@ namespace Repositorio.Pessoa.Implementacao
 
         public bool UpdateDadosPessoa(PessoaDpo pessoa) {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updatePessoa", "SHAREDB");
-            var parametros = DboParaParametros(pessoa);
+            var parametros = DpoParaParametros(pessoa);
             return conexao.Execute(comando, parametros) == 1;
         }
     }
