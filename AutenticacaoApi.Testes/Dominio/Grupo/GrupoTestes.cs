@@ -8,15 +8,11 @@ using Xunit.Abstractions;
 
 namespace AutenticacaoApi.Testes.Dominio.Grupo
 {
-    public class GrupoTestes
+    public class GrupoTestes : TestesUnitariosBase
     {
-        private IMensagensApi _mensagens { get; }
         private GrupoDomBuilder _builder { get; }
-        private TestLogger _logs { get; }
-        public GrupoTestes(ITestOutputHelper output) {
-            _mensagens = Mock.Of<MensagensApi>();
+        public GrupoTestes(ITestOutputHelper output) : base(output) {
             _builder = new GrupoDomBuilder(_mensagens);
-            _logs = new TestLogger(_mensagens, output);
         }
 
         /*

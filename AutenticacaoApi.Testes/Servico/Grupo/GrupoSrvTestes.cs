@@ -26,9 +26,11 @@ namespace AutenticacaoApi.Testes.Servico.Grupo
             _logs = new TestLogger(_mensagens, output);
             _builder = new GrupoDomBuilder(_mensagens);
 
+            var mapper = new Mock<IMapper>();
             _repositorio = new Mock<IGrupoRep>();
+            _repositorio.Setup(x => x.AdicionarGrupo(It.IsAny<GrupoDpo>())).Returns(true);
             _servico = new GrupoSrv(_repositorio.Object, 
-                                    new Mapper(Mapeamentos.DefinirConfiguracoesMapeamento()), 
+                                    mapper.Object, 
                                     _mensagens); 
         }
 
@@ -41,7 +43,7 @@ namespace AutenticacaoApi.Testes.Servico.Grupo
             dto.Nivel = grupo.Nivel;
             dto.Justificativa = grupo.Justificativa;
             _servico.InserirNovoUsuario(dto);
-            _repositorio.Verify(r => r.AdicionarGrupo(It.IsAny<GrupoDbo>()));
+            _repositorio.Verify(r => r.AdicionarGrupo(It.IsAny<GrupoDpo>()));
         }
     }
 }
