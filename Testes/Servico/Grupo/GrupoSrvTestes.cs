@@ -14,28 +14,26 @@ using Shouldly;
 
 namespace AutenticacaoApi.Testes.Servico.Grupo
 {
-    public class GrupoSrvTestes
+    public class GrupoSrvTestes : TestesUnitariosBase
     {
-        private IMensagensApi _mensagens { get; }
-        private TestLogger _logs { get; }
         private GrupoDomBuilder _builder { get; }
         private Mock<IGrupoRep> _repositorio { get; }
         private IGrupoSrv _servico { get; }
-        public GrupoSrvTestes(ITestOutputHelper output) {
-            _mensagens = Mock.Of<MensagensApi>();
-            _logs = new TestLogger(_mensagens, output);
+        public GrupoSrvTestes(ITestOutputHelper output) : base(output)
+        {
             _builder = new GrupoDomBuilder(_mensagens);
 
             var mapper = new Mock<IMapper>();
             _repositorio = new Mock<IGrupoRep>();
             _repositorio.Setup(x => x.AdicionarGrupo(It.IsAny<GrupoDpo>())).Returns(true);
-            _servico = new GrupoSrv(_repositorio.Object, 
-                                    mapper.Object, 
-                                    _mensagens); 
+            _servico = new GrupoSrv(_repositorio.Object,
+                                    mapper.Object,
+                                    _mensagens);
         }
 
         [Fact]
-        public void DeveAdicionarGrupo(){
+        public void DeveAdicionarGrupo()
+        {
             var grupo = _builder.Build();
             var dto = new GrupoDto();
             dto.Nome = grupo.Nome;

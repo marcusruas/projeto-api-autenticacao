@@ -11,22 +11,24 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
     public class GrupoTestes : TestesUnitariosBase
     {
         private GrupoDomBuilder _builder { get; }
-        public GrupoTestes(ITestOutputHelper output) : base(output) {
+        public GrupoTestes(ITestOutputHelper output) : base(output)
+        {
             _builder = new GrupoDomBuilder(_mensagens);
         }
 
         /*
-            *Nome do grupo não pode ser nulo;
-            *Nome do grupo deve conter mais de 5 caractéres;
-            *Nome do grupo não deve conter números;
-            *Grupos com nível acima de gerente devem possuir justificativa;
-            *Grupos com nível abaixo de gerente não necessitam justificativa;
-            *Se o grupo tiver descrição, a mesma deve possuir ao menos 15 caractéres;
-            *Se o grupo tiver Justificativa, a mesma deve possuir ao menos 15 caractéres.
-        */        
+         *Nome do grupo não pode ser nulo;
+         *Nome do grupo deve conter mais de 5 caractéres;
+         *Nome do grupo não deve conter números;
+         *Grupos com nível acima de gerente devem possuir justificativa;
+         *Grupos com nível abaixo de gerente não necessitam justificativa;
+         *Se o grupo tiver descrição, a mesma deve possuir ao menos 15 caractéres;
+         *Se o grupo tiver Justificativa, a mesma deve possuir ao menos 15 caractéres.
+         */
 
         [Fact]
-        public void CriacaoGrupoCorreto() {
+        public void CriacaoGrupoCorreto()
+        {
             var dominio = _builder.Build();
 
             dominio.ValidarDados();
@@ -36,7 +38,8 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoIncorreto() {
+        public void CriacaoGrupoIncorreto()
+        {
             var dominio = _builder.DefinirGrupoComDadosInvalidos().Build();
 
             dominio.ValidarDados();
@@ -47,7 +50,8 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoNomeCurto(){
+        public void CriacaoGrupoNomeCurto()
+        {
             var dominio = _builder.DefinirNomeCurto().Build();
 
             dominio.ValidarDados();
@@ -58,7 +62,8 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoNomeNumeros(){
+        public void CriacaoGrupoNomeNumeros()
+        {
             var dominio = _builder.DefinirNomeComNumeros().Build();
 
             dominio.ValidarDados();
@@ -69,7 +74,8 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoDescricaoInvalida(){
+        public void CriacaoGrupoDescricaoInvalida()
+        {
             var dominio = _builder.DefinirDescricaoInvalida().Build();
 
             dominio.ValidarDados();
@@ -80,11 +86,12 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoNivelSuperiorSemJustificativa(){
+        public void CriacaoGrupoNivelSuperiorSemJustificativa()
+        {
             var dominio = _builder
-                            .DefinirJustificativaNula()
-                            .DefinirNivelSuperior()
-                            .Build();
+                .DefinirJustificativaNula()
+                .DefinirNivelSuperior()
+                .Build();
 
             dominio.ValidarDados();
             _logs.GravarLogs("Criação de um grupo com superior a gerente sem justificativa.", dominio);
@@ -94,11 +101,12 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoNivelInferiorComJustificativa(){
+        public void CriacaoGrupoNivelInferiorComJustificativa()
+        {
             var dominio = _builder
-                            .DefinirJustificativaValida()
-                            .DefinirNivelInferior()
-                            .Build();
+                .DefinirJustificativaValida()
+                .DefinirNivelInferior()
+                .Build();
 
             dominio.ValidarDados();
             _logs.GravarLogs("Criação de um grupo com inferior a gerente com justificativa.", dominio);
@@ -108,7 +116,8 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
         }
 
         [Fact]
-        public void CriacaoGrupoJustificativaInvalida(){
+        public void CriacaoGrupoJustificativaInvalida()
+        {
             var dominio = _builder.DefinirJustificativaInvalida().Build();
 
             dominio.ValidarDados();

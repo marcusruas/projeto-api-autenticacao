@@ -8,11 +8,12 @@ namespace AutenticacaoApi.Testes
     public abstract class TestesUnitariosBase
     {
         protected IMensagensApi _mensagens { get; }
-        protected TestLogger _logs { get; }
+        protected TesteLogs _logs { get; }
 
-        public TestesUnitariosBase(ITestOutputHelper output) {
+        public TestesUnitariosBase(ITestOutputHelper output)
+        {
             _mensagens = Mock.Of<MensagensApi>();
-            _logs = new TestLogger(_mensagens, output);
+            _logs = new TesteLogs(_mensagens, output);
         }
     }
 }
