@@ -10,10 +10,10 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 {
     public class GrupoTestes : TestesUnitariosBase
     {
-        private GrupoDomBuilder _builder { get; }
+        private GrupoBuilder _builder { get; }
         public GrupoTestes(ITestOutputHelper output) : base(output)
         {
-            _builder = new GrupoDomBuilder(_mensagens);
+            _builder = new GrupoBuilder(_mensagens);
         }
 
         /*
