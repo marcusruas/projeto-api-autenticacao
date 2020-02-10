@@ -16,19 +16,18 @@ namespace Servico.Grupo.Implementacao
         private IGrupoRep _repositorio { get; }
         private IMapper _mapper { get; }
         private IMensagensApi _mensagens { get; }
-        public GrupoSrv(IGrupoRep repositorio, IMapper mapper, IMensagensApi mensagens) {
+        public GrupoSrv(IGrupoRep repositorio, IMapper mapper, IMensagensApi mensagens)
+        {
             _repositorio = repositorio;
             _mapper = mapper;
             _mensagens = mensagens;
         }
 
-        public bool InserirNovoUsuario(GrupoDto grupo) {
+        public bool InserirNovoUsuario(GrupoDto grupo)
+        {
             var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, grupo.Justificativa, _mensagens);
 
-            dominio.ValidarNome();
-            dominio.ValidarDescricao();
-            dominio.ValidarJustificativa();
-            dominio.ValidarJustificativaParaNivel();
+            dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
@@ -43,7 +42,8 @@ namespace Servico.Grupo.Implementacao
             return sucesso;
         }
 
-        public List<GrupoDto> GruposPorNivel(int nivel) {
+        public List<GrupoDto> GruposPorNivel(int nivel)
+        {
             if (!NivelExiste(nivel))
                 throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
@@ -52,7 +52,8 @@ namespace Servico.Grupo.Implementacao
             return _mapper.Map<List<GrupoDto>>(listaGrupos);
         }
 
-        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa) {
+        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa)
+        {
             if (!NivelExiste(nivel))
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
 
@@ -72,7 +73,8 @@ namespace Servico.Grupo.Implementacao
             return sucesso;
         }
 
-        public bool ExcluirGrupo(string grupo) {
+        public bool ExcluirGrupo(string grupo)
+        {
             var sucesso = _repositorio.DeletarGrupo(grupo);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
