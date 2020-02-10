@@ -11,6 +11,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Shouldly;
 using System.Linq;
+using MandradePkgs.Retornos.Erros.Exceptions;
 
 namespace AutenticacaoApi.Testes.Servico.Grupo
 {
@@ -29,7 +30,7 @@ namespace AutenticacaoApi.Testes.Servico.Grupo
         }
 
         [Fact]
-        public void DeveAdicionarGrupo()
+        public void AdicionarGrupoCorreto()
         {
             var grupo = _builder.ToDto();
             _repositorio.Setup(x => x.AdicionarGrupo(It.IsAny<GrupoDpo>())).Returns(true);
@@ -39,6 +40,30 @@ namespace AutenticacaoApi.Testes.Servico.Grupo
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.Informativo).ShouldBe(true);
             _mensagens.Mensagens.Count.ShouldBe(1);
             _repositorio.Verify(r => r.AdicionarGrupo(It.IsAny<GrupoDpo>()));
+        }
+
+        [Fact]
+        public void AdicionarGrupoIncorreto()
+        {
+            _builder.DefinirGrupoComDadosInvalidos();
+            var grupo = _builder.ToDto();
+            _repositorio.Setup(x => x.AdicionarGrupo(It.IsAny<GrupoDpo>())).Returns(true);
+
+            Should.Throw<RegraNegocioException>(() =>
+                _servico.InserirNovoUsuario(grupo)
+            );
+            _mensagens.Mensagens.Count.ShouldBe(4);
+        }
+
+        [Fact]
+        public void AdicionarGrupoExistente()
+        {
+            var grupo = _builder.ToDto();
+            _repositorio.Setup(x => x.AdicionarGrupo(It.IsAny<GrupoDpo>())).Returns(false);
+
+            Should.Throw<FalhaExecucaoException>(() =>
+                _servico.InserirNovoUsuario(grupo)
+            );
         }
     }
 }
