@@ -1,4 +1,6 @@
-﻿using AutenticacaoApi.Testes.Builders;
+﻿using System;
+using Aplicacao.Grupo;
+using AutenticacaoApi.Testes.Builders;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Mensagens.Estrutura.Implementacao;
 using Moq;
@@ -117,6 +119,30 @@ namespace AutenticacaoApi.Testes.Dominio.Grupo
 
             _mensagens.Mensagens.Count.ShouldBe(1);
             _mensagens.PossuiFalhasValidacao().ShouldBeTrue();
+        }
+
+        [Fact]
+        public void MapeamentoGrupoParaDto()
+        {
+            GrupoDto objeto = _builder.DefinirJustificativaInvalida().ToDto();
+
+            objeto.Nome.ShouldNotBeNull();
+            objeto.Nivel.ShouldNotBeNull();
+            objeto.Descricao.ShouldNotBeNull();
+            objeto.Justificativa.ShouldNotBeNull();
+            objeto.Id.ShouldNotBeNull();
+        }
+
+        [Fact]
+        public void MapeamentoGrupoParaDpo()
+        {
+            GrupoDpo objeto = _builder.DefinirJustificativaInvalida().ToDpo();
+
+            objeto.Nome.ShouldNotBeNull();
+            objeto.Nivel.ShouldNotBeNull();
+            objeto.Descricao.ShouldNotBeNull();
+            objeto.Justificativa.ShouldNotBeNull();
+            objeto.Id.ShouldNotBeNull();
         }
     }
 }
