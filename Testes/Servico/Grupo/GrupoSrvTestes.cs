@@ -65,5 +65,55 @@ namespace AutenticacaoApi.Testes.Servico.Grupo
                 _servico.InserirNovoUsuario(grupo)
             );
         }
+
+        [Fact]
+        public void AlterarGrupoComJustificativaInvalida()
+        {
+            var grupo = _builder
+                            .DefinirJustificativaInvalida()
+                            .DefinirNivelSuperior()
+                            .ToDto();
+
+            Should.Throw<RegraNegocioException>(() =>
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
+            );
+
+            _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
+            _mensagens.Mensagens.Count.ShouldBe(1);
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()), Times.Never());
+        }
+
+        [Fact]
+        public void AlterarGrupoComJustificativaInvalidaParaNivel()
+        {
+            var grupo = _builder
+                            .DefinirJustificativaValida()
+                            .DefinirNivelInferior()
+                            .ToDto();
+
+            Should.Throw<RegraNegocioException>(() =>
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
+            );
+
+            _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
+            _mensagens.Mensagens.Count.ShouldBe(1);
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()), Times.Never());
+        }
+
+        [Fact]
+        public void AlterarGrupoCorretamente()
+        {
+            var grupo = _builder
+                            .DefinirJustificativaValida()
+                            .DefinirNivelSuperior()
+                            .ToDto();
+            _repositorio.Setup(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>())).Returns(true);
+
+            _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa);
+
+            _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.Informativo).ShouldBeTrue();
+            _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeFalse();
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()));
+        }
     }
 }
