@@ -1,6 +1,6 @@
 using Aplicacao;
 using Aplicacao.Grupo;
-using AutenticacaoApi.Testes.Builders;
+using Testes.Builders;
 using AutoMapper;
 using MandradePkgs.Mensagens;
 using Moq;
@@ -13,7 +13,7 @@ using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
 
-namespace AutenticacaoApi.Testes.Servico.Grupo
+namespace Testes.Servico.Grupo
 {
     public class GrupoSrvTestes : TestesUnitariosBase
     {

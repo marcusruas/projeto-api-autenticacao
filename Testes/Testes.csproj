@@ -24,4 +24,9 @@
     <ProjectReference Include="..\Servico\Servico.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+      <None Update="Integracao\SQL\*.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using System.Linq;
 using MandradePkgs.Mensagens;
 using Xunit.Abstractions;
 
-namespace AutenticacaoApi.Testes
+namespace Testes
 {
     public class TesteLogs
     {

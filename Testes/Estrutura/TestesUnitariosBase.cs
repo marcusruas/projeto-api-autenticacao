@@ -3,7 +3,7 @@ using MandradePkgs.Mensagens.Estrutura.Implementacao;
 using Moq;
 using Xunit.Abstractions;
 
-namespace AutenticacaoApi.Testes
+namespace Testes
 {
     public abstract class TestesUnitariosBase
     {

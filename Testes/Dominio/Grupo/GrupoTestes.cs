@@ -1,6 +1,6 @@
 ﻿using System;
 using Aplicacao.Grupo;
-using AutenticacaoApi.Testes.Builders;
+using Testes.Builders;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Mensagens.Estrutura.Implementacao;
 using Moq;
@@ -8,7 +8,7 @@ using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace AutenticacaoApi.Testes.Dominio.Grupo
+namespace Testes.Dominio.Grupo
 {
     public class GrupoTestes : TestesUnitariosBase
     {

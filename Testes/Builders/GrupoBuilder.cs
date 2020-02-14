@@ -5,7 +5,7 @@ using Bogus;
 using Dominio.Grupo;
 using MandradePkgs.Mensagens;
 
-namespace AutenticacaoApi.Testes.Builders
+namespace Testes.Builders
 {
     public class GrupoBuilder
     {
