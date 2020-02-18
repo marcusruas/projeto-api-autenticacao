@@ -80,7 +80,11 @@ namespace Testes.Servico.Grupo
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
             _mensagens.Mensagens.Count.ShouldBe(1);
-            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()), Times.Never());
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(
+                It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>()
+            ), Times.Never());
         }
 
         [Fact]
@@ -97,7 +101,11 @@ namespace Testes.Servico.Grupo
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
             _mensagens.Mensagens.Count.ShouldBe(1);
-            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()), Times.Never());
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(
+                It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>()
+            ), Times.Never());
         }
 
         [Fact]
@@ -107,13 +115,21 @@ namespace Testes.Servico.Grupo
                             .DefinirJustificativaValida()
                             .DefinirNivelSuperior()
                             .ToDto();
-            _repositorio.Setup(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>())).Returns(true);
+            _repositorio.Setup(x => x.AtualizarNivelGrupo(
+                It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>())
+            ).Returns(true);
 
             _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa);
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.Informativo).ShouldBeTrue();
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeFalse();
-            _repositorio.Verify(x => x.AtualizarNivelGrupo(It.IsAny<string>(), It.IsAny<int>()));
+            _repositorio.Verify(x => x.AtualizarNivelGrupo(
+                It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>()), Times.Once
+            );
         }
     }
 }

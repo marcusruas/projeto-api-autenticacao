@@ -9,10 +9,11 @@ using Repositorio.Grupo.Interface;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
+using System;
 
 namespace Testes.Integracao.Grupo
 {
-    public class GrupoRepTestes : TestesIntegracaoBase
+    public class GrupoRepTestes : TestesIntegracaoBase, IDisposable
     {
         private GrupoBuilder _builder { get; }
         private IGrupoRep _repositorio { get; }
@@ -30,13 +31,12 @@ namespace Testes.Integracao.Grupo
 
             var grupo = _builder.ToDpo();
             var resultado = _repositorio.AdicionarGrupo(grupo);
-            ExecutarScript("DeletarEstruturaBanco", "SHAREDB");
 
             resultado.ShouldBeTrue();
         }
 
         [Fact]
-        public void AdicionarGrupoDadosNulos()
+        public void AdicionarGrupoDadosOpcionaisNulos()
         {
             ExecutarScript("CriarTabelaGrupos", "SHAREDB");
 
@@ -45,7 +45,6 @@ namespace Testes.Integracao.Grupo
                 .DefinirJustificativaNula()
                 .ToDpo();
             var resultado = _repositorio.AdicionarGrupo(grupo);
-            ExecutarScript("DeletarEstruturaBanco", "SHAREDB");
 
             resultado.ShouldBeTrue();
         }
@@ -63,6 +62,73 @@ namespace Testes.Integracao.Grupo
                 _repositorio.AdicionarGrupo(grupo)
             );
 
+        }
+
+        [Fact]
+        public void AtualizarGrupoNivelInferior()
+        {
+            ExecutarScript("CriarTabelaGrupos", "SHAREDB");
+
+            var grupo = _builder
+                .ToDpo();
+            _repositorio.AdicionarGrupo(grupo);
+            grupo = _builder
+                        .DefinirNivelInferior()
+                        .DefinirJustificativaNula()
+                        .ToDpo();
+
+
+            var resultado = _repositorio.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
+            resultado.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void AtualizarGrupoNivelSuperior()
+        {
+            ExecutarScript("CriarTabelaGrupos", "SHAREDB");
+
+            var grupo = _builder
+                        .DefinirNivelInferior()
+                        .DefinirJustificativaNula()
+                        .ToDpo();
+            _repositorio.AdicionarGrupo(grupo);
+            grupo = _builder
+                        .DefinirNivelSuperior()
+                        .DefinirJustificativaValida()
+                        .ToDpo();
+
+
+            var resultado = _repositorio.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
+            resultado.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void DeletarGrupoCorretamente()
+        {
+            ExecutarScript("CriarTabelaGrupos", "SHAREDB");
+            var grupo = _builder
+                .ToDpo();
+
+            _repositorio.AdicionarGrupo(grupo);
+            var resultado = _repositorio.DeletarGrupo(grupo.Nome);
+
+            resultado.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void DeletarGrupoInexistente()
+        {
+            ExecutarScript("CriarTabelaGrupos", "SHAREDB");
+            var grupo = _builder
+                .ToDpo();
+
+            var resultado = _repositorio.DeletarGrupo(grupo.Nome);
+
+            resultado.ShouldBeFalse();
+        }
+
+        public void Dispose()
+        {
             ExecutarScript("DeletarEstruturaBanco", "SHAREDB");
         }
     }
