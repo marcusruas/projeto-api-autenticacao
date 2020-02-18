@@ -65,7 +65,7 @@ namespace Servico.Grupo.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel);
+            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel, justificativa);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 

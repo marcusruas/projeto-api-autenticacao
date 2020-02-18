@@ -7,7 +7,7 @@ namespace Repositorio.Grupo.Interface
     {
         bool AdicionarGrupo(GrupoDpo grupo);
         List<GrupoDpo> ObterGruposPorNivel(int nivel);
-        bool AtualizarNivelGrupo(string grupo, int nivel);
+        bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa);
         bool DeletarGrupo(string grupo);
     }
 }

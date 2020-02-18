@@ -12,29 +12,34 @@ namespace Repositorio.Grupo.Implementacao
     {
         private IConexaoSQL _conexao { get; set; }
 
-        public GrupoRep(IConexaoSQL conexao) {
+        public GrupoRep(IConexaoSQL conexao)
+        {
             _conexao = conexao;
         }
 
-        public bool AdicionarGrupo(GrupoDpo grupo) {
+        public bool AdicionarGrupo(GrupoDpo grupo)
+        {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertGrupo", "SHAREDB");
             var parametros = DpoParaParametros(grupo);
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public List<GrupoDpo> ObterGruposPorNivel(int nivel) {
+        public List<GrupoDpo> ObterGruposPorNivel(int nivel)
+        {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGruposNivel", "SHAREDB");
             var parametros = DpoParaParametros(new { Nivel = nivel });
             return conexao.Query<GrupoDpo>(comando, parametros).ToList();
         }
 
-        public bool AtualizarNivelGrupo(string grupo, int nivel) {
+        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa)
+        {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateNivelGrupo", "SHAREDB");
-            var parametros = DpoParaParametros(new { Nome = grupo, Nivel = nivel });
+            var parametros = DpoParaParametros(new { Nome = grupo, Nivel = nivel, Justificativa = justificativa });
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public bool DeletarGrupo(string grupo) {
+        public bool DeletarGrupo(string grupo)
+        {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
             var parametros = DpoParaParametros(new { Nome = grupo });
             return conexao.Execute(comando, parametros) == 1;
