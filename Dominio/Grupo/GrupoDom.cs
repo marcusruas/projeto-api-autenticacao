@@ -70,7 +70,7 @@ namespace Dominio.Grupo
                 if (Descricao.Length <= 15)
                     _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
                                                  "Descrição do grupo deve conter mais de 15 caractéres");
-            if (Justificativa.Length > 200)
+            if (Descricao.Length > 200)
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
                                              "Descrição do grupo deve conter menos de 200 caractéres");
         }
