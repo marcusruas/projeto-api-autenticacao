@@ -52,6 +52,12 @@ namespace Servico.Grupo.Implementacao
             return _mapper.Map<List<GrupoDto>>(listaGrupos);
         }
 
+        public GrupoDto ObterDadosGrupo(string grupo)
+        {
+            var grupoBanco = _repositorio.ObterDadosGrupo(grupo);
+            return _mapper.Map<GrupoDto>(grupoBanco);
+        }
+
         public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa)
         {
             if (!NivelExiste(nivel))

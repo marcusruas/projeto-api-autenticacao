@@ -23,25 +23,10 @@
     <None Update="conexoes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Grupo\SQL\deleteGrupo.sql">
+    <None Update="Grupo\SQL\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Pessoa\SQL\updatePessoa.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Pessoa\SQL\selectPessoaCpf.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Pessoa\SQL\insertPessoa.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Grupo\SQL\updateNivelGrupo.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Grupo\SQL\selectGruposNivel.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Grupo\SQL\insertGrupo.sql">
+    <None Update="Pessoa\SQL\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

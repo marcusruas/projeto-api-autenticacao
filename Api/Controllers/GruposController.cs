@@ -13,17 +13,20 @@ namespace Api.Controllers
     [Route("[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class GruposController : ControllerApi {
+    public class GruposController : ControllerApi
+    {
         private IGrupoSrv _servico { get; }
         private IMapper _mapper { get; }
 
-        public GruposController(IGrupoSrv servico, IMapper mapper) {
+        public GruposController(IGrupoSrv servico, IMapper mapper)
+        {
             _servico = servico;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public RespostaApi<List<NivelGrupoDto>> ListarNiveis() {
+        public RespostaApi<List<NivelGrupoDto>> ListarNiveis()
+        {
             var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
             return RespostaPadrao(niveis);
         }
@@ -31,6 +34,11 @@ namespace Api.Controllers
         [HttpGet]
         public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(int nivel) =>
             RespostaPadrao(_mapper.Map<List<GrupoDto>>(_servico.GruposPorNivel(nivel)));
+
+        [HttpGet]
+        public RespostaApi<GrupoDto> ObterDadosGrupo(string nomeGrupo) =>
+            RespostaPadrao(_mapper.Map<GrupoDto>(_servico.ObterDadosGrupo(nomeGrupo)));
+
 
         [HttpPost]
         public RespostaApi IncluirNovoGrupo(GrupoDto grupo) =>
