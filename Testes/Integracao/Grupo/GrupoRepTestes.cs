@@ -10,6 +10,7 @@ using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 using System;
+using ExpectedObjects;
 
 namespace Testes.Integracao.Grupo
 {
@@ -27,26 +28,32 @@ namespace Testes.Integracao.Grupo
         [Fact]
         public void DeveAdicionarGrupo()
         {
+            var grupo = _builder.ToDpo();
             ExecutarScript("CriarTabelaGrupos", "SHAREDB");
 
-            var grupo = _builder.ToDpo();
             var resultado = _repositorio.AdicionarGrupo(grupo);
+            var grupoAdicionado = _repositorio.ObterDadosGrupo(grupo.Nome);
+            grupo.Id = grupoAdicionado.Id;
 
             resultado.ShouldBeTrue();
+            grupoAdicionado.ToExpectedObject().ShouldEqual(grupo);
         }
 
         [Fact]
         public void AdicionarGrupoDadosOpcionaisNulos()
         {
             ExecutarScript("CriarTabelaGrupos", "SHAREDB");
-
             var grupo = _builder
                 .DefinirJustificativaNula()
                 .DefinirJustificativaNula()
                 .ToDpo();
+
             var resultado = _repositorio.AdicionarGrupo(grupo);
+            var grupoAdicionado = _repositorio.ObterDadosGrupo(grupo.Nome);
+            grupo.Id = grupoAdicionado.Id;
 
             resultado.ShouldBeTrue();
+            grupoAdicionado.ToExpectedObject().ShouldEqual(grupo);
         }
 
         [Fact]
@@ -72,13 +79,10 @@ namespace Testes.Integracao.Grupo
             var grupo = _builder
                 .ToDpo();
             _repositorio.AdicionarGrupo(grupo);
-            grupo = _builder
-                        .DefinirNivelInferior()
-                        .DefinirJustificativaNula()
-                        .ToDpo();
-
+            grupo = _builder.DefinirNivelInferior().DefinirJustificativaNula().ToDpo();
 
             var resultado = _repositorio.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
+
             resultado.ShouldBeTrue();
         }
 
