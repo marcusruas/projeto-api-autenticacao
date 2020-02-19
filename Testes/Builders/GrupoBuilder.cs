@@ -1,3 +1,4 @@
+using System.Linq;
 using Aplicacao;
 using Aplicacao.Grupo;
 using AutoMapper;
@@ -13,6 +14,9 @@ namespace Testes.Builders
         private GrupoDom Grupo;
         private IMensagensApi _mensagens;
         private IMapper _mapper;
+        private const int limiteCharNome = 80;
+        private const int limiteCharDescricao = 200;
+        private const int limiteCharJustificativa = 500;
         public GrupoBuilder(IMensagensApi mensagens)
         {
             _faker = new Faker();
@@ -24,9 +28,9 @@ namespace Testes.Builders
         public GrupoDom CriacaoGrupoDadosValidos() =>
             new GrupoDom(
                 _faker.Name.FullName(),
-                _faker.Lorem.Paragraph(),
+                _faker.Lorem.Paragraph().Take(limiteCharDescricao).ToString(),
                 NivelGrupo.Administrador,
-                _faker.Lorem.Paragraph(),
+                _faker.Lorem.Paragraph().Take(limiteCharJustificativa).ToString(),
                 _mensagens
             );
 
@@ -92,7 +96,7 @@ namespace Testes.Builders
         {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
-                _faker.Lorem.Paragraph(),
+                _faker.Lorem.Paragraph().Take(limiteCharDescricao).ToString(),
                 Grupo.Nivel,
                 Grupo.Justificativa,
                 _mensagens
@@ -169,7 +173,7 @@ namespace Testes.Builders
                 Grupo.Nome,
                 Grupo.Descricao,
                 Grupo.Nivel,
-                _faker.Lorem.Paragraph(),
+                _faker.Lorem.Paragraph().Take(limiteCharJustificativa).ToString(),
                 _mensagens
             );
 

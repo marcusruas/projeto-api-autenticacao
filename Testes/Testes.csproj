@@ -25,7 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-      <None Update="Integracao\SQL\*.sql">
+    <None Update="conexoes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Integracao\SQL\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
