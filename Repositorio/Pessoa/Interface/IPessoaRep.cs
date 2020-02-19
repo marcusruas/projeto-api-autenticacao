@@ -10,5 +10,6 @@ namespace Repositorio.Pessoa.Interface
         bool InserirPessoa(PessoaDpo pessoa);
         PessoaDpo BuscarPessoaCpf(long cpf);
         bool UpdateDadosPessoa(PessoaDpo pessoa);
+        bool DeletarPessoa(string nomePessoa);
     }
 }
