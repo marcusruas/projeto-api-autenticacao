@@ -8,17 +8,22 @@ using Repositorio.Pessoa.Implementacao;
 using Servico.Pessoa.Interface;
 using Servico.Pessoa.Implementacao;
 
-namespace IoC
+namespace Api.Configuracoes
 {
-    public class IoC
+    public static class Dependencias
     {
-        public static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
+        public static void ConfigurarInjecoesDependencia(IServiceCollection servicos)
+        {
+            ConfigurarCamadaRepositorio(servicos);
+            ConfigurarCamadaServico(servicos);
+        }
+        private static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
         {
             servicos.AddScoped<IGrupoRep, GrupoRep>();
             servicos.AddScoped<IPessoaRep, PessoaRep>();
         }
 
-        public static void ConfigurarCamadaServico(IServiceCollection servicos)
+        private static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
             servicos.AddScoped<IGrupoSrv, GrupoSrv>();
             servicos.AddScoped<IPessoaSrv, PessoaSrv>();
