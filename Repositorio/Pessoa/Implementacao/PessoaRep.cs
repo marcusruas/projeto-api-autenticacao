@@ -22,7 +22,7 @@ namespace Repositorio.Pessoa.Implementacao
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public PessoaDpo BuscarPessoaCpf(long cpf)
+        public PessoaDpo BuscarPessoaCpf(string cpf)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaCpf", "SHAREDB");
             var parametros = new DynamicParameters();

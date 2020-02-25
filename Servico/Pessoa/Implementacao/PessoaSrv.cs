@@ -1,7 +1,6 @@
 ﻿using Aplicacao.Pessoa;
 using AutoMapper;
 using Dominio.Pessoa;
-using Helpers;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorio.Pessoa.Interface;
@@ -45,15 +44,14 @@ namespace Servico.Pessoa.Implementacao
 
         public PessoaDto PesquisarPessoaCpf(string cpf)
         {
-            long cpfFormatado = CpfHelper.RemoverFormatacao(cpf);
-            var dominio = new PessoaDom(cpfFormatado, _mensagens);
+            var dominio = new PessoaDom(cpf, _mensagens);
 
             dominio.ValidarCpf();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoa = _repositorio.BuscarPessoaCpf(cpfFormatado);
+            var pessoa = _repositorio.BuscarPessoaCpf(dominio.Cpf.ValorNumerico);
 
             if (pessoa == null)
                 _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Nenhum usuário encontrato com este CPF");

@@ -9,14 +9,17 @@ namespace Aplicacao
 {
     public static class Mapeamentos
     {
-        public static MapperConfiguration DefinirConfiguracoesMapeamento() {
-            return new MapperConfiguration(cnf => {
+        public static MapperConfiguration DefinirConfiguracoesMapeamento()
+        {
+            return new MapperConfiguration(cnf =>
+            {
                 cnf.MapeamentosDominiodpo();
                 cnf.MapeamentosDominioDto();
             });
         }
 
-        private static void MapeamentosDominiodpo(this IMapperConfigurationExpression cnf) {
+        private static void MapeamentosDominiodpo(this IMapperConfigurationExpression cnf)
+        {
             #region Grupos
             cnf.CreateMap<GrupoDom, GrupoDpo>()
                 .ForMember(dpo => dpo.Id, opt => opt.Ignore())
@@ -29,13 +32,16 @@ namespace Aplicacao
             #region Pessoas
             cnf.CreateMap<PessoaDom, PessoaDpo>()
                 .ForMember(dpo => dpo.Id, opt => opt.Ignore())
+                .ForMember(dpo => dpo.Cpf, opt => opt.MapFrom(v => v.Cpf.ValorNumerico))
+                .ForMember(dpo => dpo.Telefone, opt => opt.MapFrom(v => v.Telefone.ValorNumerico))
                 .ReverseMap();
 
             MapearRetornoObjeto<PessoaDpo>();
             #endregion
         }
 
-        private static void MapeamentosDominioDto(this IMapperConfigurationExpression cnf) {
+        private static void MapeamentosDominioDto(this IMapperConfigurationExpression cnf)
+        {
             #region Grupos
             cnf.CreateMap<GrupoDom, GrupoDto>()
                 .ReverseMap();
@@ -52,9 +58,14 @@ namespace Aplicacao
             #region Pessoas
             cnf.CreateMap<PessoaDom, PessoaDto>()
                 .ForMember(dto => dto.Id, opt => opt.Ignore())
+                .ForMember(dto => dto.Cpf, opt => opt.MapFrom(v => v.Cpf.ValorNumerico))
+                .ForMember(dto => dto.Telefone,
+                           opt => opt.MapFrom(v => v.Telefone.ValorNumerico.ToString()))
                 .ReverseMap();
 
             cnf.CreateMap<PessoaDto, PessoaDpo>()
+                .ForMember(dpo => dpo.Cpf, opt => opt.MapFrom(v => v.Cpf.ToString()))
+                .ForMember(dto => dto.Telefone, opt => opt.MapFrom(v => v.Telefone))
                 .ReverseMap();
             #endregion
         }
