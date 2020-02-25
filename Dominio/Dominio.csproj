@@ -8,8 +8,4 @@
     <PackageReference Include="Mensagens" Version="0.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Helpers\Helpers.csproj" />
-  </ItemGroup>
-
 </Project>
