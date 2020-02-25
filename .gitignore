@@ -3,6 +3,7 @@
 bin/
 obj/
 .vs/
+.vscode/
 
 #healthCheck MiddleWare
 healthchecksdb
