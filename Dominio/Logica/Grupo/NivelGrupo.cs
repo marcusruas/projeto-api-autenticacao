@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dominio.Grupo
+﻿namespace Dominio.Logica.Grupo
 {
     public enum NivelGrupo
     {

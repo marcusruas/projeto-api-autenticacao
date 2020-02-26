@@ -1,5 +1,3 @@
-using Aplicacao;
-using Aplicacao.Grupo;
 using Testes.Builders;
 using AutoMapper;
 using MandradePkgs.Mensagens;
@@ -12,6 +10,8 @@ using Xunit.Abstractions;
 using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
+using Dominio.Representacoes.Grupo;
+using Dominio.Representacoes;
 
 namespace Testes.Servico.Grupo
 {
@@ -75,7 +75,7 @@ namespace Testes.Servico.Grupo
                             .ToDto();
 
             Should.Throw<RegraNegocioException>(() =>
-                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa)
             );
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
@@ -96,7 +96,7 @@ namespace Testes.Servico.Grupo
                             .ToDto();
 
             Should.Throw<RegraNegocioException>(() =>
-                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa)
             );
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
@@ -121,7 +121,7 @@ namespace Testes.Servico.Grupo
                 It.IsAny<string>())
             ).Returns(true);
 
-            _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa);
+            _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa);
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.Informativo).ShouldBeTrue();
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeFalse();

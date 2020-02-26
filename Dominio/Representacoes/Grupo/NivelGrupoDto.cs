@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aplicacao.Grupo
+namespace Dominio.Representacoes.Grupo
 {
     public class NivelGrupoDto
     {

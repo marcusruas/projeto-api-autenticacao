@@ -1,10 +1,10 @@
-﻿using Aplicacao.Grupo;
-using Dapper;
+﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorio.Grupo.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using Dominio.Representacoes.Grupo;
 
 namespace Repositorio.Grupo.Implementacao
 {

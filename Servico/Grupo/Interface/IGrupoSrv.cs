@@ -1,5 +1,4 @@
-﻿using Aplicacao.Grupo;
-using Dominio.Grupo;
+﻿using Dominio.Representacoes.Grupo;
 using System.Collections.Generic;
 
 namespace Servico.Grupo.Interface

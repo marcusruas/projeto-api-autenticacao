@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servico.Grupo.Interface;
-using Aplicacao.Grupo;
-using Dominio.Grupo;
+using Dominio.Representacoes.Grupo;
 
 namespace Api.Controllers
 {
@@ -27,8 +24,7 @@ namespace Api.Controllers
         [HttpGet]
         public RespostaApi<List<NivelGrupoDto>> ListarNiveis()
         {
-            var niveis = _mapper.Map<List<NivelGrupoDto>>(Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>());
-            return RespostaPadrao(niveis);
+            return null;
         }
 
         [HttpGet]

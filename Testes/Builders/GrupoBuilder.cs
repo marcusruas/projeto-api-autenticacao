@@ -1,9 +1,9 @@
 using System.Linq;
-using Aplicacao;
-using Aplicacao.Grupo;
 using AutoMapper;
 using Bogus;
-using Dominio.Grupo;
+using Dominio.Logica.Grupo;
+using Dominio.Representacoes;
+using Dominio.Representacoes.Grupo;
 using MandradePkgs.Mensagens;
 
 namespace Testes.Builders

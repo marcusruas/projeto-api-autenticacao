@@ -1,5 +1,5 @@
-﻿using Aplicacao.Grupo;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Dominio.Representacoes.Grupo;
 
 namespace Repositorio.Grupo.Interface
 {

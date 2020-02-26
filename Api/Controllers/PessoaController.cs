@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Pessoa;
 using Servico.Pessoa.Interface;
+using Dominio.Representacoes.Pessoa;
 
 namespace Api.Controllers
 {

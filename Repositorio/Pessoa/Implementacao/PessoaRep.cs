@@ -1,8 +1,8 @@
-﻿using Aplicacao.Pessoa;
-using Dapper;
+﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorio.Pessoa.Interface;
+using Dominio.Representacoes.Pessoa;
 
 namespace Repositorio.Pessoa.Implementacao
 {

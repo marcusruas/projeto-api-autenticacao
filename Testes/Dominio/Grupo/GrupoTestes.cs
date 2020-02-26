@@ -1,14 +1,10 @@
-﻿using System;
-using Aplicacao.Grupo;
-using Testes.Builders;
-using MandradePkgs.Mensagens;
-using MandradePkgs.Mensagens.Estrutura.Implementacao;
-using Moq;
+﻿using Testes.Builders;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
+using Dominio.Representacoes.Grupo;
 
-namespace Testes.Dominio.Grupo
+namespace Testes.dominio.Grupo
 {
     public class GrupoTestes : TestesUnitariosBase
     {

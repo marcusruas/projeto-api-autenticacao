@@ -1,11 +1,11 @@
-﻿using Aplicacao.Grupo;
-using Aplicacao.Pessoa;
-using AutoMapper;
-using Dominio.Grupo;
-using Dominio.Pessoa;
+﻿using AutoMapper;
+using Dominio.Logica.Grupo;
+using Dominio.Logica.Pessoa;
+using Dominio.Representacoes.Grupo;
+using Dominio.Representacoes.Pessoa;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
-namespace Aplicacao
+namespace Dominio.Representacoes
 {
     public static class Mapeamentos
     {
@@ -47,7 +47,7 @@ namespace Aplicacao
                 .ReverseMap();
 
             cnf.CreateMap<GrupoDpo, GrupoDto>()
-                .ForMember(dto => (int)dto.Nivel, opt => opt.MapFrom(map => map.Nivel))
+                .ForMember(dto => (int)dto.Nivel.Nivel, opt => opt.MapFrom(map => map.Nivel))
                 .ReverseMap();
 
             cnf.CreateMap<NivelGrupo, NivelGrupoDto>()

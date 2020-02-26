@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Aplicacao.Pessoa
+namespace Dominio.Representacoes.Pessoa
 {
     public class PessoaDto
     {

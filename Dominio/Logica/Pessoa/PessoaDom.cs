@@ -2,7 +2,7 @@
 using MandradePkgs.Mensagens;
 using System.Linq;
 
-namespace Dominio.Pessoa
+namespace Dominio.Logica.Pessoa
 {
     public class PessoaDom
     {

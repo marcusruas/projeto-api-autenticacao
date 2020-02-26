@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Dominio.Grupo
+namespace Dominio.Logica.Grupo
 {
     public class GrupoDom
     {

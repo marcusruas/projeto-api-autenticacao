@@ -1,7 +1,4 @@
-﻿using Aplicacao.Pessoa;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Dominio.Representacoes.Pessoa;
 
 namespace Servico.Pessoa.Interface
 {

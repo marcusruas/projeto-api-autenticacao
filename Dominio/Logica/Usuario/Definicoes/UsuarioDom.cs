@@ -1,13 +1,14 @@
-﻿using Dominio.Grupo;
-using Dominio.Pessoa;
+﻿using Dominio.Logica.Grupo;
+using Dominio.Logica.Pessoa;
 using System;
 using System.Linq;
 
-namespace Dominio.Usuario.Definicoes
+namespace Dominio.Logica.Usuario.Definicoes
 {
     public class UsuarioDom
     {
-        public UsuarioDom(string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDom grupo, PessoaDom pessoa) {
+        public UsuarioDom(string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDom grupo, PessoaDom pessoa)
+        {
             Usuario = usuario;
             Senha = senha;
             DataCriacao = dataCriacao;
@@ -16,7 +17,8 @@ namespace Dominio.Usuario.Definicoes
             Pessoa = pessoa;
         }
 
-        public UsuarioDom(string usuario, string senha, GrupoDom grupo, PessoaDom pessoa) {
+        public UsuarioDom(string usuario, string senha, GrupoDom grupo, PessoaDom pessoa)
+        {
             Usuario = usuario;
             Senha = senha;
             Grupo = grupo;

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Dominio.Grupo;
 using Repositorio.Grupo.Interface;
 using Servico.Grupo.Interface;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Aplicacao.Grupo;
 using MandradePkgs.Mensagens;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Dominio.Representacoes.Grupo;
+using Dominio.Logica.Grupo;
 
 namespace Servico.Grupo.Implementacao
 {
@@ -25,7 +25,7 @@ namespace Servico.Grupo.Implementacao
 
         public bool InserirNovoUsuario(GrupoDto grupo)
         {
-            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, grupo.Nivel, grupo.Justificativa, _mensagens);
+            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, (NivelGrupo)grupo.Nivel.Nivel, grupo.Justificativa, _mensagens);
 
             dominio.ValidarDados();
 
