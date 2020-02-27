@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Dominio\Logica\Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjetosValor", "Dominio\ObjetosValor\ObjetosValor.csproj", "{42ABB302-C57F-42C7-ACFD-9A6676E026F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Representacao", "Dominio\Representacoes\Representacao.csproj", "{C378031F-8DE7-4A78-BF45-4D3EE8A6589C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Representacao", "Dominio\Representacao\Representacao.csproj", "{C378031F-8DE7-4A78-BF45-4D3EE8A6589C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

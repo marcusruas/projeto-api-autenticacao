@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Dominio.Representacoes;
+using Dominio.Representacao;
 using MandradePkgs.Conexoes.Configuracao;
 using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;

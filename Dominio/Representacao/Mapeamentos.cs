@@ -5,7 +5,7 @@ using Dominio.Representacao.Grupo;
 using Dominio.Representacao.Pessoa;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
-namespace Dominio.Representacoes
+namespace Dominio.Representacao
 {
     public static class Mapeamentos
     {

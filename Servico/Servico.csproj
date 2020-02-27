@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
-    <ProjectReference Include="..\Dominio\Representacoes\Representacoes.csproj" />
+    <ProjectReference Include="..\Dominio\Representacao\Representacao.csproj" />
     <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
   </ItemGroup>
 

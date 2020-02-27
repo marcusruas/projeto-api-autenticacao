@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dominio\Representacoes\Representacoes.csproj" />
+    <ProjectReference Include="..\Dominio\Representacao\Representacao.csproj" />
   </ItemGroup>
   
 </Project>

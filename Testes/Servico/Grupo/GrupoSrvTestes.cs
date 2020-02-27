@@ -11,7 +11,7 @@ using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Dominio.Representacao.Grupo;
-using Dominio.Representacoes;
+using Dominio.Representacao;
 
 namespace Testes.Servico.Grupo
 {
