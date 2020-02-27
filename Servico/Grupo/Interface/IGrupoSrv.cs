@@ -1,4 +1,4 @@
-﻿using Dominio.Representacoes.Grupo;
+﻿using Dominio.Representacao.Grupo;
 using System.Collections.Generic;
 
 namespace Servico.Grupo.Interface

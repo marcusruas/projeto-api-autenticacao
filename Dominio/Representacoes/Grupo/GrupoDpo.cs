@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dominio.Representacoes.Grupo
+namespace Dominio.Representacao.Grupo
 {
     public class GrupoDpo
     {

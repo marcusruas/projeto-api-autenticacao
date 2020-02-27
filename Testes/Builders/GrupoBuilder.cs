@@ -3,7 +3,7 @@ using AutoMapper;
 using Bogus;
 using Dominio.Logica.Grupo;
 using Dominio.Representacoes;
-using Dominio.Representacoes.Grupo;
+using Dominio.Representacao.Grupo;
 using MandradePkgs.Mensagens;
 
 namespace Testes.Builders

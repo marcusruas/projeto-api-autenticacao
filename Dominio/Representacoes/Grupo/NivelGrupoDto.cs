@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dominio.Representacoes.Grupo
+﻿namespace Dominio.Representacao.Grupo
 {
     public class NivelGrupoDto
     {

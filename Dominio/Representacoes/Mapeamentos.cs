@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Dominio.Logica.Grupo;
 using Dominio.Logica.Pessoa;
-using Dominio.Representacoes.Grupo;
-using Dominio.Representacoes.Pessoa;
+using Dominio.Representacao.Grupo;
+using Dominio.Representacao.Pessoa;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Dominio.Representacoes

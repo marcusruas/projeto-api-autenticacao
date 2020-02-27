@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dominio.Representacoes.Pessoa;
+﻿using Dominio.Representacao.Pessoa;
 
 namespace Repositorio.Pessoa.Interface
 {

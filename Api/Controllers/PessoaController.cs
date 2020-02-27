@@ -2,7 +2,7 @@
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servico.Pessoa.Interface;
-using Dominio.Representacoes.Pessoa;
+using Dominio.Representacao.Pessoa;
 
 namespace Api.Controllers
 {

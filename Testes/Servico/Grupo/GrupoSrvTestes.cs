@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Dominio.Representacoes.Grupo;
+using Dominio.Representacao.Grupo;
 using Dominio.Representacoes;
 
 namespace Testes.Servico.Grupo

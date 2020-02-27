@@ -2,7 +2,7 @@
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorio.Pessoa.Interface;
-using Dominio.Representacoes.Pessoa;
+using Dominio.Representacao.Pessoa;
 
 namespace Repositorio.Pessoa.Implementacao
 {

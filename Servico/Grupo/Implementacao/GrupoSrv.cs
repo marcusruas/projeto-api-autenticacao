@@ -6,7 +6,7 @@ using MandradePkgs.Mensagens;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Dominio.Representacoes.Grupo;
+using Dominio.Representacao.Grupo;
 using Dominio.Logica.Grupo;
 
 namespace Servico.Grupo.Implementacao

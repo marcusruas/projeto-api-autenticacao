@@ -3,7 +3,7 @@ using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servico.Grupo.Interface;
-using Dominio.Representacoes.Grupo;
+using Dominio.Representacao.Grupo;
 
 namespace Api.Controllers
 {

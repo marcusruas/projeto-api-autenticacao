@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Dominio.Logica.Pessoa;
-using Dominio.Representacoes.Pessoa;
+using Dominio.Representacao.Pessoa;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorio.Pessoa.Interface;

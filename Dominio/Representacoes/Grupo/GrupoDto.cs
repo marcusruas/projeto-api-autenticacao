@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Dominio.Representacoes.Grupo
+﻿namespace Dominio.Representacao.Grupo
 {
     public class GrupoDto
     {

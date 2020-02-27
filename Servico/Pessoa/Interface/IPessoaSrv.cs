@@ -1,4 +1,4 @@
-﻿using Dominio.Representacoes.Pessoa;
+﻿using Dominio.Representacao.Pessoa;
 
 namespace Servico.Pessoa.Interface
 {
