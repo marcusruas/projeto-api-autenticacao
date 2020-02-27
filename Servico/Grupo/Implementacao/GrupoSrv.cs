@@ -25,7 +25,13 @@ namespace Servico.Grupo.Implementacao
 
         public bool InserirNovoUsuario(GrupoDto grupo)
         {
-            var dominio = new GrupoDom(grupo.Nome, grupo.Descricao, (NivelGrupo)grupo.Nivel.Nivel, grupo.Justificativa, _mensagens);
+            var dominio = new GrupoDom(
+                grupo.Nome,
+                grupo.Descricao,
+                (NivelGrupo)grupo.Nivel.Nivel,
+                grupo.Justificativa,
+                _mensagens
+            );
 
             dominio.ValidarDados();
 
@@ -63,7 +69,12 @@ namespace Servico.Grupo.Implementacao
             if (!NivelExiste(nivel))
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
 
-            var dominio = new GrupoDom(grupo, (NivelGrupo)nivel, justificativa, _mensagens);
+            var dominio = new GrupoDom(
+                grupo,
+                (NivelGrupo)nivel,
+                justificativa,
+                _mensagens
+            );
 
             dominio.ValidarJustificativa();
             dominio.ValidarJustificativaParaNivel();

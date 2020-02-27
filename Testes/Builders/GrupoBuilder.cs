@@ -89,41 +89,11 @@ namespace Testes.Builders
             return this;
         }
 
-        public GrupoBuilder DefinirDescricaoValida()
-        {
-            var grupoAlterado = new GrupoDom(
-                Grupo.Nome,
-                new string(_faker.Lorem.Paragraph().Take(GrupoDom.LimiteCaracteresDescricao).ToArray()),
-                Grupo.Nivel,
-                Grupo.Justificativa,
-                _mensagens
-            );
-
-            Grupo = grupoAlterado;
-
-            return this;
-        }
-
         public GrupoBuilder DefinirDescricaoInvalida()
         {
             var grupoAlterado = new GrupoDom(
                 Grupo.Nome,
                 _faker.Lorem.Paragraph().Substring(0, 10),
-                Grupo.Nivel,
-                Grupo.Justificativa,
-                _mensagens
-            );
-
-            Grupo = grupoAlterado;
-
-            return this;
-        }
-
-        public GrupoBuilder DefinirDescricaoNula()
-        {
-            var grupoAlterado = new GrupoDom(
-                Grupo.Nome,
-                null,
                 Grupo.Nivel,
                 Grupo.Justificativa,
                 _mensagens
