@@ -20,10 +20,11 @@ namespace Dominio.Representacao.Grupo
                 .ReverseMap();
 
             cnf.CreateMap<GrupoDom, GrupoDto>()
+                .ForMember(dto => dto.Nivel, opt => opt.MapFrom(map => new NivelGrupoDto((int)map.Nivel, map.Nivel.ToString())))
                 .ReverseMap();
 
-            cnf.CreateMap<GrupoDpo, GrupoDto>()
-                .ForMember(dto => (int)dto.Nivel.Nivel, opt => opt.MapFrom(map => map.Nivel))
+            cnf.CreateMap<GrupoDto, GrupoDpo>()
+                .ForMember(dpo => dpo.Nivel, opt => opt.MapFrom(map => map.Nivel.Nivel))
                 .ReverseMap();
 
             cnf.CreateMap<NivelGrupo, NivelGrupoDto>()
