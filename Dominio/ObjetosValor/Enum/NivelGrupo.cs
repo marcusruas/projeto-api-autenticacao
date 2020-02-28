@@ -1,4 +1,4 @@
-﻿namespace Dominio.ObjetosValor.Grupo
+﻿namespace Dominio.ObjetosValor.Enum
 {
     public enum NivelGrupo
     {

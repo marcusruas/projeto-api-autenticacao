@@ -1,13 +1,14 @@
-﻿using Dominio.ObjetosValor.Pessoa;
+﻿using Dominio.ObjetosValor.Formatos;
 using MandradePkgs.Mensagens;
 using System.Linq;
 
-namespace Dominio.Logica.Pessoa
+namespace Dominio.Logica.Usuario
 {
     public class PessoaDom
     {
-        public PessoaDom(string nome, string cpfFormatado, string email, string telefone, IMensagensApi mensagens)
+        public PessoaDom(int id, string nome, string cpfFormatado, string email, string telefone, IMensagensApi mensagens)
         {
+            Id = id;
             Nome = nome;
             Cpf = new Cpf(cpfFormatado);
             Email = email;
@@ -15,8 +16,9 @@ namespace Dominio.Logica.Pessoa
             _mensagens = mensagens;
         }
 
-        public PessoaDom(string nome, string cpf, string email, long telefone, IMensagensApi mensagens)
+        public PessoaDom(int id, string nome, string cpf, string email, long telefone, IMensagensApi mensagens)
         {
+            Id = id;
             Nome = nome;
             Cpf = new Cpf(cpf);
             Email = email;
@@ -24,12 +26,14 @@ namespace Dominio.Logica.Pessoa
             _mensagens = mensagens;
         }
 
-        public PessoaDom(string cpf, IMensagensApi mensagens)
+        public PessoaDom(int id, string cpf, IMensagensApi mensagens)
         {
+            Id = id;
             Cpf = new Cpf(cpf);
             _mensagens = mensagens;
         }
 
+        public int Id { get; set; }
         public string Nome { get; }
         public Cpf Cpf { get; }
         public string Email { get; }

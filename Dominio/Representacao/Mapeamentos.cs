@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using static Dominio.Representacao.Grupo.GrupoMap;
-using static Dominio.Representacao.Pessoa.PessoaMap;
+using Dominio.Representacao.Usuario.Grupo;
+using Dominio.Representacao.Usuario.Pessoa;
 
 namespace Dominio.Representacao
 {

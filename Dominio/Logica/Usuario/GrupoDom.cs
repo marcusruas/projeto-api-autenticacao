@@ -1,14 +1,14 @@
-﻿using Dominio.ObjetosValor.Grupo;
+﻿using Dominio.ObjetosValor.Enum;
 using MandradePkgs.Mensagens;
-using System;
 using System.Linq;
 
-namespace Dominio.Logica.Grupo
+namespace Dominio.Logica.Usuario
 {
     public class GrupoDom
     {
-        public GrupoDom(string nome, string descricao, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, string descricao, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
         {
+            Id = id;
             Nome = nome;
             Descricao = descricao;
             Nivel = nivel;
@@ -16,22 +16,25 @@ namespace Dominio.Logica.Grupo
             _mensagens = mensagens;
         }
 
-        public GrupoDom(string nome, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
         {
+            Id = id;
             Nome = nome;
             Nivel = nivel;
             Justificativa = justificativa;
             _mensagens = mensagens;
         }
 
-        public GrupoDom(string nome, string descricao, NivelGrupo nivel, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, string descricao, NivelGrupo nivel, IMensagensApi mensagens)
         {
+            Id = id;
             Nome = nome;
             Descricao = descricao;
             Nivel = nivel;
             _mensagens = mensagens;
         }
 
+        public int Id { get; set; }
         public string Nome { get; }
         public string Descricao { get; }
         public NivelGrupo Nivel { get; }
