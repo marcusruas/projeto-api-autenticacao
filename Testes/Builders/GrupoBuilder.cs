@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using Bogus;
 using Dominio.Logica.Grupo;
+using Dominio.ObjetosValor.Grupo;
 using Dominio.Representacao;
 using Dominio.Representacao.Grupo;
 using MandradePkgs.Mensagens;

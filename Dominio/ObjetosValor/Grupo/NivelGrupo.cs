@@ -1,4 +1,4 @@
-﻿namespace Dominio.Logica.Grupo
+﻿namespace Dominio.ObjetosValor.Grupo
 {
     public enum NivelGrupo
     {

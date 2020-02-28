@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using Dominio.Representacao.Grupo;
 using Dominio.Logica.Grupo;
+using Dominio.ObjetosValor.Grupo;
 
 namespace Servico.Grupo.Implementacao
 {

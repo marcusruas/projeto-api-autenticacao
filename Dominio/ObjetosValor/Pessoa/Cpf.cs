@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Dominio.ObjetosValor
+namespace Dominio.ObjetosValor.Pessoa
 {
     public class Cpf
     {

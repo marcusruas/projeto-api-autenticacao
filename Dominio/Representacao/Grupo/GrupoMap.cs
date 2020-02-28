@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dominio.Logica.Grupo;
+using Dominio.ObjetosValor.Grupo;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Dominio.Representacao.Grupo

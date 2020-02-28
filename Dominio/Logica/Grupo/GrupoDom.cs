@@ -1,4 +1,5 @@
-﻿using MandradePkgs.Mensagens;
+﻿using Dominio.ObjetosValor.Grupo;
+using MandradePkgs.Mensagens;
 using System;
 using System.Linq;
 

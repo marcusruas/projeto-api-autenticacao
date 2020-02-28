@@ -1,4 +1,4 @@
-﻿using Dominio.ObjetosValor;
+﻿using Dominio.ObjetosValor.Pessoa;
 using MandradePkgs.Mensagens;
 using System.Linq;
 
