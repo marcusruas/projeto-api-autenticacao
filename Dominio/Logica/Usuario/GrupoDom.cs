@@ -34,7 +34,7 @@ namespace Dominio.Logica.Usuario
             _mensagens = mensagens;
         }
 
-        public int Id { get; set; }
+        public int Id { get; }
         public string Nome { get; }
         public string Descricao { get; }
         public NivelGrupo Nivel { get; }

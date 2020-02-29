@@ -5,20 +5,21 @@ namespace Dominio.ObjetosValor.Formatos
 {
     public class Telefone
     {
-        public Telefone(string telefone)
+        public Telefone(string ddd, string numero)
         {
-            ValorNumerico = RemoverFormatacao(telefone);
-            ValorFormatado = FormatarTelefone(telefone);
+            Ddd = new string(ddd.Where(c => char.IsNumber(c)).ToArray());
+            Numero = new string(numero.Where(c => char.IsNumber(c)).ToArray());
+
+            string TelefoneConcatenado = Ddd + Numero;
+
+            ValorNumerico = RemoverFormatacao(TelefoneConcatenado);
+            ValorFormatado = FormatarTelefone(TelefoneConcatenado);
         }
 
-        public Telefone(long telefone)
-        {
-            ValorNumerico = telefone;
-            ValorFormatado = FormatarTelefone(telefone.ToString());
-        }
-
-        public long ValorNumerico { get; set; }
-        public string ValorFormatado { get; set; }
+        public string Ddd { get; }
+        public string Numero { get; }
+        private long ValorNumerico;
+        private string ValorFormatado;
 
         public long RemoverFormatacao(string telefone)
         {
@@ -29,23 +30,12 @@ namespace Dominio.ObjetosValor.Formatos
         public string FormatarTelefone(string telefone)
         {
             string numeroTelefone = RemoverFormatacao(telefone).ToString();
-
-            string formato = numeroTelefone.StartsWith("0") ?
-                @"(\d{3})(\d{5})(\d{4})" : @"(\d{2})(\d{5})(\d{4})";
+            string formato = @"(\d{2})(\d{5})(\d{4})";
 
             return Regex.Replace(numeroTelefone, formato, "($1) $2-$3");
         }
 
-        public byte ObterDDD()
-        {
-            var ddd = ValorNumerico.ToString().Take(2).ToString();
-            return byte.Parse(ddd);
-        }
-
-        public long ObterNumero()
-        {
-            var numero = ValorNumerico.ToString().Substring(4).ToString();
-            return byte.Parse(numero);
-        }
+        public long ObterValorNumerico() => ValorNumerico;
+        public string ObterValorFormatado() => ValorFormatado;
     }
 }

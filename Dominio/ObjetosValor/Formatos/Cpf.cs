@@ -12,8 +12,8 @@ namespace Dominio.ObjetosValor.Formatos
             this.ValorNumerico = RemoverFormatacao(cpf);
         }
 
-        public string ValorFormatado { get; set; }
-        public string ValorNumerico { get; set; }
+        public string ValorFormatado { get; }
+        public string ValorNumerico { get; }
 
         public string RemoverFormatacao(string cpf)
         {

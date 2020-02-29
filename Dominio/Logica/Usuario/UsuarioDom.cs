@@ -27,7 +27,7 @@ namespace Dominio.Logica.Usuario
             Ativo = true;
         }
 
-        public int Id { get; set; }
+        public int Id { get; }
         public string Usuario { get; }
         public string Senha { get; }
         public DateTime DataCriacao { get; }
