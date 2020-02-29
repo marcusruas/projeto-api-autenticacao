@@ -19,7 +19,7 @@ namespace Dominio.Representacao.Usuario.Pessoa
 
             cnf.CreateMap<PessoaDto, PessoaDpo>()
                 .ForMember(dpo => dpo.Cpf, opt => opt.MapFrom(v => v.Cpf.ToString()))
-                .ForMember(dto => dto.Telefone, opt => opt.MapFrom(v => v.Telefone))
+                .ForMember(dto => dto.Telefone, opt => opt.MapFrom(v => v.Telefone.ObterValorNumerico()))
                 .ReverseMap();
         }
     }
