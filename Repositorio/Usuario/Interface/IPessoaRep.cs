@@ -1,6 +1,6 @@
-﻿using Dominio.Representacao.Pessoa;
+﻿using Dominio.Representacao.Usuario.Pessoa;
 
-namespace Repositorio.Pessoa.Interface
+namespace Repositorio.Usuario.Interface
 {
     public interface IPessoaRep
     {

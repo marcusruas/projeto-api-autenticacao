@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
-using Repositorio.Pessoa.Interface;
-using Dominio.Representacao.Pessoa;
+using Repositorio.Usuario.Interface;
+using Dominio.Representacao.Usuario.Pessoa;
 
-namespace Repositorio.Pessoa.Implementacao
+namespace Repositorio.Usuario.Implementacao
 {
     public class PessoaRep : IPessoaRep
     {

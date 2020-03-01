@@ -1,12 +1,12 @@
 ﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
-using Repositorio.Grupo.Interface;
+using Repositorio.Usuario.Interface;
 using System.Collections.Generic;
 using System.Linq;
-using Dominio.Representacao.Grupo;
+using Dominio.Representacao.Usuario.Grupo;
 
-namespace Repositorio.Grupo.Implementacao
+namespace Repositorio.Usuario.Implementacao
 {
     public class GrupoRep : IGrupoRep
     {

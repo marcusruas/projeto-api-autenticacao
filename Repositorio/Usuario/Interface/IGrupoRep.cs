@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Dominio.Representacao.Grupo;
+using Dominio.Representacao.Usuario.Grupo;
 
-namespace Repositorio.Grupo.Interface
+namespace Repositorio.Usuario.Interface
 {
     public interface IGrupoRep
     {
