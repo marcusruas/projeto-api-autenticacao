@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dominio.Logica.Usuario;
+using MandradePkgs.Mensagens;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Dominio.Representacao.Usuario.Grupo
@@ -14,12 +15,13 @@ namespace Dominio.Representacao.Usuario.Grupo
 
         private static void DefinirMapeamentosRepresentacoes(this IMapperConfigurationExpression cnf)
         {
-            cnf.CreateMap<GrupoDom, GrupoDto>()
+            cnf.CreateMap<(GrupoDto, IMensagensApi), GrupoDom>()
                 .ReverseMap();
 
             cnf.CreateMap<GrupoDto, GrupoDpo>()
                 .ForMember(dpo => dpo.Nivel, opt => opt.MapFrom(map => (int)map.Nivel))
                 .ReverseMap();
+
         }
     }
 }

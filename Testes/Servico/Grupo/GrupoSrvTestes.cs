@@ -2,16 +2,16 @@ using Testes.Builders;
 using AutoMapper;
 using MandradePkgs.Mensagens;
 using Moq;
-using Repositorio.Grupo.Interface;
-using Servico.Grupo.Implementacao;
 using Servico.Grupo.Interface;
 using Xunit;
 using Xunit.Abstractions;
 using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Dominio.Representacao.Grupo;
 using Dominio.Representacao;
+using Repositorio.Usuario.Interface;
+using Servico.Usuario.Implementacao;
+using Dominio.Representacao.Usuario.Grupo;
 
 namespace Testes.Servico.Grupo
 {
@@ -75,7 +75,7 @@ namespace Testes.Servico.Grupo
                             .ToDto();
 
             Should.Throw<RegraNegocioException>(() =>
-                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa)
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
             );
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
@@ -96,7 +96,7 @@ namespace Testes.Servico.Grupo
                             .ToDto();
 
             Should.Throw<RegraNegocioException>(() =>
-                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa)
+                _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa)
             );
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeTrue();
@@ -121,7 +121,7 @@ namespace Testes.Servico.Grupo
                 It.IsAny<string>())
             ).Returns(true);
 
-            _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel.Nivel, grupo.Justificativa);
+            _servico.AtualizarNivelGrupo(grupo.Nome, (int)grupo.Nivel, grupo.Justificativa);
 
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.Informativo).ShouldBeTrue();
             _mensagens.Mensagens.Any(m => m.Tipo == (int)TipoMensagem.FalhaValidacao).ShouldBeFalse();

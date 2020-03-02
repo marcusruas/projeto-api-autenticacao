@@ -1,10 +1,10 @@
 using System.Linq;
 using AutoMapper;
 using Bogus;
-using Dominio.Logica.Grupo;
-using Dominio.ObjetosValor.Grupo;
+using Dominio.Logica.Usuario;
+using Dominio.ObjetosValor.Enum;
 using Dominio.Representacao;
-using Dominio.Representacao.Grupo;
+using Dominio.Representacao.Usuario.Grupo;
 using MandradePkgs.Mensagens;
 
 namespace Testes.Builders
@@ -26,6 +26,7 @@ namespace Testes.Builders
 
         public GrupoDom CriacaoGrupoDadosValidos() =>
             new GrupoDom(
+                _faker.Random.Int(),
                 _faker.Name.FullName(),
                 new string(_faker.Lorem.Paragraph().Take(GrupoDom.LimiteCaracteresDescricao).ToArray()),
                 NivelGrupo.Administrador,
@@ -36,6 +37,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirGrupoComDadosInvalidos()
         {
             Grupo = new GrupoDom(
+                _faker.Random.Int(),
                 _faker.Name.FullName().Substring(0, 5),
                 _faker.Random.String(10),
                 NivelGrupo.Geral,
@@ -48,6 +50,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirNomeCurto()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 _faker.Name.FullName().Substring(0, 5),
                 Grupo.Descricao,
                 Grupo.Nivel,
@@ -63,6 +66,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirNomeNulo()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 null,
                 Grupo.Descricao,
                 Grupo.Nivel,
@@ -78,6 +82,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirNomeComNumeros()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 _faker.Name.FullName().Insert(0, _faker.Random.Int(1, 5).ToString()),
                 Grupo.Descricao,
                 Grupo.Nivel,
@@ -93,6 +98,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirDescricaoInvalida()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 _faker.Lorem.Paragraph().Substring(0, 10),
                 Grupo.Nivel,
@@ -108,6 +114,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirNivelInferior()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 Grupo.Descricao,
                 NivelGrupo.Geral,
@@ -123,6 +130,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirNivelSuperior()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 Grupo.Descricao,
                 NivelGrupo.Absoluto,
@@ -138,6 +146,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirJustificativaValida()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 Grupo.Descricao,
                 Grupo.Nivel,
@@ -153,6 +162,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirJustificativaInvalida()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 Grupo.Descricao,
                 Grupo.Nivel,
@@ -168,6 +178,7 @@ namespace Testes.Builders
         public GrupoBuilder DefinirJustificativaNula()
         {
             var grupoAlterado = new GrupoDom(
+                _faker.Random.Int(),
                 Grupo.Nome,
                 Grupo.Descricao,
                 Grupo.Nivel,

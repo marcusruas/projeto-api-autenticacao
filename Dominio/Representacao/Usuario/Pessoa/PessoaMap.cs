@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dominio.Logica.Usuario;
+using MandradePkgs.Mensagens;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Dominio.Representacao.Usuario.Pessoa
@@ -14,7 +15,7 @@ namespace Dominio.Representacao.Usuario.Pessoa
 
         private static void DefinirMapeamentosRepresentacoes(this IMapperConfigurationExpression cnf)
         {
-            cnf.CreateMap<PessoaDom, PessoaDto>()
+            cnf.CreateMap<(PessoaDto, IMensagensApi), PessoaDom>()
                 .ReverseMap();
 
             cnf.CreateMap<PessoaDto, PessoaDpo>()
