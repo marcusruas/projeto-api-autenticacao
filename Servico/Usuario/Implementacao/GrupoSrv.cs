@@ -44,12 +44,12 @@ namespace Servico.Usuario.Implementacao
             return sucesso;
         }
 
-        public List<GrupoDto> GruposPorNivel(int nivel)
+        public List<GrupoDto> GruposPorNivel(NivelGrupo nivel)
         {
             if (!NivelExiste(nivel))
                 throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
-            var listaGrupos = _repositorio.ObterGruposPorNivel(nivel);
+            var listaGrupos = _repositorio.ObterGruposPorNivel((int)nivel);
 
             return _mapper.Map<List<GrupoDto>>(listaGrupos);
         }
@@ -60,7 +60,7 @@ namespace Servico.Usuario.Implementacao
             return _mapper.Map<GrupoDto>(grupoBanco);
         }
 
-        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa)
+        public bool AtualizarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa)
         {
             if (!NivelExiste(nivel))
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
@@ -77,7 +77,7 @@ namespace Servico.Usuario.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, nivel, justificativa);
+            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, (int)nivel, justificativa);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
@@ -95,7 +95,7 @@ namespace Servico.Usuario.Implementacao
             return sucesso;
         }
 
-        private bool NivelExiste(int nivel) =>
-            Enum.GetValues(typeof(NivelGrupo)).Cast<int>().Any(grupo => grupo == nivel);
+        private bool NivelExiste(NivelGrupo nivel) =>
+            Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>().Any(grupo => grupo == nivel);
     }
 }
