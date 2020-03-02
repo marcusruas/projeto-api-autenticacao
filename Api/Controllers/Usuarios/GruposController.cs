@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Dominio.ObjetosValor.Enum;
 using Dominio.Representacao.Usuario.Grupo;
@@ -23,13 +25,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public RespostaApi<List<NivelGrupo>> ListarNiveis()
-        {
-            return null;
-        }
-
-        [HttpGet]
-        public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(int nivel) =>
+        public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(NivelGrupo nivel) =>
             RespostaPadrao(_mapper.Map<List<GrupoDto>>(_servico.GruposPorNivel(nivel)));
 
         [HttpGet]
@@ -42,7 +38,7 @@ namespace Api.Controllers
             RespostaPadrao(_servico.InserirNovoUsuario(grupo));
 
         [HttpPut]
-        public RespostaApi AlterarNivelGrupo(string grupo, int nivel, string justificativa) =>
+        public RespostaApi AlterarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa) =>
             RespostaPadrao(_servico.AtualizarNivelGrupo(grupo, nivel, justificativa));
 
         [HttpDelete]
