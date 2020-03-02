@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Repositorio.Grupo.Interface;
-using Repositorio.Grupo.Implementacao;
-using Servico.Grupo.Interface;
-using Servico.Grupo.Implementacao;
-using Repositorio.Pessoa.Interface;
-using Repositorio.Pessoa.Implementacao;
-using Servico.Pessoa.Interface;
-using Servico.Pessoa.Implementacao;
+using Repositorio.Usuario.Interface;
+using Repositorio.Usuario.Implementacao;
+using Servico.Usuario.Interface;
+using Servico.Usuario.Implementacao;
 
 namespace Api.Configuracoes
 {

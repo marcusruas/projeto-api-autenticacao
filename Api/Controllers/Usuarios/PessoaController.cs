@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using Dominio.Representacao.Usuario.Pessoa;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using Servico.Pessoa.Interface;
-using Dominio.Representacao.Pessoa;
+using Servico.Usuario.Interface;
 
 namespace Api.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
     public class PessoasController : ControllerApi

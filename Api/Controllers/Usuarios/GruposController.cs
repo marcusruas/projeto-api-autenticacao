@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Dominio.ObjetosValor.Enum;
+using Dominio.Representacao.Usuario.Grupo;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using Servico.Grupo.Interface;
-using Dominio.Representacao.Grupo;
+using Servico.Usuario.Interface;
 
 namespace Api.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
     public class GruposController : ControllerApi
@@ -22,7 +23,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public RespostaApi<List<NivelGrupoDto>> ListarNiveis()
+        public RespostaApi<List<NivelGrupo>> ListarNiveis()
         {
             return null;
         }
