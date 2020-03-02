@@ -18,6 +18,9 @@ namespace Dominio.Representacao.Usuario.Pessoa
             cnf.CreateMap<(PessoaDto, IMensagensApi), PessoaDom>()
                 .ReverseMap();
 
+            cnf.CreateMap<PessoaDto, PessoaDom>()
+                .ReverseMap();
+
             cnf.CreateMap<PessoaDto, PessoaDpo>()
                 .ForMember(dpo => dpo.Cpf, opt => opt.MapFrom(v => v.Cpf.ToString()))
                 .ForMember(dto => dto.Telefone, opt => opt.MapFrom(v => v.Telefone.ObterValorNumerico()))

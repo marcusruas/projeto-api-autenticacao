@@ -128,17 +128,5 @@ namespace Testes.dominio.Grupo
             objeto.Justificativa.ShouldNotBeNull();
             objeto.Id.ShouldNotBeNull();
         }
-
-        [Fact]
-        public void MapeamentoGrupoParaDpo()
-        {
-            GrupoDpo objeto = _builder.DefinirJustificativaInvalida().ToDpo();
-
-            objeto.Nome.ShouldNotBeNull();
-            objeto.Nivel.ShouldNotBeNull();
-            objeto.Descricao.ShouldNotBeNull();
-            objeto.Justificativa.ShouldNotBeNull();
-            objeto.Id.ShouldNotBeNull();
-        }
     }
 }
