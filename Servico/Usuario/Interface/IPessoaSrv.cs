@@ -1,6 +1,6 @@
-﻿using Dominio.Representacao.Pessoa;
+﻿using Dominio.Representacao.Usuario.Pessoa;
 
-namespace Servico.Pessoa.Interface
+namespace Servico.Usuario.Interface
 {
     public interface IPessoaSrv
     {

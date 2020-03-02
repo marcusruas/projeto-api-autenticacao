@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
-using Repositorio.Grupo.Interface;
-using Servico.Grupo.Interface;
+using Repositorio.Usuario.Interface;
+using Servico.Usuario.Interface;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using MandradePkgs.Mensagens;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Dominio.Representacao.Grupo;
-using Dominio.Logica.Grupo;
-using Dominio.ObjetosValor.Grupo;
+using Dominio.Representacao.Usuario;
+using Dominio.Logica.Usuario;
+using Dominio.Representacao.Usuario.Grupo;
+using Dominio.ObjetosValor.Enum;
 
-namespace Servico.Grupo.Implementacao
+namespace Servico.Usuario.Implementacao
 {
     public class GrupoSrv : IGrupoSrv
     {
@@ -26,13 +27,7 @@ namespace Servico.Grupo.Implementacao
 
         public bool InserirNovoUsuario(GrupoDto grupo)
         {
-            var dominio = new GrupoDom(
-                grupo.Nome,
-                grupo.Descricao,
-                (NivelGrupo)grupo.Nivel.Nivel,
-                grupo.Justificativa,
-                _mensagens
-            );
+            var dominio = _mapper.Map<GrupoDom>((grupo, _mensagens));
 
             dominio.ValidarDados();
 
@@ -70,12 +65,11 @@ namespace Servico.Grupo.Implementacao
             if (!NivelExiste(nivel))
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
 
-            var dominio = new GrupoDom(
-                grupo,
-                (NivelGrupo)nivel,
-                justificativa,
-                _mensagens
-            );
+            var grupoDto = new GrupoDto();
+            grupoDto.Nome = grupo;
+            grupoDto.Nivel = (NivelGrupo)nivel;
+            grupoDto.Justificativa = justificativa;
+            var dominio = _mapper.Map<GrupoDom>((grupoDto, _mensagens));
 
             dominio.ValidarJustificativa();
             dominio.ValidarJustificativaParaNivel();

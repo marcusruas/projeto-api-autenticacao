@@ -1,7 +1,7 @@
-﻿using Dominio.Representacao.Grupo;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Dominio.Representacao.Usuario.Grupo;
 
-namespace Servico.Grupo.Interface
+namespace Servico.Usuario.Interface
 {
     public interface IGrupoSrv
     {

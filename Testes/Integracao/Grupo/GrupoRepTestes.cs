@@ -1,16 +1,12 @@
 using System.Data.SqlClient;
-using Testes;
 using Testes.Builders;
-using Dapper;
-using MandradePkgs.Conexoes;
-using MandradePkgs.Conexoes.Estrutura.Implementacao;
-using Repositorio.Grupo.Implementacao;
-using Repositorio.Grupo.Interface;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 using System;
 using ExpectedObjects;
+using Repositorio.Usuario.Interface;
+using Repositorio.Usuario.Implementacao;
 
 namespace Testes.Integracao.Grupo
 {

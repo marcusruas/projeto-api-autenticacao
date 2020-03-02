@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Dominio.Logica.Pessoa;
-using Dominio.Representacao.Pessoa;
+using Dominio.Logica.Usuario;
+using Dominio.Representacao.Usuario.Pessoa;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Repositorio.Pessoa.Interface;
-using Servico.Pessoa.Interface;
+using Repositorio.Usuario.Interface;
+using Servico.Usuario.Interface;
 using System;
 
-namespace Servico.Pessoa.Implementacao
+namespace Servico.Usuario.Implementacao
 {
     public class PessoaSrv : IPessoaSrv
     {
@@ -24,10 +24,9 @@ namespace Servico.Pessoa.Implementacao
 
         public bool IncluirPessoa(PessoaDto pessoa)
         {
-            var dominio = new PessoaDom(pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone, _mensagens);
+            var dominio = _mapper.Map<PessoaDom>((pessoa, _mensagens));
 
-            dominio.ValidarNome();
-            dominio.ValidarCpf();
+            dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
@@ -44,14 +43,7 @@ namespace Servico.Pessoa.Implementacao
 
         public PessoaDto PesquisarPessoaCpf(string cpf)
         {
-            var dominio = new PessoaDom(cpf, _mensagens);
-
-            dominio.ValidarCpf();
-
-            if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
-
-            var pessoa = _repositorio.BuscarPessoaCpf(dominio.Cpf.ValorNumerico);
+            var pessoa = _repositorio.BuscarPessoaCpf(cpf);
 
             if (pessoa == null)
                 _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Nenhum usuário encontrato com este CPF");
@@ -61,10 +53,9 @@ namespace Servico.Pessoa.Implementacao
 
         public bool AtualizarDadosPessoa(PessoaDto pessoa)
         {
-            var dominio = new PessoaDom(pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone, _mensagens);
+            var dominio = _mapper.Map<GrupoDom>((pessoa, _mensagens));
 
-            dominio.ValidarNome();
-            dominio.ValidarCpf();
+            dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
