@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Dominio.ObjetosValor.Enum;
-using Dominio.Representacao.Usuario.Grupo;
+using Abstracao.Representacao.Usuario.Grupo;
+using SharedKernel.ObjetosValor.Enum;
 
 namespace Servico.Usuario.Interface
 {

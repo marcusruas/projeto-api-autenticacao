@@ -3,7 +3,7 @@ using Dominio.Logica.Usuario;
 using MandradePkgs.Mensagens;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
-namespace Dominio.Representacao.Usuario.Grupo
+namespace Abstracao.Representacao.Usuario.Grupo
 {
     public static class GrupoMap
     {

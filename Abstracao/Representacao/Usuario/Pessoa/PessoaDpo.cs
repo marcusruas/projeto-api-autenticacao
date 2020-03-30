@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dominio.Representacao.Usuario.Pessoa
+namespace Abstracao.Representacao.Usuario.Pessoa
 {
     public class PessoaDpo
     {

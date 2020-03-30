@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -18,9 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Abstracao\Representacao\Representacao.csproj" />
+    <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
     <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
     <ProjectReference Include="..\Servico\Servico.csproj" />
-    <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
+    <ProjectReference Include="..\SharedKernel\ObjetosValor\ObjetosValor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,4 +33,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
 </Project>

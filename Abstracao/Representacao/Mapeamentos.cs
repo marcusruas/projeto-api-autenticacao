@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Dominio.Representacao.Usuario.Grupo;
-using Dominio.Representacao.Usuario.Pessoa;
+using Abstracao.Representacao.Usuario.Grupo;
+using Abstracao.Representacao.Usuario.Pessoa;
 
-namespace Dominio.Representacao
+namespace Abstracao.Representacao
 {
     public static class Mapeamentos
     {

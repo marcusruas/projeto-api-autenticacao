@@ -6,10 +6,9 @@ using MandradePkgs.Mensagens;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Dominio.Representacao.Usuario;
 using Dominio.Logica.Usuario;
-using Dominio.Representacao.Usuario.Grupo;
-using Dominio.ObjetosValor.Enum;
+using Abstracao.Representacao.Usuario.Grupo;
+using SharedKernel.ObjetosValor.Enum;
 
 namespace Servico.Usuario.Implementacao
 {

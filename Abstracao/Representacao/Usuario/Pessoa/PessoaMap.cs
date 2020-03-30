@@ -3,7 +3,7 @@ using Dominio.Logica.Usuario;
 using MandradePkgs.Mensagens;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
-namespace Dominio.Representacao.Usuario.Pessoa
+namespace Abstracao.Representacao.Usuario.Pessoa
 {
     public static class PessoaMap
     {

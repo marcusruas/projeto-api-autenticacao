@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj" />
-    <ProjectReference Include="..\Dominio\Representacao\Representacao.csproj" />
-    <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
+    <ProjectReference Include="..\SharedKernel\ObjetosValor\ObjetosValor.csproj" />
+    <ProjectReference Include="..\Abstracao\Representacao\Representacao.csproj" />
   </ItemGroup>
 
 </Project>

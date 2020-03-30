@@ -1,5 +1,5 @@
-﻿using Dominio.ObjetosValor.Enum;
-using MandradePkgs.Mensagens;
+﻿using MandradePkgs.Mensagens;
+using SharedKernel.ObjetosValor.Enum;
 using System.Linq;
 
 namespace Dominio.Logica.Usuario

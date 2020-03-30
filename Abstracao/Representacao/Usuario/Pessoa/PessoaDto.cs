@@ -1,6 +1,6 @@
-﻿using Dominio.ObjetosValor.Formatos;
+﻿using SharedKernel.ObjetosValor.Formatos;
 
-namespace Dominio.Representacao.Usuario.Pessoa
+namespace Abstracao.Representacao.Usuario.Pessoa
 {
     public class PessoaDto
     {

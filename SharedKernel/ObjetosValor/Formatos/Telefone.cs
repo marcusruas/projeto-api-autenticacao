@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Dominio.ObjetosValor.Formatos
+namespace SharedKernel.ObjetosValor.Formatos
 {
     public class Telefone
     {

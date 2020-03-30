@@ -2,7 +2,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dominio.ObjetosValor.Formatos
+namespace SharedKernel.ObjetosValor.Formatos
 {
     public class Senha
     {
@@ -32,11 +32,6 @@ namespace Dominio.ObjetosValor.Formatos
 
         private string CriptografarSenha(string senha)
         {
-<<<<<<< HEAD
-=======
-            string retorno = string.Empty;
-
->>>>>>> 9a09100d2b47d65ba6920a42a4b1dbab19bf7727
             using (MD5 MD5Crypt = MD5.Create())
             {
                 byte[] inputBytes = MD5Crypt.ComputeHash(Encoding.UTF8.GetBytes(senha));
@@ -45,11 +40,7 @@ namespace Dominio.ObjetosValor.Formatos
                 for (int i = 0; i < hash.Length; i++)
                     sb.Append(hash[i].ToString("X2"));
 
-<<<<<<< HEAD
                 return sb.ToString();
-=======
-                return retorno;
->>>>>>> 9a09100d2b47d65ba6920a42a4b1dbab19bf7727
             }
         }
     }

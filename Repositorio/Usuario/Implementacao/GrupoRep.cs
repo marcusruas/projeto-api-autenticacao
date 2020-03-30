@@ -4,7 +4,7 @@ using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorio.Usuario.Interface;
 using System.Collections.Generic;
 using System.Linq;
-using Dominio.Representacao.Usuario.Grupo;
+using Abstracao.Representacao.Usuario.Grupo;
 
 namespace Repositorio.Usuario.Implementacao
 {

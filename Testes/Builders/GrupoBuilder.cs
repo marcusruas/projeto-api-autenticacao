@@ -2,10 +2,10 @@ using System.Linq;
 using AutoMapper;
 using Bogus;
 using Dominio.Logica.Usuario;
-using Dominio.ObjetosValor.Enum;
-using Dominio.Representacao;
-using Dominio.Representacao.Usuario.Grupo;
+using Abstracao.Representacao;
+using Abstracao.Representacao.Usuario.Grupo;
 using MandradePkgs.Mensagens;
+using SharedKernel.ObjetosValor.Enum;
 
 namespace Testes.Builders
 {

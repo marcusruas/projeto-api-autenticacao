@@ -1,6 +1,6 @@
-﻿using Dominio.ObjetosValor.Enum;
+﻿using SharedKernel.ObjetosValor.Enum;
 
-namespace Dominio.Representacao.Usuario.Grupo
+namespace Abstracao.Representacao.Usuario.Grupo
 {
     public class GrupoDto
     {

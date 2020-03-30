@@ -1,5 +1,5 @@
-﻿using Dominio.ObjetosValor.Formatos;
-using MandradePkgs.Mensagens;
+﻿using MandradePkgs.Mensagens;
+using SharedKernel.ObjetosValor.Formatos;
 using System.Linq;
 
 namespace Dominio.Logica.Usuario

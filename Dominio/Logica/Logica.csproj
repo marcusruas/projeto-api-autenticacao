@@ -1,15 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\ObjetosValor\ObjetosValor.csproj" />
+    <PackageReference Include="Mensagens" Version="0.1.4" />
+  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Mensagens" Version="0.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ObjetosValor\ObjetosValor.csproj" />
-  </ItemGroup>
 
 </Project>

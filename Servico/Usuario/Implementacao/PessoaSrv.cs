@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Dominio.Logica.Usuario;
-using Dominio.Representacao.Usuario.Pessoa;
+using Abstracao.Representacao.Usuario.Pessoa;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorio.Usuario.Interface;
 using Servico.Usuario.Interface;
-using System;
 
 namespace Servico.Usuario.Implementacao
 {

@@ -8,10 +8,10 @@ using Xunit.Abstractions;
 using Shouldly;
 using System.Linq;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Dominio.Representacao;
+using Abstracao.Representacao;
 using Repositorio.Usuario.Interface;
 using Servico.Usuario.Implementacao;
-using Dominio.Representacao.Usuario.Grupo;
+using Abstracao.Representacao.Usuario.Grupo;
 
 namespace Testes.Servico.Grupo
 {
