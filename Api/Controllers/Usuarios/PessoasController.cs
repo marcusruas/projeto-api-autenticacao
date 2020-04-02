@@ -32,7 +32,7 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpGet]
-        public RespostaApi<PessoaDto> ObterPessoa(string cpf)
+        public RespostaApi<PessoaDto> BuscarPessoaPorCpf(string cpf)
         {
             return RespostaPadrao(_pessoaServico.PesquisarPessoaCpf(cpf));
         }

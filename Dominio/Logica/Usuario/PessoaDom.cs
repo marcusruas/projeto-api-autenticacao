@@ -62,12 +62,16 @@ namespace Dominio.Logica.Usuario
 
         public void ValidarCpf()
         {
-            if (!Cpf.CpfValido())
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "CPF inválido, verifique os dados.");
+            if (Cpf != null && !string.IsNullOrWhiteSpace(Cpf.ValorNumerico))
+                if (!Cpf.CpfValido())
+                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "CPF inválido, verifique os dados.");
         }
 
         public void ValidarTelefone()
         {
+            if (Telefone == null)
+                return;
+
             if (string.IsNullOrEmpty(Telefone.Ddd) && string.IsNullOrEmpty(Telefone.Numero))
                 return;
 
@@ -81,7 +85,7 @@ namespace Dominio.Logica.Usuario
         {
             if (
                 string.IsNullOrEmpty(Email) &&
-                (string.IsNullOrEmpty(Telefone.Ddd) && string.IsNullOrEmpty(Telefone.Numero))
+                Telefone == null
             )
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Ao menos uma forma de contato deve ser fornecido da pessoa.");
         }
