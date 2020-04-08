@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using AutoMapper;
-using Abstracao.Representacao.Usuario.Grupo;
-using Abstracao.Representacao.Usuario.Pessoa;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using Servico.Usuario.Interface;
 using SharedKernel.ObjetosValor.Enum;
+using Abstracoes.Representacoes.Usuario.Grupo;
+using Servicos.Usuario.Interfaces;
 
 namespace Api.Controllers.Usuarios
 {

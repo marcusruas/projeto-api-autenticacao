@@ -2,8 +2,8 @@ using System.Linq;
 using AutoMapper;
 using Bogus;
 using Dominio.Logica.Usuario;
-using Abstracao.Representacao;
-using Abstracao.Representacao.Usuario.Grupo;
+using Abstracoes.Representacoes;
+using Abstracoes.Representacoes.Usuario.Grupo;
 using MandradePkgs.Mensagens;
 using SharedKernel.ObjetosValor.Enum;
 

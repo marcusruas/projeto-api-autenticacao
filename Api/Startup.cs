@@ -18,7 +18,7 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            Servicos Configuracoes = new Servicos(services, GetType());
+            Middlewares Configuracoes = new Middlewares(services, GetType());
             Configuracoes.ConfigurarServicos();
             ConfigurarInjecoesDependencia(services);
         }

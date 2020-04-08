@@ -1,8 +1,8 @@
 using Dapper;
 using MandradePkgs.Conexoes;
-using MandradePkgs.Conexoes.Estrutura.Implementacao;
+using MandradePkgs.Conexoes.Estrutura.Implementacoes;
 using MandradePkgs.Mensagens;
-using MandradePkgs.Mensagens.Estrutura.Implementacao;
+using MandradePkgs.Mensagens.Estrutura.Implementacoes;
 using Moq;
 using Xunit.Abstractions;
 

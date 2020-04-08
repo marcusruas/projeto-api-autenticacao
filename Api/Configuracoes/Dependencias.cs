@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Repositorio.Usuario.Interface;
-using Repositorio.Usuario.Implementacao;
-using Servico.Usuario.Interface;
-using Servico.Usuario.Implementacao;
+using Repositorios.Usuario.Interfaces;
+using Repositorios.Usuario.Implementacoes;
+using Servicos.Usuario.Interfaces;
+using Servicos.Usuario.Implementacoes;
 
 namespace Api.Configuracoes
 {
@@ -10,10 +10,10 @@ namespace Api.Configuracoes
     {
         public static void ConfigurarInjecoesDependencia(IServiceCollection servicos)
         {
-            ConfigurarCamadaRepositorio(servicos);
+            ConfigurarCamadaRepositorios(servicos);
             ConfigurarCamadaServico(servicos);
         }
-        private static void ConfigurarCamadaRepositorio(IServiceCollection servicos)
+        private static void ConfigurarCamadaRepositorios(IServiceCollection servicos)
         {
             servicos.AddScoped<IGrupoRep, GrupoRep>();
             servicos.AddScoped<IPessoaRep, PessoaRep>();

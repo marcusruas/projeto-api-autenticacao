@@ -18,8 +18,8 @@ namespace SharedKernel.ObjetosValor.Formatos
 
         public string Ddd { get; }
         public string Numero { get; }
-        private long ValorNumerico;
-        private string ValorFormatado;
+        public long ValorNumerico;
+        public string ValorFormatado;
 
         public long RemoverFormatacao(string telefone)
         {

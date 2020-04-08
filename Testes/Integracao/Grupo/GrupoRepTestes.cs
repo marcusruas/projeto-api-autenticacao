@@ -5,19 +5,19 @@ using Xunit;
 using Xunit.Abstractions;
 using System;
 using ExpectedObjects;
-using Repositorio.Usuario.Interface;
-using Repositorio.Usuario.Implementacao;
+using Repositorios.Usuario.Interfaces;
+using Repositorios.Usuario.Implementacoes;
 
 namespace Testes.Integracao.Grupo
 {
     public class GrupoRepTestes : TestesIntegracaoBase, IDisposable
     {
         private GrupoBuilder _builder { get; }
-        private IGrupoRep _repositorio { get; }
+        private IGrupoRep _Repositorios { get; }
 
         public GrupoRepTestes(ITestOutputHelper output) : base(output)
         {
-            _repositorio = new GrupoRep(_conexao);
+            _Repositorios = new GrupoRep(_conexao);
             _builder = new GrupoBuilder(_mensagens);
         }
 
@@ -27,8 +27,8 @@ namespace Testes.Integracao.Grupo
             var grupo = _builder.ToDpo();
             ExecutarScript("CriarTabelaGrupos", "SHAREDB");
 
-            var resultado = _repositorio.AdicionarGrupo(grupo);
-            var grupoAdicionado = _repositorio.ObterDadosGrupo(grupo.Nome);
+            var resultado = _Repositorios.AdicionarGrupo(grupo);
+            var grupoAdicionado = _Repositorios.ObterDadosGrupo(grupo.Nome);
             grupo.Id = grupoAdicionado.Id;
 
             resultado.ShouldBeTrue();
@@ -44,8 +44,8 @@ namespace Testes.Integracao.Grupo
                 .DefinirJustificativaNula()
                 .ToDpo();
 
-            var resultado = _repositorio.AdicionarGrupo(grupo);
-            var grupoAdicionado = _repositorio.ObterDadosGrupo(grupo.Nome);
+            var resultado = _Repositorios.AdicionarGrupo(grupo);
+            var grupoAdicionado = _Repositorios.ObterDadosGrupo(grupo.Nome);
             grupo.Id = grupoAdicionado.Id;
 
             resultado.ShouldBeTrue();
@@ -62,7 +62,7 @@ namespace Testes.Integracao.Grupo
                 .DefinirNivelInferior()
                 .ToDpo();
             Should.Throw<SqlException>(() =>
-                _repositorio.AdicionarGrupo(grupo)
+                _Repositorios.AdicionarGrupo(grupo)
             );
 
         }
@@ -74,10 +74,10 @@ namespace Testes.Integracao.Grupo
 
             var grupo = _builder
                 .ToDpo();
-            _repositorio.AdicionarGrupo(grupo);
+            _Repositorios.AdicionarGrupo(grupo);
             grupo = _builder.DefinirNivelInferior().DefinirJustificativaNula().ToDpo();
 
-            var resultado = _repositorio.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
+            var resultado = _Repositorios.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
 
             resultado.ShouldBeTrue();
         }
@@ -91,14 +91,14 @@ namespace Testes.Integracao.Grupo
                         .DefinirNivelInferior()
                         .DefinirJustificativaNula()
                         .ToDpo();
-            _repositorio.AdicionarGrupo(grupo);
+            _Repositorios.AdicionarGrupo(grupo);
             grupo = _builder
                         .DefinirNivelSuperior()
                         .DefinirJustificativaValida()
                         .ToDpo();
 
 
-            var resultado = _repositorio.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
+            var resultado = _Repositorios.AtualizarNivelGrupo(grupo.Nome, grupo.Nivel, grupo.Justificativa);
             resultado.ShouldBeTrue();
         }
 
@@ -109,8 +109,8 @@ namespace Testes.Integracao.Grupo
             var grupo = _builder
                 .ToDpo();
 
-            _repositorio.AdicionarGrupo(grupo);
-            var resultado = _repositorio.DeletarGrupo(grupo.Nome);
+            _Repositorios.AdicionarGrupo(grupo);
+            var resultado = _Repositorios.DeletarGrupo(grupo.Nome);
 
             resultado.ShouldBeTrue();
         }
@@ -122,7 +122,7 @@ namespace Testes.Integracao.Grupo
             var grupo = _builder
                 .ToDpo();
 
-            var resultado = _repositorio.DeletarGrupo(grupo.Nome);
+            var resultado = _Repositorios.DeletarGrupo(grupo.Nome);
 
             resultado.ShouldBeFalse();
         }

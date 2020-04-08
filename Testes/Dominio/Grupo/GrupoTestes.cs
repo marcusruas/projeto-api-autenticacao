@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
-using Abstracao.Representacao.Usuario.Grupo;
+using Abstracoes.Representacoes.Usuario.Grupo;
 
 namespace Testes.dominio.Grupo
 {

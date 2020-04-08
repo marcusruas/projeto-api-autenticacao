@@ -1,5 +1,5 @@
 using MandradePkgs.Mensagens;
-using MandradePkgs.Mensagens.Estrutura.Implementacao;
+using MandradePkgs.Mensagens.Estrutura.Implementacoes;
 using Moq;
 using Xunit.Abstractions;
 
