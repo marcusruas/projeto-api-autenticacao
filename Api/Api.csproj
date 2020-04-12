@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abstracoes\Representacoes\Representacoes.csproj" />
+    <ProjectReference Include="..\Abstracoes\Abstracoes.csproj" />
     <ProjectReference Include="..\Repositorios\Repositorios.csproj" />
     <ProjectReference Include="..\Servicos\Servicos.csproj" />
   </ItemGroup>

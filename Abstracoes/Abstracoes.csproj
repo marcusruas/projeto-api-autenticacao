@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -8,6 +9,7 @@
     <PackageReference Include="Conexoes" Version="0.2.9" />
     <PackageReference Include="Dapper" Version="1.60.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <ProjectReference Include="..\..\Dominio\Logica\Logica.csproj" />
+    <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
   </ItemGroup>
+
 </Project>

@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Repositorios\Repositorios.csproj" />
     <ProjectReference Include="..\SharedKernel\ObjetosValor\ObjetosValor.csproj" />
-    <ProjectReference Include="..\Abstracoes\Representacoes\Representacoes.csproj" />
+    <ProjectReference Include="..\Abstracoes\Abstracoes.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abstracoes\Representacoes\Representacoes.csproj" />
+    <ProjectReference Include="..\Abstracoes\Abstracoes.csproj" />
     <ProjectReference Include="..\Dominio\Logica\Logica.csproj" />
     <ProjectReference Include="..\Repositorios\Repositorios.csproj" />
     <ProjectReference Include="..\Servico\Servico.csproj" />
