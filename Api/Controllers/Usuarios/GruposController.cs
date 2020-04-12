@@ -14,23 +14,21 @@ namespace Api.Controllers.Usuarios
     public class GruposController : ControllerApi
     {
         private IGrupoSrv _grupoServico { get; }
-        private IPessoaSrv _pessoaServico { get; }
         private IMapper _mapper { get; }
 
-        public GruposController(IGrupoSrv grupoServico, IPessoaSrv pessoaServico, IMapper mapper)
+        public GruposController(IGrupoSrv grupoServico, IMapper mapper)
         {
             _grupoServico = grupoServico;
-            _pessoaServico = pessoaServico;
             _mapper = mapper;
         }
 
         [HttpGet]
         public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(NivelGrupo nivel) =>
-            RespostaPadrao(_mapper.Map<List<GrupoDto>>(_grupoServico.GruposPorNivel(nivel)));
+            null;//RespostaPadrao(_mapper.Map<List<GrupoDto>>(_grupoServico.GruposPorNivel(nivel)));
 
         [HttpGet]
         public RespostaApi<GrupoDto> ObterDadosGrupo(string nomeGrupo) =>
-            RespostaPadrao(_mapper.Map<GrupoDto>(_grupoServico.ObterDadosGrupo(nomeGrupo)));
+            null;//RespostaPadrao(_mapper.Map<GrupoDto>(_grupoServico.ObterDadosGrupo(nomeGrupo)));
 
 
         [HttpPost]

@@ -11,15 +11,11 @@ namespace Api.Controllers.Usuarios
     [ApiController]
     public class PessoasController : ControllerApi
     {
-        private IGrupoSrv _grupoServico { get; }
         private IPessoaSrv _pessoaServico { get; }
-        private IMapper _mapper { get; }
 
-        public PessoasController(IGrupoSrv grupoServico, IPessoaSrv pessoaServico, IMapper mapper)
+        public PessoasController(IPessoaSrv pessoaServico)
         {
-            _grupoServico = grupoServico;
             _pessoaServico = pessoaServico;
-            _mapper = mapper;
         }
 
         [HttpPost]

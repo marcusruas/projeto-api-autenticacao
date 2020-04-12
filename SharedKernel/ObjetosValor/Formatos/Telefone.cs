@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,6 +8,11 @@ namespace SharedKernel.ObjetosValor.Formatos
     {
         public Telefone(string ddd, string numero)
         {
+            if (string.IsNullOrWhiteSpace(ddd) || string.IsNullOrWhiteSpace(numero))
+            {
+                throw new ArgumentException("Formato do telefone inválido! Telefone deve conter Ddd e Número.");
+            }
+
             Ddd = new string(ddd.Where(c => char.IsNumber(c)).ToArray());
             Numero = new string(numero.Where(c => char.IsNumber(c)).ToArray());
 

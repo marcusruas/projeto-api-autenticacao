@@ -5,6 +5,7 @@ using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
+using Abstracoes.Tradutores.Usuario.Interfaces;
 
 namespace Servicos.Usuario.Implementacoes
 {
@@ -12,25 +13,25 @@ namespace Servicos.Usuario.Implementacoes
     {
         private IMensagensApi _mensagens { get; }
         private IPessoaRep _Repositorios { get; }
-        private IMapper _mapper { get; }
+        private IPessoaTrd _tradutor { get; }
 
-        public PessoaSrv(IMensagensApi mensagens, IPessoaRep Repositorios, IMapper mapper)
+        public PessoaSrv(IMensagensApi mensagens, IPessoaRep Repositorios, IPessoaTrd tradutor)
         {
             _mensagens = mensagens;
             _Repositorios = Repositorios;
-            _mapper = mapper;
+            _tradutor = tradutor;
         }
 
         public bool IncluirPessoa(PessoaDto pessoa)
         {
-            var dominio = _mapper.Map<PessoaDom>((pessoa, _mensagens));
+            var dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
 
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _mapper.Map<PessoaDpo>(pessoa);
+            var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
             var sucesso = _Repositorios.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
@@ -47,19 +48,19 @@ namespace Servicos.Usuario.Implementacoes
             if (pessoa == null)
                 _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Nenhum usuário encontrato com este CPF");
 
-            return _mapper.Map<PessoaDto>(pessoa);
+            return _tradutor.MapearParaDto(pessoa);
         }
 
         public bool AtualizarDadosPessoa(PessoaDto pessoa)
         {
-            var dominio = _mapper.Map<GrupoDom>((pessoa, _mensagens));
+            var dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
 
-            dominio.ValidarDados();
+            dominio.ValidarCpf();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _mapper.Map<PessoaDpo>(pessoa);
+            var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
             var sucesso = _Repositorios.UpdateDadosPessoa(pessoaBanco);
 
             if (!sucesso)

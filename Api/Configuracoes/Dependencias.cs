@@ -3,6 +3,7 @@ using Repositorios.Usuario.Interfaces;
 using Repositorios.Usuario.Implementacoes;
 using Servicos.Usuario.Interfaces;
 using Servicos.Usuario.Implementacoes;
+using Abstracoes;
 
 namespace Api.Configuracoes
 {
@@ -12,7 +13,9 @@ namespace Api.Configuracoes
         {
             ConfigurarCamadaRepositorios(servicos);
             ConfigurarCamadaServico(servicos);
+            Mapeamentos.DefinirConfiguracoesMapeamento(servicos);
         }
+
         private static void ConfigurarCamadaRepositorios(IServiceCollection servicos)
         {
             servicos.AddScoped<IGrupoRep, GrupoRep>();

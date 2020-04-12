@@ -17,10 +17,10 @@ namespace Servicos.Usuario.Implementacoes
         private IGrupoRep _Repositorios { get; }
         private IMapper _mapper { get; }
         private IMensagensApi _mensagens { get; }
-        public GrupoSrv(IGrupoRep Repositorios, IMapper mapper, IMensagensApi mensagens)
+        public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens)
         {
             _Repositorios = Repositorios;
-            _mapper = mapper;
+            _mapper = null;
             _mensagens = mensagens;
         }
 
