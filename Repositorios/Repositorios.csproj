@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abstracoes\Abstracoes.csproj" />
+    <ProjectReference Include="..\SharedKernel\ObjetosValor\ObjetosValor.csproj" />
   </ItemGroup>
 
 </Project>

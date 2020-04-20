@@ -1,3 +1,9 @@
-SELECT *
+SELECT 
+     ID_PESSOA AS ID
+    ,NOME
+    ,CPF
+    ,EMAIL
+    ,DDD
+    ,NUMERO
 FROM PESSOAS
 WHERE CPF = @CPF

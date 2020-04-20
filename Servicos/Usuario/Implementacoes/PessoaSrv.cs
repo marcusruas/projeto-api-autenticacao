@@ -6,6 +6,8 @@ using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 using Abstracoes.Tradutores.Usuario.Interfaces;
+using SharedKernel.ObjetosValor.Formatos;
+using System;
 
 namespace Servicos.Usuario.Implementacoes
 {
@@ -35,7 +37,7 @@ namespace Servicos.Usuario.Implementacoes
             var sucesso = _Repositorios.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
-                throw new RegraNegocioException("Já existe uma pessoa registrada para este CPF.");
+                throw new RegraNegocioException("Não foi possível incluir esta pessoa. Verifique os dados ou tente novamente mais tarde.");
 
             _mensagens.AdicionarMensagem("Pessoa adicionada com sucesso!");
             return sucesso;
@@ -43,10 +45,14 @@ namespace Servicos.Usuario.Implementacoes
 
         public PessoaDto PesquisarPessoaCpf(string cpf)
         {
-            var pessoa = _Repositorios.BuscarPessoaCpf(cpf);
+            if (string.IsNullOrWhiteSpace(cpf))
+                throw new ArgumentException("CPF não informado. Informe um CPF para poder realizar esta consulta");
+
+            var cpfParametro = new Cpf(cpf);
+            var pessoa = _Repositorios.BuscarPessoaCpf(cpfParametro);
 
             if (pessoa == null)
-                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Nenhum usuário encontrato com este CPF");
+                throw new Exception("Nenhuma pessoa encontrada com este CPF");
 
             return _tradutor.MapearParaDto(pessoa);
         }

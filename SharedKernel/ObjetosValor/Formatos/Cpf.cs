@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,6 +8,9 @@ namespace SharedKernel.ObjetosValor.Formatos
     {
         public Cpf(string cpf)
         {
+            if (string.IsNullOrWhiteSpace(cpf) || cpf.Length < 11)
+                throw new ArgumentException("Formato do CPF inválido! CPF deve conter ao menos 11 números.");
+
             this.ValorFormatado = FormatarCpf(cpf);
             this.ValorNumerico = RemoverFormatacao(cpf);
         }

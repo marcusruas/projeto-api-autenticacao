@@ -3,6 +3,7 @@ using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorios.Usuario.Interfaces;
 using Abstracoes.Representacoes.Usuario.Pessoa;
+using SharedKernel.ObjetosValor.Formatos;
 
 namespace Repositorios.Usuario.Implementacoes
 {
@@ -22,11 +23,11 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public PessoaDpo BuscarPessoaCpf(string cpf)
+        public PessoaDpo BuscarPessoaCpf(Cpf cpf)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaCpf", "SHAREDB");
             var parametros = new DynamicParameters();
-            parametros.Add("cpf", cpf);
+            parametros.Add("cpf", cpf.ValorNumerico);
             return conexao.QueryFirstOrDefault<PessoaDpo>(comando, parametros);
         }
 
