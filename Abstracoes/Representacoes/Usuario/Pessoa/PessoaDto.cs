@@ -1,4 +1,5 @@
-﻿using SharedKernel.ObjetosValor.Formatos;
+﻿using System.ComponentModel.DataAnnotations;
+using SharedKernel.ObjetosValor.Formatos;
 
 namespace Abstracoes.Representacoes.Usuario.Pessoa
 {
@@ -18,6 +19,7 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Nome da pessoa é obrigatório")]
         public string Nome { get; set; }
         public Cpf Cpf { get; set; }
         public string Email { get; set; }

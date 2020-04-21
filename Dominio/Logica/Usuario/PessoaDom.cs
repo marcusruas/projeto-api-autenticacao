@@ -23,14 +23,6 @@ namespace Dominio.Logica.Usuario
             _mensagens = mensagens;
         }
 
-        public PessoaDom(int id, string nome, Cpf cpf, IMensagensApi mensagens)
-        {
-            Id = id;
-            Nome = nome;
-            Cpf = cpf;
-            _mensagens = mensagens;
-        }
-
         public int Id { get; }
         public string Nome { get; }
         public Cpf Cpf { get; }
