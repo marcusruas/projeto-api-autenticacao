@@ -4,6 +4,8 @@ using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorios.Usuario.Interfaces;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using SharedKernel.ObjetosValor.Formatos;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Repositorios.Usuario.Implementacoes
 {
@@ -23,12 +25,20 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public PessoaDpo BuscarPessoaCpf(Cpf cpf)
+        public List<PessoaDpo> BuscarPessoas(FiltroBuscaPessoasDto filtro)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaCpf", "SHAREDB");
-            var parametros = new DynamicParameters();
-            parametros.Add("cpf", cpf.ValorNumerico);
-            return conexao.QueryFirstOrDefault<PessoaDpo>(comando, parametros);
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoas", "SHAREDB");
+
+            var builder = new SqlBuilder();
+            var selector = builder.AddTemplate(comando);
+
+            if (filtro.PossuiNome())
+                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.Nome}%" });
+
+            if (filtro.PossuiCpf())
+                builder.Where("CPF = @CPF", new { Cpf = filtro.Cpf.ValorNumerico });
+
+            return conexao.Query<PessoaDpo>(selector.RawSql, selector.Parameters).ToList();
         }
 
         public bool UpdateDadosPessoa(PessoaDpo pessoa)

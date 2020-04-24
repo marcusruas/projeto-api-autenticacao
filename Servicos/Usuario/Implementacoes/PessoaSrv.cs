@@ -8,19 +8,21 @@ using Servicos.Usuario.Interfaces;
 using Abstracoes.Tradutores.Usuario.Interfaces;
 using SharedKernel.ObjetosValor.Formatos;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Servicos.Usuario.Implementacoes
 {
     public class PessoaSrv : IPessoaSrv
     {
         private IMensagensApi _mensagens { get; }
-        private IPessoaRep _Repositorios { get; }
+        private IPessoaRep _Repositorio { get; }
         private IPessoaTrd _tradutor { get; }
 
         public PessoaSrv(IMensagensApi mensagens, IPessoaRep Repositorios, IPessoaTrd tradutor)
         {
             _mensagens = mensagens;
-            _Repositorios = Repositorios;
+            _Repositorio = Repositorios;
             _tradutor = tradutor;
         }
 
@@ -34,7 +36,7 @@ namespace Servicos.Usuario.Implementacoes
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
-            var sucesso = _Repositorios.InserirPessoa(pessoaBanco);
+            var sucesso = _Repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
                 throw new RegraNegocioException("Não foi possível incluir esta pessoa. Verifique os dados ou tente novamente mais tarde.");
@@ -43,18 +45,23 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
-        public PessoaDto PesquisarPessoaCpf(string cpf)
+        public List<PessoaDto> PesquisarPessoas(FiltroBuscaPessoasDto filtro)
         {
-            if (string.IsNullOrWhiteSpace(cpf))
-                throw new ArgumentException("CPF não informado. Informe um CPF para poder realizar esta consulta");
+            if (!filtro.PossuiCpf() && !filtro.PossuiNome())
+                throw new ArgumentException("Ao menos um filtro deve ser preenchido.");
 
-            var cpfParametro = new Cpf(cpf);
-            var pessoa = _Repositorios.BuscarPessoaCpf(cpfParametro);
+            var pessoas = _Repositorio.BuscarPessoas(filtro);
 
-            if (pessoa == null)
-                throw new Exception("Nenhuma pessoa encontrada com este CPF");
+            if (pessoas.Count() == 0)
+            {
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "A consulta não retornou resultados");
+                return new List<PessoaDto>();
+            }
 
-            return _tradutor.MapearParaDto(pessoa);
+            var listaRetorno = new List<PessoaDto>();
+            pessoas.ForEach(pessoa => listaRetorno.Add(_tradutor.MapearParaDto(pessoa)));
+
+            return listaRetorno;
         }
 
         public bool AtualizarDadosPessoa(PessoaDto pessoa)
@@ -67,7 +74,7 @@ namespace Servicos.Usuario.Implementacoes
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
-            var sucesso = _Repositorios.UpdateDadosPessoa(pessoaBanco);
+            var sucesso = _Repositorio.UpdateDadosPessoa(pessoaBanco);
 
             if (!sucesso)
                 throw new RegraNegocioException("Não foi possível localizar a pessoa. Verificar informações.");
@@ -78,7 +85,7 @@ namespace Servicos.Usuario.Implementacoes
 
         public bool ExcluirPessoa(string nomePessoa)
         {
-            var sucesso = _Repositorios.DeletarPessoa(nomePessoa);
+            var sucesso = _Repositorio.DeletarPessoa(nomePessoa);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar a pessoa. Verifique o nome digitado e tente novamente.");
 

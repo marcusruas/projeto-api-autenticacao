@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using AutoMapper;
 using MandradePkgs.Retornos;
@@ -24,10 +25,10 @@ namespace Api.Controllers.Usuarios
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
         }
 
-        [HttpGet]
-        public RespostaApi<PessoaDto> BuscarPessoaPorCpf(string cpf)
+        [HttpPost]
+        public RespostaApi<List<PessoaDto>> PesquisarPessoas(FiltroBuscaPessoasDto filtro)
         {
-            return RespostaPadrao(_pessoaServico.PesquisarPessoaCpf(cpf));
+            return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
         }
 
         [HttpPut]

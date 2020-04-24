@@ -6,4 +6,4 @@ SELECT
     ,DDD
     ,NUMERO
 FROM PESSOAS
-WHERE CPF = @CPF
+/**where**/
