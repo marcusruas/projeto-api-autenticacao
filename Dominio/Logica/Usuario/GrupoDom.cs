@@ -75,12 +75,14 @@ namespace Dominio.Logica.Usuario
         public void ValidarDescricao()
         {
             if (!string.IsNullOrEmpty(Descricao))
+            {
                 if (Descricao.Length <= 15)
                     _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
                                                  "Descrição do grupo deve conter mais de 15 caractéres");
-            if (Descricao.Length > LimiteCaracteresDescricao)
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Descrição do grupo deve conter menos de 200 caractéres");
+                if (Descricao.Length > LimiteCaracteresDescricao)
+                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
+                                                "Descrição do grupo deve conter menos de 200 caractéres");
+            }
         }
 
         public void ValidarJustificativa()

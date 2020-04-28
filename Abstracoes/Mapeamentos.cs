@@ -9,6 +9,7 @@ namespace Abstracoes
         public static void DefinirConfiguracoesMapeamento(this IServiceCollection servicos)
         {
             servicos.AddScoped<IPessoaTrd, PessoaTrd>();
+            servicos.AddScoped<IGrupoTrd, GrupoTrd>();
         }
     }
 }

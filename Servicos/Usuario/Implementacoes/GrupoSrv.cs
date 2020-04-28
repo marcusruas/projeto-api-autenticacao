@@ -9,31 +9,32 @@ using System.Linq;
 using Dominio.Logica.Usuario;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using SharedKernel.ObjetosValor.Enum;
+using Abstracoes.Tradutores.Usuario.Interfaces;
 
 namespace Servicos.Usuario.Implementacoes
 {
     public class GrupoSrv : IGrupoSrv
     {
         private IGrupoRep _Repositorios { get; }
-        private IMapper _mapper { get; }
+        private IGrupoTrd _tradutor { get; }
         private IMensagensApi _mensagens { get; }
-        public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens)
+        public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens, IGrupoTrd trd)
         {
             _Repositorios = Repositorios;
-            _mapper = null;
+            _tradutor = trd;
             _mensagens = mensagens;
         }
 
         public bool InserirNovoUsuario(GrupoDto grupo)
         {
-            var dominio = _mapper.Map<GrupoDom>((grupo, _mensagens));
+            var dominio = _tradutor.MapearParaDominio(grupo, _mensagens);
 
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var grupoBanco = _mapper.Map<GrupoDpo>(dominio);
+            var grupoBanco = _tradutor.MapearParaDpo(grupo);
             var sucesso = _Repositorios.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
@@ -50,13 +51,20 @@ namespace Servicos.Usuario.Implementacoes
 
             var listaGrupos = _Repositorios.ObterGruposPorNivel((int)nivel);
 
-            return _mapper.Map<List<GrupoDto>>(listaGrupos);
+            var resultado = new List<GrupoDto>();
+
+            foreach (var grupo in listaGrupos)
+                resultado.Add(_tradutor.MapearParaDto(grupo));
+
+            return resultado;
         }
 
         public GrupoDto ObterDadosGrupo(string grupo)
         {
             var grupoBanco = _Repositorios.ObterDadosGrupo(grupo);
-            return _mapper.Map<GrupoDto>(grupoBanco);
+            if (grupoBanco == null)
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Não foi localizado nenhum grupo com esse nome.");
+            return _tradutor.MapearParaDto(grupoBanco);
         }
 
         public bool AtualizarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa)
@@ -68,7 +76,7 @@ namespace Servicos.Usuario.Implementacoes
             grupoDto.Nome = grupo;
             grupoDto.Nivel = (NivelGrupo)nivel;
             grupoDto.Justificativa = justificativa;
-            var dominio = _mapper.Map<GrupoDom>((grupoDto, _mensagens));
+            var dominio = _tradutor.MapearParaDominio(grupoDto, _mensagens);
 
             dominio.ValidarJustificativa();
             dominio.ValidarJustificativaParaNivel();
