@@ -68,6 +68,18 @@ namespace Servicos.Usuario.Implementacoes
         {
             var dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
 
+            if (pessoa.Id == 0)
+                throw new RegraNegocioException("Para realizar a alteração da pessoa, deve ser informado o número de identificação da mesma.");
+
+            if (string.IsNullOrWhiteSpace(pessoa.Nome) &&
+                string.IsNullOrWhiteSpace(pessoa.Email) &&
+                pessoa.Cpf == null && pessoa.Telefone == null)
+                throw new ArgumentException("Para realizar a alteração da pessoa, ao menos um dado deve ser alterado.");
+
+            if (!string.IsNullOrWhiteSpace(pessoa.Nome))
+                dominio.ValidarNome();
+
+            dominio.ValidarDadosContato();
             dominio.ValidarCpf();
 
             if (_mensagens.PossuiFalhasValidacao())
@@ -77,7 +89,7 @@ namespace Servicos.Usuario.Implementacoes
             var sucesso = _Repositorio.UpdateDadosPessoa(pessoaBanco);
 
             if (!sucesso)
-                throw new RegraNegocioException("Não foi possível localizar a pessoa. Verificar informações.");
+                throw new RegraNegocioException("Não foi possível atualizar a pessoa. Favor Verificar informações.");
 
             _mensagens.AdicionarMensagem("Pessoa atualizada com sucesso!");
             return sucesso;

@@ -1,12 +1,12 @@
 IF EXISTS(SELECT 1 FROM PESSOAS WHERE CPF = @CPF)
    THROW 51000, 'CPF solicitado já está cadastrado.', 1;  
-   
+
 UPDATE PESSOAS
-   SET NOME		= ISNULL(@NOME, NOME)		
-      ,CPF		= ISNULL(@CPF,CPF)
-      ,EMAIL	= ISNULL(@EMAIL,EMAIL)
-      ,DDD     = ISNULL(@DDD,DDD)
-      ,NUMERO  = ISNULL(@NUMERO,NUMERO)
+   SET NOME		= @NOME	
+      ,CPF		= @CPF
+      ,EMAIL	= @EMAIL
+      ,DDD     = @DDD
+      ,NUMERO  = @NUMERO
 WHERE
    ID_PESSOA = @ID_PESSOA
 
