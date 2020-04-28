@@ -99,9 +99,9 @@ namespace Servicos.Usuario.Implementacoes
         {
             var sucesso = _Repositorio.DeletarPessoa(nomePessoa);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar a pessoa. Verifique o nome digitado e tente novamente.");
+                throw new FalhaExecucaoException("Não foi possível deletar a pessoa. Tente novamente mais tarde");
 
-            _mensagens.AdicionarMensagem($"Pessoa {nomePessoa} foi excluída com sucesso!");
+            _mensagens.AdicionarMensagem($"{nomePessoa} foi excluído(a) com sucesso!");
             return sucesso;
         }
     }
