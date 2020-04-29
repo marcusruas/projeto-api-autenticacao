@@ -20,12 +20,14 @@ namespace Api.Configuracoes
         {
             servicos.AddScoped<IGrupoRep, GrupoRep>();
             servicos.AddScoped<IPessoaRep, PessoaRep>();
+            servicos.AddScoped<IUsuarioRep, UsuarioRep>();
         }
 
         private static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
             servicos.AddScoped<IGrupoSrv, GrupoSrv>();
             servicos.AddScoped<IPessoaSrv, PessoaSrv>();
+            servicos.AddScoped<IUsuarioSrv, UsuarioSrv>();
         }
     }
 }
