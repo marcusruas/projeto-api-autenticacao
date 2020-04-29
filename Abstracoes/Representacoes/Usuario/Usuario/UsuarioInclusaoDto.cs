@@ -1,0 +1,10 @@
+namespace Abstracoes.Representacoes.Usuario.Usuario
+{
+    public class UsuarioInclusaoDto
+    {
+        public string Usuario { get; set; }
+        public string Senha { get; set; }
+        public int IdPessoa { get; set; }
+        public int IdGrupo { get; set; }
+    }
+}

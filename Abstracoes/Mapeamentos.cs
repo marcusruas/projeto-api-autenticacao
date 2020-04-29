@@ -10,6 +10,7 @@ namespace Abstracoes
         {
             servicos.AddScoped<IPessoaTrd, PessoaTrd>();
             servicos.AddScoped<IGrupoTrd, GrupoTrd>();
+            servicos.AddScoped<IUsuarioTrd, UsuarioTrd>();
         }
     }
 }
