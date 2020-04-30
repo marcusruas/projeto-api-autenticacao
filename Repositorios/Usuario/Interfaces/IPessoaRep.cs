@@ -8,6 +8,7 @@ namespace Repositorios.Usuario.Interfaces
     {
         bool InserirPessoa(PessoaDpo pessoa);
         List<PessoaDpo> BuscarPessoas(FiltroBuscaPessoasDto filtro);
+        PessoaDpo ObterPessoaPorId(int id);
         bool UpdateDadosPessoa(PessoaDpo pessoa);
         bool DeletarPessoa(string nomePessoa);
     }

@@ -7,6 +7,7 @@ namespace Servicos.Usuario.Interfaces
     {
         bool IncluirPessoa(PessoaDto pessoa);
         List<PessoaDto> PesquisarPessoas(FiltroBuscaPessoasDto filtro);
+        PessoaDto PesquisarPessoaPorId(int id);
         bool AtualizarDadosPessoa(PessoaDto pessoa);
         bool ExcluirPessoa(string nomePessoa);
     }

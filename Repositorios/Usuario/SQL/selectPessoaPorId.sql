@@ -1,0 +1,9 @@
+SELECT 
+     ID_PESSOA AS ID
+    ,NOME
+    ,CPF
+    ,EMAIL
+    ,DDD
+    ,NUMERO
+FROM PESSOAS
+WHERE ID_PESSOA = @ID

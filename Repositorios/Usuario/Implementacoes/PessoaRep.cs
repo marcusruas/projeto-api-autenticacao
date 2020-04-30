@@ -54,5 +54,12 @@ namespace Repositorios.Usuario.Implementacoes
             var parametros = DpoParaParametros(new { Nome = nomePessoa });
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public PessoaDpo ObterPessoaPorId(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaPorId", "SHAREDB");
+            var parametros = DpoParaParametros(new { Id = id });
+            return conexao.Query<PessoaDpo>(comando, parametros).FirstOrDefault();
+        }
     }
 }

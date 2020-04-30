@@ -51,5 +51,12 @@ namespace Repositorios.Usuario.Implementacoes
             var parametros = DpoParaParametros(new { Nome = grupo });
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public GrupoDpo ObterGrupoPorId(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoPorId", "SHAREDB");
+            var parametros = DpoParaParametros(new { Id = id });
+            return conexao.Query<GrupoDpo>(comando, parametros).FirstOrDefault();
+        }
     }
 }

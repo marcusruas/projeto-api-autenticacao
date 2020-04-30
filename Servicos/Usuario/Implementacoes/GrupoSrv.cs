@@ -15,12 +15,12 @@ namespace Servicos.Usuario.Implementacoes
 {
     public class GrupoSrv : IGrupoSrv
     {
-        private IGrupoRep _Repositorios { get; }
+        private IGrupoRep _repositorio { get; }
         private IGrupoTrd _tradutor { get; }
         private IMensagensApi _mensagens { get; }
         public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens, IGrupoTrd trd)
         {
-            _Repositorios = Repositorios;
+            _repositorio = Repositorios;
             _tradutor = trd;
             _mensagens = mensagens;
         }
@@ -35,7 +35,7 @@ namespace Servicos.Usuario.Implementacoes
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var grupoBanco = _tradutor.MapearParaDpo(grupo);
-            var sucesso = _Repositorios.AdicionarGrupo(grupoBanco);
+            var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
                 throw new FalhaExecucaoException("Já existe um grupo registrado com este nome.");
@@ -49,7 +49,7 @@ namespace Servicos.Usuario.Implementacoes
             if (!NivelExiste(nivel))
                 throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
 
-            var listaGrupos = _Repositorios.ObterGruposPorNivel((int)nivel);
+            var listaGrupos = _repositorio.ObterGruposPorNivel((int)nivel);
 
             var resultado = new List<GrupoDto>();
 
@@ -61,7 +61,7 @@ namespace Servicos.Usuario.Implementacoes
 
         public GrupoDto ObterDadosGrupo(string grupo)
         {
-            var grupoBanco = _Repositorios.ObterDadosGrupo(grupo);
+            var grupoBanco = _repositorio.ObterDadosGrupo(grupo);
             if (grupoBanco == null)
                 _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Não foi localizado nenhum grupo com esse nome.");
             return _tradutor.MapearParaDto(grupoBanco);
@@ -84,7 +84,7 @@ namespace Servicos.Usuario.Implementacoes
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var sucesso = _Repositorios.AtualizarNivelGrupo(grupo, (int)nivel, justificativa);
+            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, (int)nivel, justificativa);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
@@ -94,7 +94,7 @@ namespace Servicos.Usuario.Implementacoes
 
         public bool ExcluirGrupo(string grupo)
         {
-            var sucesso = _Repositorios.DeletarGrupo(grupo);
+            var sucesso = _repositorio.DeletarGrupo(grupo);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
@@ -104,5 +104,8 @@ namespace Servicos.Usuario.Implementacoes
 
         private bool NivelExiste(NivelGrupo nivel) =>
             Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>().Any(grupo => grupo == nivel);
+
+        public GrupoDto PesquisarGrupoPorId(int id) =>
+            _tradutor.MapearParaDto(_repositorio.ObterGrupoPorId(id));
     }
 }

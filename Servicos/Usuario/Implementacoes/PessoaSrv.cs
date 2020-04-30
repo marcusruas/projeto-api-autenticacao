@@ -104,5 +104,8 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens.AdicionarMensagem($"{nomePessoa} foi excluído(a) com sucesso!");
             return sucesso;
         }
+
+        public PessoaDto PesquisarPessoaPorId(int id) =>
+            _tradutor.MapearParaDto(_Repositorio.ObterPessoaPorId(id));
     }
 }
