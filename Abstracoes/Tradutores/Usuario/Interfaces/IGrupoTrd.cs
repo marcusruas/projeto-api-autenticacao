@@ -10,5 +10,6 @@ namespace Abstracoes.Tradutores.Usuario.Interfaces
         GrupoDto MapearParaDto(GrupoDpo grupo);
         GrupoDpo MapearParaDpo(GrupoDto grupo);
         GrupoDom MapearParaDominio(GrupoDto grupo, IMensagensApi mensagens);
+        GrupoDom MapearParaDominio(GrupoDpo grupo, IMensagensApi mensagens);
     }
 }

@@ -18,6 +18,16 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 mensagens
             );
 
+        public PessoaDom MapearParaDominio(PessoaDpo pessoa, IMensagensApi mensagens) =>
+            new PessoaDom(
+                pessoa.Id,
+                pessoa.Nome,
+                new Cpf(pessoa.Cpf.ToString()),
+                pessoa.Email,
+                new Telefone(pessoa.Ddd, pessoa.Numero),
+                mensagens
+            );
+
         public PessoaDpo MapearParaDpo(PessoaDto pessoa)
         {
             long cpf = pessoa.Cpf == null ?

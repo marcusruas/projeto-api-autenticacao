@@ -18,6 +18,16 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 mensagens
             );
 
+        public GrupoDom MapearParaDominio(GrupoDpo grupo, IMensagensApi mensagens) =>
+            new GrupoDom(
+                grupo.Id,
+                grupo.Nome,
+                grupo.Descricao,
+                (NivelGrupo)grupo.Nivel,
+                grupo.Justificativa,
+                mensagens
+            );
+
         public GrupoDpo MapearParaDpo(GrupoDto grupo) =>
             new GrupoDpo()
             {
