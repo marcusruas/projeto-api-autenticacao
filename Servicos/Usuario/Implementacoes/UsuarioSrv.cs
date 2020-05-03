@@ -2,6 +2,7 @@ using System;
 using Abstracoes.Representacoes.Usuario.Usuario;
 using Abstracoes.Tradutores.Usuario.Interfaces;
 using MandradePkgs.Mensagens;
+using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 
@@ -38,21 +39,27 @@ namespace Servicos.Usuario.Implementacoes
 
         public void IncluirUsuario(UsuarioInclusaoDto usuario)
         {
+            if (usuario.Senha != usuario.ConfirmacaoSenha)
+                throw new ArgumentException("Senha e confirmação de senha não são iguais, verifique os dados");
+
             var grupo = _grupoServico.PesquisarGrupoPorId(usuario.IdGrupo);
             if (grupo == null)
                 throw new ArgumentException("Grupo informado para o usuário não encontrado");
+            var grupoDom = _grupoTradutor.MapearParaDominio(grupo, _mensagens);
 
             var pessoa = _pessoaServico.PesquisarPessoaPorId(usuario.IdPessoa);
             if (pessoa == null)
                 throw new ArgumentException("Pessoa informada para o usuário não encontrada");
-
-            var grupoDom = _grupoTradutor.MapearParaDominio(grupo, _mensagens);
             var pessoaDom = _pessoaTradutor.MapearParaDominio(pessoa, _mensagens);
-            var usuarioDom = _tradutor.MapearParaDominio(usuario, grupoDom, pessoaDom, _mensagens);
 
+            var usuarioDom = _tradutor.MapearParaDominio(usuario, grupoDom, pessoaDom, _mensagens);
             usuarioDom.ValidarDados();
 
-            
+            if (_mensagens.PossuiFalhasValidacao())
+                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+
+            var usuarioBanco = _tradutor.MapearParaDpo(usuarioDom);
+            _usuarioRepositorio.InserirUsuario(usuarioBanco);
         }
     }
 }

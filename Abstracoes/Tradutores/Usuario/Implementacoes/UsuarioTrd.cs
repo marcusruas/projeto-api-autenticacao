@@ -21,5 +21,16 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 pessoa,
                 mensagens
             );
+
+        public UsuarioDpo MapearParaDpo(UsuarioDom usuario) =>
+            new UsuarioDpo(
+                usuario.Id,
+                usuario.Usuario,
+                usuario.Senha.ValorCriptografado,
+                usuario.DataCriacao,
+                usuario.Ativo,
+                usuario.Grupo.Id,
+                usuario.Pessoa.Id
+            );
     }
 }

@@ -1,6 +1,8 @@
 using Abstracoes.Representacoes.Usuario.Usuario;
+using Dapper;
 using MandradePkgs.Conexoes;
 using Repositorios.Usuario.Interfaces;
+using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
 namespace Repositorios.Usuario.Implementacoes
 {
@@ -13,9 +15,11 @@ namespace Repositorios.Usuario.Implementacoes
             _conexao = conexao;
         }
 
-        public void InserirUsuario(UsuarioDpo usuario)
+        public bool InserirUsuario(UsuarioDpo usuario)
         {
-            throw new System.NotImplementedException();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertUsuario", "SHAREDB");
+            var parametros = DpoParaParametros(usuario);
+            return conexao.Execute(comando, parametros) == 1;
         }
     }
 }
