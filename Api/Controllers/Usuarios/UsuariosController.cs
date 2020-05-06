@@ -21,10 +21,7 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
-        public RespostaApi CadastrarUsuario(UsuarioInclusaoDto usuario)
-        {
-            _servico.IncluirUsuario(usuario);
-            return RespostaPadrao();
-        }
+        public RespostaApi CadastrarUsuario(UsuarioInclusaoDto usuario) =>
+            RespostaPadrao(_servico.IncluirUsuario(usuario));
     }
 }

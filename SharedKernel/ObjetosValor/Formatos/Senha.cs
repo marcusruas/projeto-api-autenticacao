@@ -23,12 +23,12 @@ namespace SharedKernel.ObjetosValor.Formatos
             string.IsNullOrWhiteSpace(Valor);
 
         public bool PossuiMinimoCaracteres() =>
-            Valor.Length < MinimoCaracteresNecessarios;
+            Valor.Length >= MinimoCaracteresNecessarios;
 
         public bool PossuiCaracteresNecessarios() =>
-               !Valor.Any(c => char.IsNumber(c))
-            || !Valor.Any(c => char.IsUpper(c))
-            || !Valor.Any(c => char.IsLetterOrDigit(c));
+               Valor.Any(c => char.IsNumber(c))
+            && Valor.Any(c => char.IsUpper(c))
+            && Valor.Any(c => !char.IsLetterOrDigit(c));
 
         private string CriptografarSenha(string senha)
         {

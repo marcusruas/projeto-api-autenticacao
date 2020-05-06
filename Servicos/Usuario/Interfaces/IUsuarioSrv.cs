@@ -4,6 +4,6 @@ namespace Servicos.Usuario.Interfaces
 {
     public interface IUsuarioSrv
     {
-        void IncluirUsuario(UsuarioInclusaoDto usuario);
+        bool IncluirUsuario(UsuarioInclusaoDto usuario);
     }
 }

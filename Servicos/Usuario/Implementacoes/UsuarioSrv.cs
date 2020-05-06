@@ -37,7 +37,7 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens = mensagens;
         }
 
-        public void IncluirUsuario(UsuarioInclusaoDto usuario)
+        public bool IncluirUsuario(UsuarioInclusaoDto usuario)
         {
             if (usuario.Senha != usuario.ConfirmacaoSenha)
                 throw new ArgumentException("Senha e confirmação de senha não são iguais, verifique os dados");
@@ -59,7 +59,13 @@ namespace Servicos.Usuario.Implementacoes
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
             var usuarioBanco = _tradutor.MapearParaDpo(usuarioDom);
-            _usuarioRepositorio.InserirUsuario(usuarioBanco);
+            var sucessoInsercao = _usuarioRepositorio.InserirUsuario(usuarioBanco);
+
+            if (!sucessoInsercao)
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível adicionar o novo usuário. Tente novamente mais tarde.");
+
+            _mensagens.AdicionarMensagem("Usuário Adicionado com sucesso!");
+            return sucessoInsercao;
         }
     }
 }
