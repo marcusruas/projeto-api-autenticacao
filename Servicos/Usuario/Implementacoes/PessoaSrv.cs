@@ -95,13 +95,13 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
-        public bool ExcluirPessoa(string nomePessoa)
+        public bool ExcluirPessoa(int id)
         {
-            var sucesso = _Repositorio.DeletarPessoa(nomePessoa);
+            var sucesso = _Repositorio.DeletarPessoa(id);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível deletar a pessoa. Tente novamente mais tarde");
 
-            _mensagens.AdicionarMensagem($"{nomePessoa} foi excluído(a) com sucesso!");
+            _mensagens.AdicionarMensagem($"Pessoa foi excluída com sucesso!");
             return sucesso;
         }
 

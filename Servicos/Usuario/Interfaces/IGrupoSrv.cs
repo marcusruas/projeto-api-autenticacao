@@ -11,6 +11,6 @@ namespace Servicos.Usuario.Interfaces
         GrupoDto ObterDadosGrupo(string grupo);
         GrupoDto PesquisarGrupoPorId(int id);
         bool AtualizarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa);
-        bool ExcluirGrupo(string grupo);
+        bool ExcluirGrupo(int id);
     }
 }

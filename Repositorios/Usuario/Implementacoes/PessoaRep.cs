@@ -48,10 +48,10 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public bool DeletarPessoa(string nomePessoa)
+        public bool DeletarPessoa(int id)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deletePessoa", "SHAREDB");
-            var parametros = DpoParaParametros(new { Nome = nomePessoa });
+            var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
 

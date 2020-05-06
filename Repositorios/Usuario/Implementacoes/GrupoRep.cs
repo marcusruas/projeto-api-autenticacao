@@ -45,10 +45,10 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public bool DeletarGrupo(string grupo)
+        public bool DeletarGrupo(int id)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
-            var parametros = DpoParaParametros(new { Nome = grupo });
+            var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
 

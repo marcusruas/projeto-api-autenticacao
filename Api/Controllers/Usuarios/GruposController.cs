@@ -38,8 +38,8 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_grupoServico.AtualizarNivelGrupo(grupo, nivel, justificativa));
 
         [HttpDelete]
-        public RespostaApi ExcluirGrupo(string grupo) =>
-            RespostaPadrao(_grupoServico.ExcluirGrupo(grupo));
+        public RespostaApi ExcluirGrupo(int idGrupo) =>
+            RespostaPadrao(_grupoServico.ExcluirGrupo(idGrupo));
 
     }
 }

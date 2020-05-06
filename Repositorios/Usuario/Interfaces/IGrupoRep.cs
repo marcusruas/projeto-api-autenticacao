@@ -10,6 +10,6 @@ namespace Repositorios.Usuario.Interfaces
         GrupoDpo ObterDadosGrupo(string grupo);
         GrupoDpo ObterGrupoPorId(int id);
         bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa);
-        bool DeletarGrupo(string grupo);
+        bool DeletarGrupo(int id);
     }
 }

@@ -92,13 +92,13 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
-        public bool ExcluirGrupo(string grupo)
+        public bool ExcluirGrupo(int id)
         {
-            var sucesso = _repositorio.DeletarGrupo(grupo);
+            var sucesso = _repositorio.DeletarGrupo(id);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
-            _mensagens.AdicionarMensagem($"Grupo {grupo} foi excluído com sucesso!");
+            _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
             return sucesso;
         }
 

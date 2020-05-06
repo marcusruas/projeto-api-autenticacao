@@ -10,6 +10,6 @@ namespace Repositorios.Usuario.Interfaces
         List<PessoaDpo> BuscarPessoas(FiltroBuscaPessoasDto filtro);
         PessoaDpo ObterPessoaPorId(int id);
         bool UpdateDadosPessoa(PessoaDpo pessoa);
-        bool DeletarPessoa(string nomePessoa);
+        bool DeletarPessoa(int id);
     }
 }
