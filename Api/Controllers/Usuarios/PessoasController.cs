@@ -20,7 +20,7 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
-        public RespostaApi CadastrarPessoa(PessoaDto pessoa)
+        public RespostaApi CadastrarPessoa(PessoaInclusaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
         }

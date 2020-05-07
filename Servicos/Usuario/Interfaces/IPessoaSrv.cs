@@ -5,7 +5,7 @@ namespace Servicos.Usuario.Interfaces
 {
     public interface IPessoaSrv
     {
-        bool IncluirPessoa(PessoaDto pessoa);
+        bool IncluirPessoa(PessoaInclusaoDto pessoa);
         List<PessoaDto> PesquisarPessoas(FiltroBuscaPessoasDto filtro);
         PessoaDto PesquisarPessoaPorId(int id);
         bool AtualizarDadosPessoa(PessoaDto pessoa);

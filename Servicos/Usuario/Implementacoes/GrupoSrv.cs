@@ -105,7 +105,12 @@ namespace Servicos.Usuario.Implementacoes
         private bool NivelExiste(NivelGrupo nivel) =>
             Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>().Any(grupo => grupo == nivel);
 
-        public GrupoDto PesquisarGrupoPorId(int id) =>
-            _tradutor.MapearParaDto(_repositorio.ObterGrupoPorId(id));
+        public GrupoDto PesquisarGrupoPorId(int id)
+        {
+            var grupo = _repositorio.ObterGrupoPorId(id);
+            if (grupo == null)
+                return null;
+            return _tradutor.MapearParaDto(grupo);
+        }
     }
 }

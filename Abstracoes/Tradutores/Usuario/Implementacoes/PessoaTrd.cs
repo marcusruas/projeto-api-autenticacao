@@ -18,6 +18,17 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 mensagens
             );
 
+        public PessoaDom MapearParaDominio(PessoaInclusaoDto pessoa, IMensagensApi mensagens) =>
+            new PessoaDom(
+                0,
+                pessoa.Nome,
+                !string.IsNullOrWhiteSpace(pessoa.Cpf) ? new Cpf(pessoa.Cpf) : null,
+                pessoa.Email,
+                !(string.IsNullOrWhiteSpace(pessoa.Ddd) && string.IsNullOrWhiteSpace(pessoa.Numero)) ?
+                    new Telefone(pessoa.Ddd, pessoa.Numero) : null,
+                mensagens
+            );
+
         public PessoaDom MapearParaDominio(PessoaDpo pessoa, IMensagensApi mensagens) =>
             new PessoaDom(
                 pessoa.Id,

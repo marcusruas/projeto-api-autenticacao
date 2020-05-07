@@ -11,5 +11,6 @@ namespace Abstracoes.Tradutores.Usuario.Interfaces
         PessoaDpo MapearParaDpo(PessoaDto pessoa);
         PessoaDom MapearParaDominio(PessoaDto pessoa, IMensagensApi mensagens);
         PessoaDom MapearParaDominio(PessoaDpo pessoa, IMensagensApi mensagens);
+        PessoaDom MapearParaDominio(PessoaInclusaoDto pessoa, IMensagensApi mensagens);
     }
 }

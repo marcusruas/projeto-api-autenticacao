@@ -26,16 +26,16 @@ namespace Servicos.Usuario.Implementacoes
             _tradutor = tradutor;
         }
 
-        public bool IncluirPessoa(PessoaDto pessoa)
+        public bool IncluirPessoa(PessoaInclusaoDto pessoa)
         {
-            var dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
-
+            PessoaDom dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
+            PessoaDto dto = _tradutor.MapearParaDto(dominio);
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
+            var pessoaBanco = _tradutor.MapearParaDpo(dto);
             var sucesso = _Repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
@@ -105,7 +105,13 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
-        public PessoaDto PesquisarPessoaPorId(int id) =>
-            _tradutor.MapearParaDto(_Repositorio.ObterPessoaPorId(id));
+        public PessoaDto PesquisarPessoaPorId(int id)
+        {
+            var pessoa = _Repositorio.ObterPessoaPorId(id);
+            if (pessoa == null)
+                return null;
+            return _tradutor.MapearParaDto(pessoa);
+
+        }
     }
 }
