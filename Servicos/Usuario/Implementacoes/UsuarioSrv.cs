@@ -40,6 +40,16 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens = mensagens;
         }
 
+        public bool AtualizarAtividadeUsuario(int id, bool ativo)
+        {
+            var resultado = _usuarioRepositorio.AtualizarAtivoUsuario(id, ativo);
+
+            if (resultado)
+                _mensagens.AdicionarMensagem("Usuário foi atualizado com sucesso!");
+
+            return resultado;
+        }
+
         public bool IncluirUsuario(UsuarioInclusaoDto usuario)
         {
             if (usuario.Senha != usuario.ConfirmacaoSenha)

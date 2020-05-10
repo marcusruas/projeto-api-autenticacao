@@ -27,22 +27,26 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpGet]
-        public PessoaDto PesquisarPessoaUsuario(int Id) => _servico.ObterPessoaUsuario(Id);
+        public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int Id) =>
+            RespostaPadrao(_servico.ObterPessoaUsuario(Id));
 
         [HttpGet]
-        public GrupoDto PesquisarGrupoUsuario(int Id) => _servico.ObterGrupoUsuario(Id);
+        public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int Id) =>
+            RespostaPadrao(_servico.ObterGrupoUsuario(Id));
 
         [HttpGet]
-        public UsuarioDto ValidarUsuario(string Usuario, string Senha) => _servico.ValidarUsuario(Usuario, Senha);
+        public RespostaApi<UsuarioDto> ValidarUsuario(string Usuario, string Senha) =>
+            RespostaPadrao(_servico.ValidarUsuario(Usuario, Senha));
 
         [HttpPut]
-        public bool AlterarAtividadeUsuario(int Id, bool Ativo) => throw new NotImplementedException();
+        public RespostaApi AlterarAtividadeUsuario(int Id, bool Ativo) =>
+            RespostaPadrao(_servico.AtualizarAtividadeUsuario(Id, Ativo));
 
         [HttpPut]
-        public bool AlterarSenhaUsuario(UsuarioAlteracaoSenhaDto Usuario) => throw new NotImplementedException();
+        public RespostaApi<bool> AlterarSenhaUsuario(UsuarioAlteracaoSenhaDto Usuario) => throw new NotImplementedException();
 
         [HttpDelete]
-        public bool DeletarUsuario(int Id) => throw new NotImplementedException();
+        public RespostaApi<bool> DeletarUsuario(int Id) => throw new NotImplementedException();
 
     }
 }
