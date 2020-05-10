@@ -28,13 +28,36 @@ namespace Repositorios.Usuario.Implementacoes
         public PessoaDpo BuscarPessoaUsuario(int id)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaUsuario", "SHAREDB");
-            return conexao.Query<PessoaDpo>(comando, new { Id = id }).FirstOrDefault();
+            return conexao.QueryFirstOrDefault<PessoaDpo>(comando, new { Id = id });
         }
 
         public GrupoDpo BuscarGrupoUsuario(int id)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoUsuario", "SHAREDB");
-            return conexao.Query<GrupoDpo>(comando, new { Id = id }).FirstOrDefault();
+            return conexao.QueryFirstOrDefault<GrupoDpo>(comando, new { Id = id });
+        }
+
+        public (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectUsuario", "SHAREDB");
+            UsuarioDpo usuarioBanco;
+            GrupoDpo grupoBanco;
+            PessoaDpo pessoaBanco;
+            using (var retorno = conexao.QueryMultiple(
+                comando,
+                new
+                {
+                    Usuario = usuario,
+                    Senha = senha
+                })
+            )
+            {
+                usuarioBanco = retorno.Read<UsuarioDpo>().First();
+                grupoBanco = retorno.Read<GrupoDpo>().First();
+                pessoaBanco = retorno.Read<PessoaDpo>().First();
+            }
+
+            return (usuarioBanco, grupoBanco, pessoaBanco);
         }
     }
 }

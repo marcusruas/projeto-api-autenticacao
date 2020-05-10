@@ -33,7 +33,7 @@ namespace Api.Controllers.Usuarios
         public GrupoDto PesquisarGrupoUsuario(int Id) => _servico.ObterGrupoUsuario(Id);
 
         [HttpGet]
-        public List<UsuarioDto> BuscarUsuario(string Usuario, string Senha) => throw new NotImplementedException();
+        public UsuarioDto ValidarUsuario(string Usuario, string Senha) => _servico.ValidarUsuario(Usuario, Senha);
 
         [HttpPut]
         public bool AlterarAtividadeUsuario(int Id, bool Ativo) => throw new NotImplementedException();

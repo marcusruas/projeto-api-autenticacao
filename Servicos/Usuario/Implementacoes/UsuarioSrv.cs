@@ -7,6 +7,7 @@ using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
+using SharedKernel.ObjetosValor.Formatos;
 
 namespace Servicos.Usuario.Implementacoes
 {
@@ -94,6 +95,14 @@ namespace Servicos.Usuario.Implementacoes
             }
 
             return _pessoaTradutor.MapearParaDto(pessoa);
+        }
+
+        public UsuarioDto ValidarUsuario(string usuario, string senha)
+        {
+            string senhaCriptografada = new Senha(senha).ValorCriptografado;
+
+            var (usuarioBanco, grupo, pessoa) = _usuarioRepositorio.BuscarUsuario(usuario, senhaCriptografada);
+            return _tradutor.MapearParaDto(usuarioBanco, grupo, pessoa);
         }
     }
 }

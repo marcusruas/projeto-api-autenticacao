@@ -9,5 +9,6 @@ namespace Servicos.Usuario.Interfaces
         bool IncluirUsuario(UsuarioInclusaoDto usuario);
         PessoaDto ObterPessoaUsuario(int id);
         GrupoDto ObterGrupoUsuario(int id);
+        UsuarioDto ValidarUsuario(string usuario, string senha);
     }
 }

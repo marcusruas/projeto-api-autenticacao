@@ -9,5 +9,6 @@ namespace Repositorios.Usuario.Interfaces
         bool InserirUsuario(UsuarioDpo usuario);
         PessoaDpo BuscarPessoaUsuario(int id);
         GrupoDpo BuscarGrupoUsuario(int id);
+        (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha);
     }
 }

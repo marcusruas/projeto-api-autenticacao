@@ -9,6 +9,16 @@ namespace Abstracoes.Representacoes.Usuario.Usuario
 {
     public class UsuarioDto
     {
+        public UsuarioDto(int id, string usuario, Senha senha, DateTime dataCriacao, bool ativo, GrupoDto grupo, PessoaDto pessoa)
+        {
+            Id = id;
+            Usuario = usuario;
+            Senha = senha;
+            DataCriacao = dataCriacao;
+            Ativo = ativo;
+            Grupo = grupo;
+            Pessoa = pessoa;
+        }
         public int Id { get; set; }
         public string Usuario { get; set; }
         public Senha Senha { get; set; }
