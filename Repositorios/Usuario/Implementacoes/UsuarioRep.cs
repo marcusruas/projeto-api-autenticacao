@@ -66,5 +66,24 @@ namespace Repositorios.Usuario.Implementacoes
             var parametros = new { Id, Ativo };
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public bool AtualizarSenhaUsuario(int id, string senhaAntiga, string senhaNova)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateSenhaUsuario", "SHAREDB");
+            var parametros = new
+            {
+                Id = id,
+                SenhaAntiga = senhaAntiga,
+                senhaNova = senhaNova
+            };
+            return conexao.Execute(comando, parametros) == 1;
+        }
+
+        public bool DeletarUsuario(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteUsuario", "SHAREDB");
+            var parametros = DpoParaParametros(new { id });
+            return conexao.Execute(comando, parametros) == 1;
+        }
     }
 }

@@ -43,10 +43,12 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.AtualizarAtividadeUsuario(Id, Ativo));
 
         [HttpPut]
-        public RespostaApi<bool> AlterarSenhaUsuario(UsuarioAlteracaoSenhaDto Usuario) => throw new NotImplementedException();
+        public RespostaApi AlterarSenhaUsuario(UsuarioAlteracaoSenhaDto Usuario) =>
+            RespostaPadrao(_servico.AtualizarSenhaUsuario(Usuario));
 
         [HttpDelete]
-        public RespostaApi<bool> DeletarUsuario(int Id) => throw new NotImplementedException();
+        public RespostaApi DeletarUsuario(int Id) =>
+            RespostaPadrao(_servico.ExcluirUsuario(Id));
 
     }
 }

@@ -75,7 +75,7 @@ namespace Servicos.Usuario.Implementacoes
 
             var sucesso = _repositorio.AtualizarNivelGrupo(atualizacao);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique os dados e tente novamente.");
 
             _mensagens.AdicionarMensagem($"Nível do grupo foi atualizado com sucesso!");
             return sucesso;
@@ -85,7 +85,7 @@ namespace Servicos.Usuario.Implementacoes
         {
             var sucesso = _repositorio.DeletarGrupo(id);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
+                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique os dados e tente novamente.");
 
             _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
             return sucesso;

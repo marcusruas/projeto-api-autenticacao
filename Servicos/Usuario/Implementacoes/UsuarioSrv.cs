@@ -50,6 +50,30 @@ namespace Servicos.Usuario.Implementacoes
             return resultado;
         }
 
+        public bool AtualizarSenhaUsuario(UsuarioAlteracaoSenhaDto alteracao)
+        {
+            var resultado = _usuarioRepositorio.AtualizarSenhaUsuario(
+                alteracao.Id,
+                alteracao.SenhaAntiga,
+                alteracao.SenhaNova
+            );
+
+            if (resultado)
+                _mensagens.AdicionarMensagem("Usuário foi atualizado com sucesso!");
+
+            return resultado;
+        }
+
+        public bool ExcluirUsuario(int id)
+        {
+            var sucesso = _usuarioRepositorio.DeletarUsuario(id);
+            if (!sucesso)
+                throw new FalhaExecucaoException("Não foi possível localizar o usuário. Verifique os dados e tente novamente.");
+
+            _mensagens.AdicionarMensagem($"Usuário foi excluído com sucesso!");
+            return sucesso;
+        }
+
         public bool IncluirUsuario(UsuarioInclusaoDto usuario)
         {
             if (usuario.Senha != usuario.ConfirmacaoSenha)

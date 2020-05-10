@@ -8,6 +8,8 @@ namespace Repositorios.Usuario.Interfaces
     {
         bool InserirUsuario(UsuarioDpo usuario);
         bool AtualizarAtivoUsuario(int Id, bool Ativo);
+        bool AtualizarSenhaUsuario(int id, string senhaAntiga, string senhaNova);
+        bool DeletarUsuario(int id);
         PessoaDpo BuscarPessoaUsuario(int id);
         GrupoDpo BuscarGrupoUsuario(int id);
         (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha);
