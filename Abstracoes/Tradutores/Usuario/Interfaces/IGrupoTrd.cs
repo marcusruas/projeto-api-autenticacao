@@ -8,6 +8,7 @@ namespace Abstracoes.Tradutores.Usuario.Interfaces
     {
         GrupoDto MapearParaDto(GrupoDom grupo);
         GrupoDto MapearParaDto(GrupoDpo grupo);
+        GrupoDto MapearParaDto(GrupoAtualizacaoDto atualizacao);
         GrupoDpo MapearParaDpo(GrupoDto grupo);
         GrupoDom MapearParaDominio(GrupoDto grupo, IMensagensApi mensagens);
         GrupoDom MapearParaDominio(GrupoDpo grupo, IMensagensApi mensagens);

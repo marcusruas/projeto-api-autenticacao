@@ -8,9 +8,8 @@ namespace Servicos.Usuario.Interfaces
     {
         bool InserirNovoUsuario(GrupoDto grupo);
         List<GrupoDto> GruposPorNivel(NivelGrupo nivel);
-        GrupoDto ObterDadosGrupo(string grupo);
         GrupoDto PesquisarGrupoPorId(int id);
-        bool AtualizarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa);
+        bool AtualizarNivelGrupo(GrupoAtualizacaoDto atualizacao);
         bool ExcluirGrupo(int id);
     }
 }

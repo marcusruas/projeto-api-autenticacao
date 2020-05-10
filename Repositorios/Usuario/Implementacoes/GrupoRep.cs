@@ -31,17 +31,15 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Query<GrupoDpo>(comando, parametros).ToList();
         }
 
-        public GrupoDpo ObterDadosGrupo(string grupo)
-        {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoNome", "SHAREDB");
-            var parametros = DpoParaParametros(new { Nome = grupo });
-            return conexao.Query<GrupoDpo>(comando, parametros).FirstOrDefault();
-        }
-
-        public bool AtualizarNivelGrupo(string grupo, int nivel, string justificativa)
+        public bool AtualizarNivelGrupo(GrupoAtualizacaoDto atualizacao)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateNivelGrupo", "SHAREDB");
-            var parametros = DpoParaParametros(new { Nome = grupo, Nivel = nivel, Justificativa = justificativa });
+            var parametros = DpoParaParametros(new
+            {
+                Id = atualizacao.Id,
+                Nivel = atualizacao.Nivel,
+                Justificativa = atualizacao.Justificativa
+            });
             return conexao.Execute(comando, parametros) == 1;
         }
 

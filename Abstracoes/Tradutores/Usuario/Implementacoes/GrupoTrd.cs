@@ -57,5 +57,13 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 Nivel = (NivelGrupo)grupo.Nivel,
                 Justificativa = grupo.Justificativa
             };
+
+        public GrupoDto MapearParaDto(GrupoAtualizacaoDto atualizacao) =>
+            new GrupoDto()
+            {
+                Id = atualizacao.Id,
+                Nivel = atualizacao.Nivel,
+                Justificativa = atualizacao.Justificativa
+            };
     }
 }

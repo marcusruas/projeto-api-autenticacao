@@ -59,24 +59,13 @@ namespace Servicos.Usuario.Implementacoes
             return resultado;
         }
 
-        public GrupoDto ObterDadosGrupo(string grupo)
+        public bool AtualizarNivelGrupo(GrupoAtualizacaoDto atualizacao)
         {
-            var grupoBanco = _repositorio.ObterDadosGrupo(grupo);
-            if (grupoBanco == null)
-                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Não foi localizado nenhum grupo com esse nome.");
-            return _tradutor.MapearParaDto(grupoBanco);
-        }
-
-        public bool AtualizarNivelGrupo(string grupo, NivelGrupo nivel, string justificativa)
-        {
-            if (!NivelExiste(nivel))
+            if (!NivelExiste(atualizacao.Nivel))
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
 
-            var grupoDto = new GrupoDto();
-            grupoDto.Nome = grupo;
-            grupoDto.Nivel = (NivelGrupo)nivel;
-            grupoDto.Justificativa = justificativa;
-            var dominio = _tradutor.MapearParaDominio(grupoDto, _mensagens);
+            var dto = _tradutor.MapearParaDto(atualizacao);
+            var dominio = _tradutor.MapearParaDominio(dto, _mensagens);
 
             dominio.ValidarJustificativa();
             dominio.ValidarJustificativaParaNivel();
@@ -84,11 +73,11 @@ namespace Servicos.Usuario.Implementacoes
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var sucesso = _repositorio.AtualizarNivelGrupo(grupo, (int)nivel, justificativa);
+            var sucesso = _repositorio.AtualizarNivelGrupo(atualizacao);
             if (!sucesso)
                 throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique o nome do grupo e tente novamente.");
 
-            _mensagens.AdicionarMensagem($"Nível do grupo {grupo} foi atualizado com sucesso!");
+            _mensagens.AdicionarMensagem($"Nível do grupo foi atualizado com sucesso!");
             return sucesso;
         }
 
