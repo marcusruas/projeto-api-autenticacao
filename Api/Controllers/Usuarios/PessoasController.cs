@@ -38,9 +38,9 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpDelete]
-        public RespostaApi ExcluirPessoa(int idPessoa)
+        public RespostaApi ExcluirPessoa(int Id)
         {
-            return RespostaPadrao(_pessoaServico.ExcluirPessoa(idPessoa));
+            return RespostaPadrao(_pessoaServico.ExcluirPessoa(Id));
         }
 
     }

@@ -27,10 +27,10 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpGet]
-        public List<PessoaDto> PesquisarPessoasUsuario(int Id) => throw new NotImplementedException();
+        public PessoaDto PesquisarPessoaUsuario(int Id) => _servico.ObterPessoaUsuario(Id);
 
         [HttpGet]
-        public List<GrupoDto> PesquisarGruposUsuario(int Id) => throw new NotImplementedException();
+        public GrupoDto PesquisarGrupoUsuario(int Id) => _servico.ObterGrupoUsuario(Id);
 
         [HttpGet]
         public List<UsuarioDto> BuscarUsuario(string Usuario, string Senha) => throw new NotImplementedException();

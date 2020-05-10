@@ -25,8 +25,8 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_grupoServico.GruposPorNivel(nivel));
 
         [HttpGet]
-        public RespostaApi<GrupoDto> ObterDadosGrupo(int id) =>
-            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(id));
+        public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
+            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
 
 
         [HttpPost]
@@ -38,8 +38,8 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_grupoServico.AtualizarNivelGrupo(atualizacao));
 
         [HttpDelete]
-        public RespostaApi ExcluirGrupo(int id) =>
-            RespostaPadrao(_grupoServico.ExcluirGrupo(id));
+        public RespostaApi ExcluirGrupo(int Id) =>
+            RespostaPadrao(_grupoServico.ExcluirGrupo(Id));
 
     }
 }

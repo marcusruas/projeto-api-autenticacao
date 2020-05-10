@@ -1,4 +1,6 @@
 using System;
+using Abstracoes.Representacoes.Usuario.Grupo;
+using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
 using Abstracoes.Tradutores.Usuario.Interfaces;
 using MandradePkgs.Mensagens;
@@ -66,6 +68,32 @@ namespace Servicos.Usuario.Implementacoes
 
             _mensagens.AdicionarMensagem("Usuário Adicionado com sucesso!");
             return sucessoInsercao;
+        }
+
+        public GrupoDto ObterGrupoUsuario(int id)
+        {
+            var grupo = _usuarioRepositorio.BuscarGrupoUsuario(id);
+
+            if (grupo == null)
+            {
+                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                return null;
+            }
+
+            return _grupoTradutor.MapearParaDto(grupo);
+        }
+
+        public PessoaDto ObterPessoaUsuario(int id)
+        {
+            var pessoa = _usuarioRepositorio.BuscarPessoaUsuario(id);
+
+            if (pessoa == null)
+            {
+                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                return null;
+            }
+
+            return _pessoaTradutor.MapearParaDto(pessoa);
         }
     }
 }
