@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.ObjetosValor.Enum;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Servicos.Usuario.Interfaces;
 
@@ -21,10 +18,6 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpGet]
-        public RespostaApi<List<GrupoDto>> ListarGruposPorNivel(NivelGrupo nivel) =>
-            RespostaPadrao(_grupoServico.GruposPorNivel(nivel));
-
-        [HttpGet]
         public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
             RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
 
@@ -32,10 +25,6 @@ namespace Api.Controllers.Usuarios
         [HttpPost]
         public RespostaApi IncluirNovoGrupo(GrupoDto grupo) =>
             RespostaPadrao(_grupoServico.InserirNovoUsuario(grupo));
-
-        [HttpPut]
-        public RespostaApi AlterarNivelGrupo(GrupoAtualizacaoDto atualizacao) =>
-            RespostaPadrao(_grupoServico.AtualizarNivelGrupo(atualizacao));
 
         [HttpDelete]
         public RespostaApi ExcluirGrupo(int Id) =>

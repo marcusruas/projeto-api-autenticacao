@@ -13,9 +13,5 @@ namespace Abstracoes.Representacoes.Usuario.Grupo
         [Description("DESCRICAO")]
         [StringLength(200)]
         public string Descricao { get; set; }
-        [Description("NIVEL")]
-        public int Nivel { get; set; }
-        [Description("JUSTIFICATIVA")]
-        public string Justificativa { get; set; }
     }
 }

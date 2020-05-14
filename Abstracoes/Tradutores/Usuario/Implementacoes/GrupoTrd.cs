@@ -13,8 +13,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 grupo.Id,
                 grupo.Nome,
                 grupo.Descricao,
-                grupo.Nivel,
-                grupo.Justificativa,
                 mensagens
             );
 
@@ -23,8 +21,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 grupo.Id,
                 grupo.Nome,
                 grupo.Descricao,
-                (NivelGrupo)grupo.Nivel,
-                grupo.Justificativa,
                 mensagens
             );
 
@@ -34,8 +30,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 Id = grupo.Id,
                 Nome = grupo.Nome,
                 Descricao = grupo.Descricao,
-                Justificativa = grupo.Justificativa,
-                Nivel = (int)grupo.Nivel
             };
 
         public GrupoDto MapearParaDto(GrupoDom grupo) =>
@@ -44,8 +38,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 Id = grupo.Id,
                 Nome = grupo.Nome,
                 Descricao = grupo.Descricao,
-                Nivel = grupo.Nivel,
-                Justificativa = grupo.Justificativa
             };
 
         public GrupoDto MapearParaDto(GrupoDpo grupo) =>
@@ -54,16 +46,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 Id = grupo.Id,
                 Nome = grupo.Nome,
                 Descricao = grupo.Descricao,
-                Nivel = (NivelGrupo)grupo.Nivel,
-                Justificativa = grupo.Justificativa
-            };
-
-        public GrupoDto MapearParaDto(GrupoAtualizacaoDto atualizacao) =>
-            new GrupoDto()
-            {
-                Id = atualizacao.Id,
-                Nivel = atualizacao.Nivel,
-                Justificativa = atualizacao.Justificativa
             };
     }
 }

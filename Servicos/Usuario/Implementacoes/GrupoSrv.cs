@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using Repositorios.Usuario.Interfaces;
+﻿using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using MandradePkgs.Mensagens;
-using System.Collections.Generic;
 using System;
 using System.Linq;
-using Dominio.Logica.Usuario;
 using Abstracoes.Representacoes.Usuario.Grupo;
-using SharedKernel.ObjetosValor.Enum;
 using Abstracoes.Tradutores.Usuario.Interfaces;
 
 namespace Servicos.Usuario.Implementacoes
@@ -44,43 +40,6 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
-        public List<GrupoDto> GruposPorNivel(NivelGrupo nivel)
-        {
-            if (!NivelExiste(nivel))
-                throw new RegraNegocioException("Nível informado não existe. Favor selecionar outro.");
-
-            var listaGrupos = _repositorio.ObterGruposPorNivel((int)nivel);
-
-            var resultado = new List<GrupoDto>();
-
-            foreach (var grupo in listaGrupos)
-                resultado.Add(_tradutor.MapearParaDto(grupo));
-
-            return resultado;
-        }
-
-        public bool AtualizarNivelGrupo(GrupoAtualizacaoDto atualizacao)
-        {
-            if (!NivelExiste(atualizacao.Nivel))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nível informado não existe. Favor selecionar outro.");
-
-            var dto = _tradutor.MapearParaDto(atualizacao);
-            var dominio = _tradutor.MapearParaDominio(dto, _mensagens);
-
-            dominio.ValidarJustificativa();
-            dominio.ValidarJustificativaParaNivel();
-
-            if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
-
-            var sucesso = _repositorio.AtualizarNivelGrupo(atualizacao);
-            if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique os dados e tente novamente.");
-
-            _mensagens.AdicionarMensagem($"Nível do grupo foi atualizado com sucesso!");
-            return sucesso;
-        }
-
         public bool ExcluirGrupo(int id)
         {
             var sucesso = _repositorio.DeletarGrupo(id);
@@ -90,9 +49,6 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
             return sucesso;
         }
-
-        private bool NivelExiste(NivelGrupo nivel) =>
-            Enum.GetValues(typeof(NivelGrupo)).Cast<NivelGrupo>().Any(grupo => grupo == nivel);
 
         public GrupoDto PesquisarGrupoPorId(int id)
         {

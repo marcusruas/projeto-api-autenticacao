@@ -6,39 +6,24 @@ namespace Dominio.Logica.Usuario
 {
     public class GrupoDom
     {
-        public GrupoDom(int id, string nome, string descricao, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, string descricao, IMensagensApi mensagens)
         {
             Id = id;
             Nome = nome;
             Descricao = descricao;
-            Nivel = nivel;
-            Justificativa = justificativa;
             _mensagens = mensagens;
         }
 
-        public GrupoDom(int id, string nome, NivelGrupo nivel, string justificativa, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, IMensagensApi mensagens)
         {
             Id = id;
             Nome = nome;
-            Nivel = nivel;
-            Justificativa = justificativa;
-            _mensagens = mensagens;
-        }
-
-        public GrupoDom(int id, string nome, string descricao, NivelGrupo nivel, IMensagensApi mensagens)
-        {
-            Id = id;
-            Nome = nome;
-            Descricao = descricao;
-            Nivel = nivel;
             _mensagens = mensagens;
         }
 
         public int Id { get; }
         public string Nome { get; }
         public string Descricao { get; }
-        public NivelGrupo Nivel { get; }
-        public string Justificativa { get; }
         private IMensagensApi _mensagens { get; }
 
         public const int LimiteCaracteresNome = 80;
@@ -49,8 +34,6 @@ namespace Dominio.Logica.Usuario
         {
             ValidarNome();
             ValidarDescricao();
-            ValidarJustificativa();
-            ValidarJustificativaParaNivel();
         }
 
         public void ValidarNome()
@@ -83,31 +66,6 @@ namespace Dominio.Logica.Usuario
                     _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
                                                 "Descrição do grupo deve conter menos de 200 caractéres");
             }
-        }
-
-        public void ValidarJustificativa()
-        {
-            if (!string.IsNullOrEmpty(Justificativa))
-            {
-                if (Justificativa.Length <= 15)
-                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                                 "Justificativa para nível devem conter mais de 15 caractéres");
-
-                if (Justificativa.Length > LimiteCaracteresJustificativa)
-                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                                 "Justificativa para nível devem conter menos de 500 caractéres");
-            }
-        }
-
-        public void ValidarJustificativaParaNivel()
-        {
-            if (Nivel > NivelGrupo.Gerente && !string.IsNullOrEmpty(Justificativa))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Grupos com nível inferior a Gerente não necessitam de justificativa");
-
-            if (Nivel < NivelGrupo.Gerente && string.IsNullOrEmpty(Justificativa))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Grupos com nivel acima de Gerente devem possuir justificativa");
         }
     }
 }
