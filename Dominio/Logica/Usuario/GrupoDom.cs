@@ -28,7 +28,6 @@ namespace Dominio.Logica.Usuario
 
         public const int LimiteCaracteresNome = 80;
         public const int LimiteCaracteresDescricao = 200;
-        public const int LimiteCaracteresJustificativa = 500;
 
         public void ValidarDados()
         {
