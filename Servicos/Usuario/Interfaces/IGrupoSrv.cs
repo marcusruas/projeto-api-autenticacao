@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Abstracoes.Representacoes.Usuario.Grupo;
-using SharedKernel.ObjetosValor.Enum;
+﻿using Abstracoes.Representacoes.Usuario.Grupo;
 
 namespace Servicos.Usuario.Interfaces
 {

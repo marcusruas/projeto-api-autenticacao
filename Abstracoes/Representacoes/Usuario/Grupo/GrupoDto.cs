@@ -1,6 +1,4 @@
-﻿using SharedKernel.ObjetosValor.Enum;
-
-namespace Abstracoes.Representacoes.Usuario.Grupo
+﻿namespace Abstracoes.Representacoes.Usuario.Grupo
 {
     public class GrupoDto
     {

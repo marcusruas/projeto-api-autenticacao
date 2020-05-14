@@ -1,5 +1,4 @@
 ﻿using MandradePkgs.Mensagens;
-using SharedKernel.ObjetosValor.Enum;
 using System.Linq;
 
 namespace Dominio.Logica.Usuario

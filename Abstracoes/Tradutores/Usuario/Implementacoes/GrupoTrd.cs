@@ -2,7 +2,6 @@ using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Tradutores.Usuario.Interfaces;
 using Dominio.Logica.Usuario;
 using MandradePkgs.Mensagens;
-using SharedKernel.ObjetosValor.Enum;
 
 namespace Abstracoes.Tradutores.Usuario.Implementacoes
 {
