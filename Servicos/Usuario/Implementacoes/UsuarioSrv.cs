@@ -79,7 +79,7 @@ namespace Servicos.Usuario.Implementacoes
             if (usuario.Senha != usuario.ConfirmacaoSenha)
                 throw new ArgumentException("Senha e confirmação de senha não são iguais, verifique os dados");
 
-            var grupo = _grupoServico.PesquisarGrupoPorId(usuario.IdGrupo);
+            GrupoDto grupo = _grupoServico.PesquisarGrupoPorId(usuario.IdGrupo);
             if (grupo == null)
                 throw new ArgumentException("Grupo informado para o usuário não encontrado");
             var grupoDom = _grupoTradutor.MapearParaDominio(grupo, _mensagens);

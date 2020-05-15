@@ -23,18 +23,18 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public bool DeletarGrupo(int id)
-        {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
-            var parametros = DpoParaParametros(new { id });
-            return conexao.Execute(comando, parametros) == 1;
-        }
-
         public GrupoDpo ObterGrupoPorId(int id)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoPorId", "SHAREDB");
             var parametros = DpoParaParametros(new { Id = id });
             return conexao.Query<GrupoDpo>(comando, parametros).FirstOrDefault();
+        }
+
+        public bool DeletarGrupo(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteGrupo", "SHAREDB");
+            var parametros = DpoParaParametros(new { id });
+            return conexao.Execute(comando, parametros) == 1;
         }
     }
 }

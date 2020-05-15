@@ -7,44 +7,37 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
 {
     public class GrupoTrd : IGrupoTrd
     {
+        public GrupoDom MapearParaDominio(GrupoInclusaoDto grupo, IMensagensApi mensagens) =>
+            new GrupoDom(
+                grupo.IdPai.HasValue ? grupo.IdPai.Value : 0,
+                grupo.Nome,
+                grupo.Descricao,
+                mensagens
+            );
+
         public GrupoDom MapearParaDominio(GrupoDto grupo, IMensagensApi mensagens) =>
             new GrupoDom(
                 grupo.Id,
                 grupo.Nome,
                 grupo.Descricao,
+                grupo.Pai,
                 mensagens
             );
 
-        public GrupoDom MapearParaDominio(GrupoDpo grupo, IMensagensApi mensagens) =>
-            new GrupoDom(
+        public GrupoDpo MapearParaDpo(GrupoInclusaoDto grupo) =>
+            new GrupoDpo(
+                0,
+                grupo.Nome,
+                grupo.Descricao,
+                grupo.IdPai.HasValue ? grupo.IdPai.Value : 0
+            );
+
+        public GrupoDto MapearParaDto(GrupoDpo grupo) =>
+            new GrupoDto(
                 grupo.Id,
                 grupo.Nome,
                 grupo.Descricao,
-                mensagens
+                grupo.Pai
             );
-
-        public GrupoDpo MapearParaDpo(GrupoDto grupo) =>
-            new GrupoDpo()
-            {
-                Id = grupo.Id,
-                Nome = grupo.Nome,
-                Descricao = grupo.Descricao,
-            };
-
-        public GrupoDto MapearParaDto(GrupoDom grupo) =>
-            new GrupoDto()
-            {
-                Id = grupo.Id,
-                Nome = grupo.Nome,
-                Descricao = grupo.Descricao,
-            };
-
-        public GrupoDto MapearParaDto(GrupoDpo grupo) =>
-            new GrupoDto()
-            {
-                Id = grupo.Id,
-                Nome = grupo.Nome,
-                Descricao = grupo.Descricao,
-            };
     }
 }

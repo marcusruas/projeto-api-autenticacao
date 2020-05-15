@@ -6,10 +6,9 @@ namespace Abstracoes.Tradutores.Usuario.Interfaces
 {
     public interface IGrupoTrd
     {
-        GrupoDto MapearParaDto(GrupoDom grupo);
-        GrupoDto MapearParaDto(GrupoDpo grupo);
-        GrupoDpo MapearParaDpo(GrupoDto grupo);
+        GrupoDom MapearParaDominio(GrupoInclusaoDto grupo, IMensagensApi mensagens);
         GrupoDom MapearParaDominio(GrupoDto grupo, IMensagensApi mensagens);
-        GrupoDom MapearParaDominio(GrupoDpo grupo, IMensagensApi mensagens);
+        GrupoDpo MapearParaDpo(GrupoInclusaoDto grupo);
+        GrupoDto MapearParaDto(GrupoDpo grupo);
     }
 }

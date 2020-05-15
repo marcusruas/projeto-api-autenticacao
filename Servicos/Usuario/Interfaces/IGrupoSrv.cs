@@ -4,8 +4,8 @@ namespace Servicos.Usuario.Interfaces
 {
     public interface IGrupoSrv
     {
-        bool InserirNovoUsuario(GrupoDto grupo);
-        GrupoDto PesquisarGrupoPorId(int id);
+        bool InserirNovoUsuario(GrupoInclusaoDto grupo);
         bool ExcluirGrupo(int id);
+        GrupoDto PesquisarGrupoPorId(int id);
     }
 }

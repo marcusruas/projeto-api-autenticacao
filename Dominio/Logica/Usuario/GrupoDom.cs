@@ -5,24 +5,28 @@ namespace Dominio.Logica.Usuario
 {
     public class GrupoDom
     {
-        public GrupoDom(int id, string nome, string descricao, IMensagensApi mensagens)
+
+        public GrupoDom(int id, string nome, string descricao, int pai, IMensagensApi mensagens)
         {
-            Id = id;
-            Nome = nome;
-            Descricao = descricao;
-            _mensagens = mensagens;
+            this.Id = id;
+            this.Nome = nome;
+            this.Descricao = descricao;
+            this.Pai = pai;
+            this._mensagens = mensagens;
         }
 
-        public GrupoDom(int id, string nome, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, string descricao, IMensagensApi _mensagens)
         {
-            Id = id;
-            Nome = nome;
-            _mensagens = mensagens;
-        }
+            this.Id = id;
+            this.Nome = nome;
+            this.Descricao = descricao;
+            this._mensagens = _mensagens;
 
+        }
         public int Id { get; }
         public string Nome { get; }
         public string Descricao { get; }
+        public int Pai { get; }
         private IMensagensApi _mensagens { get; }
 
         public const int LimiteCaracteresNome = 80;
@@ -62,7 +66,7 @@ namespace Dominio.Logica.Usuario
                                                  "Descrição do grupo deve conter mais de 15 caractéres");
                 if (Descricao.Length > LimiteCaracteresDescricao)
                     _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                                "Descrição do grupo deve conter menos de 200 caractéres");
+                                                $"Descrição do grupo deve conter menos de {LimiteCaracteresDescricao} caractéres");
             }
         }
     }

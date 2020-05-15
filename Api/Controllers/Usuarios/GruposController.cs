@@ -17,18 +17,16 @@ namespace Api.Controllers.Usuarios
             _grupoServico = grupoServico;
         }
 
-        [HttpGet]
-        public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
-            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
-
-
         [HttpPost]
-        public RespostaApi IncluirNovoGrupo(GrupoDto grupo) =>
+        public RespostaApi IncluirNovoGrupo(GrupoInclusaoDto grupo) =>
             RespostaPadrao(_grupoServico.InserirNovoUsuario(grupo));
 
         [HttpDelete]
         public RespostaApi ExcluirGrupo(int Id) =>
             RespostaPadrao(_grupoServico.ExcluirGrupo(Id));
 
+        [HttpGet]
+        public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
+            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
     }
 }

@@ -48,7 +48,6 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
             new UsuarioDto(
                 usuario.Id,
                 usuario.Usuario,
-                new Senha(usuario.Senha),
                 usuario.DataCriacao,
                 usuario.Ativo,
                 _grupoTradutor.MapearParaDto(grupo),

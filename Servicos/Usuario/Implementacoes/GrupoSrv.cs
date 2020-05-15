@@ -21,8 +21,16 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens = mensagens;
         }
 
-        public bool InserirNovoUsuario(GrupoDto grupo)
+        public bool InserirNovoUsuario(GrupoInclusaoDto grupo)
         {
+            GrupoDpo pai = null;
+            if (grupo.IdPai.HasValue)
+            {
+                pai = _repositorio.ObterGrupoPorId(grupo.IdPai.Value);
+                if (pai == null)
+                    throw new ArgumentException("Pai informado para o novo grupo inválido");
+            }
+
             var dominio = _tradutor.MapearParaDominio(grupo, _mensagens);
 
             dominio.ValidarDados();
@@ -34,10 +42,19 @@ namespace Servicos.Usuario.Implementacoes
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
-                throw new FalhaExecucaoException("Já existe um grupo registrado com este nome.");
+                throw new FalhaExecucaoException("Ocorreu uma falha ao cadastrar este grupo. Tente novamente mais tarde.");
 
             _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
             return sucesso;
+        }
+
+        public GrupoDto PesquisarGrupoPorId(int id)
+        {
+            var grupo = _repositorio.ObterGrupoPorId(id);
+            if (grupo == null)
+                return null;
+
+            return _tradutor.MapearParaDto(grupo);
         }
 
         public bool ExcluirGrupo(int id)
@@ -48,14 +65,6 @@ namespace Servicos.Usuario.Implementacoes
 
             _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
             return sucesso;
-        }
-
-        public GrupoDto PesquisarGrupoPorId(int id)
-        {
-            var grupo = _repositorio.ObterGrupoPorId(id);
-            if (grupo == null)
-                return null;
-            return _tradutor.MapearParaDto(grupo);
         }
     }
 }
