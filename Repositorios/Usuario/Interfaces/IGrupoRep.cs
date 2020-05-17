@@ -8,5 +8,6 @@ namespace Repositorios.Usuario.Interfaces
         bool AdicionarGrupo(GrupoDpo grupo);
         GrupoDpo ObterGrupoPorId(int id);
         bool DeletarGrupo(int id);
+        bool VincularGrupos(int grupoPai, int grupoFilho);
     }
 }

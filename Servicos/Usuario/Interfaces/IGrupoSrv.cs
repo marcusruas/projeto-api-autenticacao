@@ -6,6 +6,7 @@ namespace Servicos.Usuario.Interfaces
     {
         bool InserirNovoUsuario(GrupoInclusaoDto grupo);
         bool ExcluirGrupo(int id);
+        bool VincularGrupos(int grupoPai, int grupoFilho);
         GrupoDto PesquisarGrupoPorId(int id);
     }
 }

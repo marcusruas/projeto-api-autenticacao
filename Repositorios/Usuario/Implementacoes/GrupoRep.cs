@@ -36,5 +36,12 @@ namespace Repositorios.Usuario.Implementacoes
             var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public bool VincularGrupos(int grupoPai, int grupoFilho)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateGrupoVinculo", "SHAREDB");
+            var parametros = DpoParaParametros(new { grupoPai, grupoFilho });
+            return conexao.Execute(comando, parametros) == 1;
+        }
     }
 }

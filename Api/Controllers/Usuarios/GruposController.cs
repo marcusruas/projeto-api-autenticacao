@@ -28,5 +28,9 @@ namespace Api.Controllers.Usuarios
         [HttpGet]
         public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
             RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
+
+        [HttpPut]
+        public RespostaApi VincularGrupos(int GrupoPai, int GrupoFilho) =>
+            RespostaPadrao(_grupoServico.VincularGrupos(GrupoPai, GrupoFilho));
     }
 }

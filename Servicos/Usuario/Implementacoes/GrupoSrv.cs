@@ -66,5 +66,15 @@ namespace Servicos.Usuario.Implementacoes
             _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
             return sucesso;
         }
+
+        public bool VincularGrupos(int grupoPai, int grupoFilho)
+        {
+            var sucesso = _repositorio.VincularGrupos(grupoPai, grupoFilho);
+            if (!sucesso)
+                throw new FalhaExecucaoException("Ocorreu uma falha ao realizar o vínculo, tente novamente mais tarde.");
+
+            _mensagens.AdicionarMensagem($"Grupos foram vinculados com sucesso!");
+            return sucesso;
+        }
     }
 }
