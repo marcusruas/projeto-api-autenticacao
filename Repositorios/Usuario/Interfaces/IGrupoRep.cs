@@ -7,6 +7,8 @@ namespace Repositorios.Usuario.Interfaces
     {
         bool AdicionarGrupo(GrupoDpo grupo);
         GrupoDpo ObterGrupoPorId(int id);
+        GrupoDpo ObterPai(int id);
+        List<GrupoDpo> ObterFilhos(int id);
         bool DeletarGrupo(int id);
         bool VincularGrupos(int grupoPai, int grupoFilho);
     }

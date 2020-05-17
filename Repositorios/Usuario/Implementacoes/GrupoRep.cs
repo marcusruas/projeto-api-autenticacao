@@ -4,6 +4,7 @@ using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorios.Usuario.Interfaces;
 using System.Linq;
 using Abstracoes.Representacoes.Usuario.Grupo;
+using System.Collections.Generic;
 
 namespace Repositorios.Usuario.Implementacoes
 {
@@ -42,6 +43,20 @@ namespace Repositorios.Usuario.Implementacoes
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateGrupoVinculo", "SHAREDB");
             var parametros = DpoParaParametros(new { grupoPai, grupoFilho });
             return conexao.Execute(comando, parametros) == 1;
+        }
+
+        public GrupoDpo ObterPai(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoPai", "SHAREDB");
+            var parametros = DpoParaParametros(new { Id = id });
+            return conexao.Query<GrupoDpo>(comando, parametros).FirstOrDefault();
+        }
+
+        public List<GrupoDpo> ObterFilhos(int id)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoFilhos", "SHAREDB");
+            var parametros = DpoParaParametros(new { Id = id });
+            return conexao.Query<GrupoDpo>(comando, parametros).ToList();
         }
     }
 }

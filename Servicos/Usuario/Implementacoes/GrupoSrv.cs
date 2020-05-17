@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Tradutores.Usuario.Interfaces;
+using System.Collections.Generic;
 
 namespace Servicos.Usuario.Implementacoes
 {
@@ -48,6 +49,15 @@ namespace Servicos.Usuario.Implementacoes
             return sucesso;
         }
 
+        public GrupoDto ObterPai(int id)
+        {
+            var grupo = _repositorio.ObterPai(id);
+            if (grupo == null)
+                return null;
+
+            return _tradutor.MapearParaDto(grupo);
+        }
+
         public GrupoDto PesquisarGrupoPorId(int id)
         {
             var grupo = _repositorio.ObterGrupoPorId(id);
@@ -75,6 +85,19 @@ namespace Servicos.Usuario.Implementacoes
 
             _mensagens.AdicionarMensagem($"Grupos foram vinculados com sucesso!");
             return sucesso;
+        }
+
+        public List<GrupoDto> ListarFilhos(int id)
+        {
+            var filhos = _repositorio.ObterFilhos(id);
+            if (!filhos.Any())
+                return null;
+
+            var listaRetorno = new List<GrupoDto>();
+            foreach (var filho in filhos)
+                listaRetorno.Add(_tradutor.MapearParaDto(filho));
+
+            return listaRetorno;
         }
     }
 }

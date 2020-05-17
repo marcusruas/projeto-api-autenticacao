@@ -1,4 +1,5 @@
-﻿using Abstracoes.Representacoes.Usuario.Grupo;
+﻿using System.Collections.Generic;
+using Abstracoes.Representacoes.Usuario.Grupo;
 
 namespace Servicos.Usuario.Interfaces
 {
@@ -8,5 +9,7 @@ namespace Servicos.Usuario.Interfaces
         bool ExcluirGrupo(int id);
         bool VincularGrupos(int grupoPai, int grupoFilho);
         GrupoDto PesquisarGrupoPorId(int id);
+        GrupoDto ObterPai(int id);
+        List<GrupoDto> ListarFilhos(int id);
     }
 }
