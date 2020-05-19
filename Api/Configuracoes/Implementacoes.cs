@@ -12,24 +12,31 @@ namespace Api.Configuracoes
         private IApplicationBuilder Aplicacao { get; }
         private IHostingEnvironment Ambiente { get; }
 
-        public Implementacoes(IApplicationBuilder aplicacao, IHostingEnvironment ambiente) {
+        public Implementacoes(IApplicationBuilder aplicacao, IHostingEnvironment ambiente)
+        {
             Aplicacao = aplicacao;
             Ambiente = ambiente;
         }
 
-        public void ConfigurarAplicacao() {
-            if (Ambiente.IsDevelopment()) {
+        public void ConfigurarAplicacao()
+        {
+            if (Ambiente.IsDevelopment())
+            {
                 EmDesenvolvimento();
-            } else {
+            }
+            else
+            {
                 EmProducao();
             }
         }
 
-        private void EmDesenvolvimento() {
+        private void EmDesenvolvimento()
+        {
             Aplicacao.UseDeveloperExceptionPage();
             Aplicacao.UseSwagger();
-            Aplicacao.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Autenticacao API v1");
+            Aplicacao.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Usuário API v1");
             });
 
             Aplicacao.UseCors("Permissionamentos");
@@ -38,11 +45,13 @@ namespace Api.Configuracoes
             Aplicacao.UseMvc();
         }
 
-        private void EmProducao() {
+        private void EmProducao()
+        {
             Aplicacao.UseHsts();
             Aplicacao.UseSwagger();
-            Aplicacao.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Autenticacao API v1");
+            Aplicacao.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Usuário API v1");
             });
 
             Aplicacao.UseCors("Permissionamentos");

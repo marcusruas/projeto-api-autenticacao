@@ -42,7 +42,7 @@ namespace Api.Configuracoes
         {
             servicos.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Autenticacao API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Usuário API", Version = "v1" });
             });
 
             servicos.AddCors(options =>
