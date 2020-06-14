@@ -99,5 +99,18 @@ namespace Servicos.Usuario.Implementacoes
 
             return listaRetorno;
         }
+
+        public List<GrupoDto> ListarTodosGrupos()
+        {
+            var grupos = _repositorio.ObterGrupos();
+            if (!grupos.Any())
+                return null;
+
+            var listaRetorno = new List<GrupoDto>();
+            foreach (var grupo in grupos)
+                listaRetorno.Add(_tradutor.MapearParaDto(grupo));
+
+            return listaRetorno;
+        }
     }
 }

@@ -30,6 +30,10 @@ namespace Api.Controllers.Usuarios
         public RespostaApi<List<GrupoDto>> ObterFilhos(int Id) =>
             RespostaPadrao(_grupoServico.ListarFilhos(Id));
 
+        [HttpGet]
+        public RespostaApi<List<GrupoDto>> ListarTodosGrupos() =>
+            RespostaPadrao(_grupoServico.ListarTodosGrupos());
+
         [HttpPut]
         public RespostaApi VincularGrupos(int GrupoPai, int GrupoFilho) =>
             RespostaPadrao(_grupoServico.VincularGrupos(GrupoPai, GrupoFilho));
