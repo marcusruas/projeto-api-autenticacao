@@ -9,6 +9,7 @@ namespace Repositorios.Usuario.Interfaces
         GrupoDpo ObterGrupoPorId(int id);
         GrupoDpo ObterPai(int id);
         List<GrupoDpo> ObterFilhos(int id);
+        List<GrupoDpo> ObterGrupos();
         bool DeletarGrupo(int id);
         bool VincularGrupos(int grupoPai, int grupoFilho);
     }
