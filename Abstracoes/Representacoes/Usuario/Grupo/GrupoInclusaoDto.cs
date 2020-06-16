@@ -4,6 +4,6 @@ namespace Abstracoes.Representacoes.Usuario.Grupo
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public int? IdPai { get; set; }
+        public int? Pai { get; set; }
     }
 }
