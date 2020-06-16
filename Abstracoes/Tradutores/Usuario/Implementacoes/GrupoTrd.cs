@@ -9,7 +9,7 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
     {
         public GrupoDom MapearParaDominio(GrupoInclusaoDto grupo, IMensagensApi mensagens) =>
             new GrupoDom(
-                grupo.IdPai.HasValue ? grupo.IdPai.Value : 0,
+                grupo.Pai.HasValue ? grupo.Pai.Value : 0,
                 grupo.Nome,
                 grupo.Descricao,
                 mensagens
@@ -29,7 +29,7 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 0,
                 grupo.Nome,
                 grupo.Descricao,
-                grupo.IdPai.HasValue ? grupo.IdPai.Value : 0
+                grupo.Pai.HasValue ? grupo.Pai.Value : 0
             );
 
         public GrupoDto MapearParaDto(GrupoDpo grupo) =>

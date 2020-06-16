@@ -25,9 +25,9 @@ namespace Servicos.Usuario.Implementacoes
         public bool InserirNovoUsuario(GrupoInclusaoDto grupo)
         {
             GrupoDpo pai = null;
-            if (grupo.IdPai.HasValue)
+            if (grupo.Pai.HasValue)
             {
-                pai = _repositorio.ObterGrupoPorId(grupo.IdPai.Value);
+                pai = _repositorio.ObterGrupoPorId(grupo.Pai.Value);
                 if (pai == null)
                     throw new ArgumentException("Pai informado para o novo grupo inválido");
             }
