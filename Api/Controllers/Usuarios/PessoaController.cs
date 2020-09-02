@@ -10,35 +10,35 @@ namespace Api.Controllers.Usuarios
     [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class PessoasController : ControllerApi
+    public class PessoaController : ControllerApi
     {
         private IPessoaSrv _pessoaServico { get; }
 
-        public PessoasController(IPessoaSrv pessoaServico)
+        public PessoaController(IPessoaSrv pessoaServico)
         {
             _pessoaServico = pessoaServico;
         }
 
         [HttpPost]
-        public RespostaApi CadastrarPessoa(PessoaInclusaoDto pessoa)
+        public RespostaApi Cadastrar(PessoaInclusaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
         }
 
         [HttpPost]
-        public RespostaApi<List<PessoaDto>> PesquisarPessoas(FiltroBuscaPessoasDto filtro)
+        public RespostaApi<List<PessoaDto>> Pesquisar(FiltroBuscaPessoasDto filtro)
         {
             return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
         }
 
         [HttpPut]
-        public RespostaApi AtualizarDadosPessoa(PessoaDto pessoa)
+        public RespostaApi Atualizar(PessoaDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.AtualizarDadosPessoa(pessoa));
         }
 
         [HttpDelete]
-        public RespostaApi ExcluirPessoa(int Id)
+        public RespostaApi Excluir(int Id)
         {
             return RespostaPadrao(_pessoaServico.ExcluirPessoa(Id));
         }

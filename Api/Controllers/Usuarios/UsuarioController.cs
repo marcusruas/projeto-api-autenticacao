@@ -23,31 +23,31 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
-        public RespostaApi CadastrarUsuario(UsuarioInclusaoDto usuario) =>
+        public RespostaApi Cadastrar(UsuarioInclusaoDto usuario) =>
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpGet]
-        public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int Id) =>
+        public RespostaApi<PessoaDto> PesquisarPessoa(int Id) =>
             RespostaPadrao(_servico.ObterPessoaUsuario(Id));
 
         [HttpGet]
-        public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int Id) =>
+        public RespostaApi<GrupoDto> PesquisarGrupo(int Id) =>
             RespostaPadrao(_servico.ObterGrupoUsuario(Id));
 
         [HttpGet]
-        public RespostaApi<UsuarioDto> ValidarUsuario(string Usuario, string Senha) =>
+        public RespostaApi<UsuarioDto> Validar(string Usuario, string Senha) =>
             RespostaPadrao(_servico.ValidarUsuario(Usuario, Senha));
 
         [HttpPut]
-        public RespostaApi AlterarAtividadeUsuario(int Id, bool Ativo) =>
+        public RespostaApi AlterarAtividade(int Id, bool Ativo) =>
             RespostaPadrao(_servico.AtualizarAtividadeUsuario(Id, Ativo));
 
         [HttpPut]
-        public RespostaApi AlterarSenhaUsuario(UsuarioAlteracaoSenhaDto Usuario) =>
+        public RespostaApi AlterarSenha(UsuarioAlteracaoSenhaDto Usuario) =>
             RespostaPadrao(_servico.AtualizarSenhaUsuario(Usuario));
 
         [HttpDelete]
-        public RespostaApi DeletarUsuario(int Id) =>
+        public RespostaApi Excluir(int Id) =>
             RespostaPadrao(_servico.ExcluirUsuario(Id));
 
     }

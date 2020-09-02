@@ -9,17 +9,17 @@ namespace Api.Controllers.Usuarios
     [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class GruposController : ControllerApi
+    public class GrupoController : ControllerApi
     {
         private IGrupoSrv _grupoServico { get; }
 
-        public GruposController(IGrupoSrv grupoServico)
+        public GrupoController(IGrupoSrv grupoServico)
         {
             _grupoServico = grupoServico;
         }
 
         [HttpGet]
-        public RespostaApi<GrupoDto> ObterDadosGrupo(int Id) =>
+        public RespostaApi<GrupoDto> ObterDados(int Id) =>
             RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
 
         [HttpGet]
@@ -31,19 +31,19 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_grupoServico.ListarFilhos(Id));
 
         [HttpGet]
-        public RespostaApi<List<GrupoDto>> ListarTodosGrupos() =>
+        public RespostaApi<List<GrupoDto>> ListarTodos() =>
             RespostaPadrao(_grupoServico.ListarTodosGrupos());
 
         [HttpPut]
-        public RespostaApi VincularGrupos(int GrupoPai, int GrupoFilho) =>
+        public RespostaApi Vincular(int GrupoPai, int GrupoFilho) =>
             RespostaPadrao(_grupoServico.VincularGrupos(GrupoPai, GrupoFilho));
 
         [HttpPost]
-        public RespostaApi IncluirNovoGrupo(GrupoInclusaoDto grupo) =>
+        public RespostaApi Cadastrar(GrupoInclusaoDto grupo) =>
             RespostaPadrao(_grupoServico.InserirNovoUsuario(grupo));
 
         [HttpDelete]
-        public RespostaApi ExcluirGrupo(int Id) =>
+        public RespostaApi Excluir(int Id) =>
             RespostaPadrao(_grupoServico.ExcluirGrupo(Id));
     }
 }
