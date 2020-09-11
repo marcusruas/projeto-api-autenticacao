@@ -1,4 +1,4 @@
-﻿using Aplicacao.Representacoes.Autenticacao;
+﻿using Aplicacao.Representacoes.Usuario;
 using MandradePkgs.Conexoes.Configuracao;
 using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;
@@ -80,7 +80,6 @@ namespace Api.Configuracoes
             {
                 var parametrosValidacao = bearerOptions.TokenValidationParameters;
                 parametrosValidacao.IssuerSigningKey = assinatura.Key;
-                parametrosValidacao.ValidAudience = configuracoes.Audience;
                 parametrosValidacao.ValidIssuer = configuracoes.Originador;
                 parametrosValidacao.ClockSkew = TimeSpan.Zero;
 

@@ -1,10 +1,16 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Principal;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
 using Abstracoes.Tradutores.Usuario.Interfaces;
+using Aplicacao.Representacoes.Usuario;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 using SharedKernel.ObjetosValor.Formatos;
@@ -62,6 +68,42 @@ namespace Servicos.Usuario.Implementacoes
                 _mensagens.AdicionarMensagem("Usuário foi atualizado com sucesso!");
 
             return resultado;
+        }
+
+        public TokenDto Autenticar(
+            string usuario,
+            string senha,
+            ConfiguracoesTokenDto configsToken,
+            AssinaturaTokenDto assinatura)
+        {
+            var usuarioBanco = ValidarUsuario(usuario, senha);
+
+            if (usuarioBanco == null)
+                throw new RegraNegocioException("Não foi possível localizar o usuário. Verifique os dados informados e tente novamente.");
+
+            ClaimsIdentity identity = new ClaimsIdentity(
+                new[] {
+                    new Claim("Usuario", usuarioBanco.Usuario),
+                    new Claim("Pessoa", usuarioBanco.Pessoa.Id.ToString()),
+                    new Claim("Grupo", usuarioBanco.Grupo.Id.ToString()),
+                }
+            );
+
+            DateTime dataCriacao = DateTime.Now;
+            DateTime dataExpiracao = dataCriacao + TimeSpan.FromMinutes(configsToken.DuracaoMinutos);
+
+            var handler = new JwtSecurityTokenHandler();
+            var dadosToken = handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = configsToken.Originador,
+                SigningCredentials = assinatura.credenciais,
+                Subject = identity,
+                NotBefore = dataCriacao,
+                Expires = dataExpiracao
+            });
+            var token = handler.WriteToken(dadosToken);
+
+            return new TokenDto(token, dataCriacao, dataExpiracao);
         }
 
         public bool ExcluirUsuario(int id)

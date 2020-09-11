@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Aplicacao.Representacoes.Autenticacao
+namespace Aplicacao.Representacoes.Usuario
 {
     public class AssinaturaTokenDto
     {
@@ -11,7 +11,10 @@ namespace Aplicacao.Representacoes.Autenticacao
             {
                 Key = new RsaSecurityKey(provider.ExportParameters(true));
             }
+
+            credenciais = new SigningCredentials(Key, SecurityAlgorithms.RsaSha256Signature);
         }
         public SecurityKey Key { get; }
+        public SigningCredentials credenciais { get; }
     }
 }

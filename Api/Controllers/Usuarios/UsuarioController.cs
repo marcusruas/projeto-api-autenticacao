@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
+using Aplicacao.Representacoes.Usuario;
 using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
@@ -23,20 +24,25 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
+        public RespostaApi<TokenDto> Autenticar(
+            string Usuario,
+            string Senha,
+            [FromServices] ConfiguracoesTokenDto configsToken,
+            [FromServices] AssinaturaTokenDto assinatura
+        ) =>
+            RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
+
+        [HttpPost]
         public RespostaApi Cadastrar(UsuarioInclusaoDto usuario) =>
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpGet]
-        public RespostaApi<PessoaDto> PesquisarPessoa(int Id) =>
+        public RespostaApi<PessoaDto> Pesquisar(int Id) =>
             RespostaPadrao(_servico.ObterPessoaUsuario(Id));
 
         [HttpGet]
         public RespostaApi<GrupoDto> PesquisarGrupo(int Id) =>
             RespostaPadrao(_servico.ObterGrupoUsuario(Id));
-
-        [HttpGet]
-        public RespostaApi<UsuarioDto> Validar(string Usuario, string Senha) =>
-            RespostaPadrao(_servico.ValidarUsuario(Usuario, Senha));
 
         [HttpPut]
         public RespostaApi AlterarAtividade(int Id, bool Ativo) =>
