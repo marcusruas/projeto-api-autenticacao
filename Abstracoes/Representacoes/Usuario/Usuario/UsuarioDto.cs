@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using SharedKernel.ObjetosValor.Formatos;
-using MandradePkgs.Mensagens;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 
