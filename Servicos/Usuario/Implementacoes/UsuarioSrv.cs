@@ -137,7 +137,7 @@ namespace Servicos.Usuario.Implementacoes
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var usuarioBanco = _tradutor.MapearParaDpo(usuarioDom);
+            var usuarioBanco = new UsuarioDpo(usuarioDom);
             var sucessoInsercao = _usuarioRepositorio.InserirUsuario(usuarioBanco);
 
             if (!sucessoInsercao)
@@ -157,7 +157,7 @@ namespace Servicos.Usuario.Implementacoes
                 return null;
             }
 
-            return _grupoTradutor.MapearParaDto(grupo);
+            return new GrupoDto(grupo);
         }
 
         public PessoaDto ObterPessoaUsuario(int id)
@@ -170,7 +170,7 @@ namespace Servicos.Usuario.Implementacoes
                 return null;
             }
 
-            return _pessoaTradutor.MapearParaDto(pessoa);
+            return new PessoaDto(pessoa);
         }
 
         public UsuarioDto ValidarUsuario(string usuario, string senha)
@@ -178,7 +178,7 @@ namespace Servicos.Usuario.Implementacoes
             string senhaCriptografada = new Senha(senha).ValorCriptografado;
 
             var (usuarioBanco, grupo, pessoa) = _usuarioRepositorio.BuscarUsuario(usuario, senhaCriptografada);
-            return _tradutor.MapearParaDto(usuarioBanco, grupo, pessoa);
+            return new UsuarioDto(usuarioBanco, grupo, pessoa);
         }
     }
 }

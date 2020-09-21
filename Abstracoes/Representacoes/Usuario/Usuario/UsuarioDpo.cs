@@ -1,4 +1,5 @@
 using System;
+using Dominio.Logica.Usuario;
 
 namespace Abstracoes.Representacoes.Usuario.Usuario
 {
@@ -14,7 +15,17 @@ namespace Abstracoes.Representacoes.Usuario.Usuario
             this.Ativo = ativo;
             this.idGrupo = idGrupo;
             this.idPessoa = idPessoa;
+        }
 
+        public UsuarioDpo(UsuarioDom usuario)
+        {
+            this.Id = usuario.Id;
+            this.Usuario = usuario.Usuario;
+            this.Senha = usuario.Senha.ValorCriptografado;
+            this.DataCriacao = usuario.DataCriacao;
+            this.Ativo = usuario.Ativo;
+            this.idGrupo = usuario.Grupo.Id;
+            this.idPessoa = usuario.Pessoa.Id;
         }
 
         public int Id { get; }

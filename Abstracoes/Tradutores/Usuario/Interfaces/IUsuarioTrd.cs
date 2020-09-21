@@ -9,7 +9,5 @@ namespace Abstracoes.Tradutores.Usuario.Interfaces
     public interface IUsuarioTrd
     {
         UsuarioDom MapearParaDominio(UsuarioInclusaoDto usuario, GrupoDom grupo, PessoaDom pessoa, IMensagensApi mensagens);
-        UsuarioDpo MapearParaDpo(UsuarioDom usuario);
-        UsuarioDto MapearParaDto(UsuarioDpo usuario, GrupoDpo grupo, PessoaDpo pessoa);
     }
 }

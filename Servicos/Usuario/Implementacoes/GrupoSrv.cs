@@ -39,7 +39,7 @@ namespace Servicos.Usuario.Implementacoes
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var grupoBanco = _tradutor.MapearParaDpo(grupo);
+            var grupoBanco = new GrupoDpo(grupo);
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
@@ -55,7 +55,7 @@ namespace Servicos.Usuario.Implementacoes
             if (grupo == null)
                 return null;
 
-            return _tradutor.MapearParaDto(grupo);
+            return new GrupoDto(grupo);
         }
 
         public GrupoDto PesquisarGrupoPorId(int id)
@@ -64,7 +64,7 @@ namespace Servicos.Usuario.Implementacoes
             if (grupo == null)
                 return null;
 
-            return _tradutor.MapearParaDto(grupo);
+            return new GrupoDto(grupo);
         }
 
         public bool ExcluirGrupo(int id)
@@ -95,7 +95,7 @@ namespace Servicos.Usuario.Implementacoes
 
             var listaRetorno = new List<GrupoDto>();
             foreach (var filho in filhos)
-                listaRetorno.Add(_tradutor.MapearParaDto(filho));
+                listaRetorno.Add(new GrupoDto(filho));
 
             return listaRetorno;
         }
@@ -108,7 +108,7 @@ namespace Servicos.Usuario.Implementacoes
 
             var listaRetorno = new List<GrupoDto>();
             foreach (var grupo in grupos)
-                listaRetorno.Add(_tradutor.MapearParaDto(grupo));
+                listaRetorno.Add(new GrupoDto(grupo));
 
             return listaRetorno;
         }

@@ -6,7 +6,6 @@ using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 using Abstracoes.Tradutores.Usuario.Interfaces;
-using SharedKernel.ObjetosValor.Formatos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +28,13 @@ namespace Servicos.Usuario.Implementacoes
         public bool IncluirPessoa(PessoaInclusaoDto pessoa)
         {
             PessoaDom dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
-            PessoaDto dto = _tradutor.MapearParaDto(dominio);
+            PessoaDto dto = new PessoaDto(dominio);
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _tradutor.MapearParaDpo(dto);
+            var pessoaBanco = new PessoaDpo(dto);
             var sucesso = _Repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
@@ -59,7 +58,7 @@ namespace Servicos.Usuario.Implementacoes
             }
 
             var listaRetorno = new List<PessoaDto>();
-            pessoas.ForEach(pessoa => listaRetorno.Add(_tradutor.MapearParaDto(pessoa)));
+            pessoas.ForEach(pessoa => listaRetorno.Add(new PessoaDto(pessoa)));
 
             return listaRetorno;
         }
@@ -85,7 +84,7 @@ namespace Servicos.Usuario.Implementacoes
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = _tradutor.MapearParaDpo(pessoa);
+            var pessoaBanco = new PessoaDpo(pessoa);
             var sucesso = _Repositorio.UpdateDadosPessoa(pessoaBanco);
 
             if (!sucesso)
@@ -110,8 +109,7 @@ namespace Servicos.Usuario.Implementacoes
             var pessoa = _Repositorio.ObterPessoaPorId(id);
             if (pessoa == null)
                 return null;
-            return _tradutor.MapearParaDto(pessoa);
-
+            return new PessoaDto(pessoa);
         }
     }
 }

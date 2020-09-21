@@ -23,21 +23,5 @@ namespace Abstracoes.Tradutores.Usuario.Implementacoes
                 grupo.Pai,
                 mensagens
             );
-
-        public GrupoDpo MapearParaDpo(GrupoInclusaoDto grupo) =>
-            new GrupoDpo(
-                0,
-                grupo.Nome,
-                grupo.Descricao,
-                grupo.Pai.HasValue ? grupo.Pai.Value : 0
-            );
-
-        public GrupoDto MapearParaDto(GrupoDpo grupo) =>
-            new GrupoDto(
-                grupo.Id,
-                grupo.Nome,
-                grupo.Descricao,
-                grupo.Pai
-            );
     }
 }

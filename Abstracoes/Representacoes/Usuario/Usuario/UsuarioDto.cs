@@ -15,6 +15,17 @@ namespace Abstracoes.Representacoes.Usuario.Usuario
             Grupo = grupo;
             Pessoa = pessoa;
         }
+
+        public UsuarioDto(UsuarioDpo usuario, GrupoDpo grupo, PessoaDpo pessoa)
+        {
+            Id = usuario.Id;
+            Usuario = usuario.Usuario;
+            DataCriacao = usuario.DataCriacao;
+            Ativo = usuario.Ativo;
+            Grupo = new GrupoDto(grupo);
+            Pessoa = new PessoaDto(pessoa);
+        }
+
         public int Id { get; set; }
         public string Usuario { get; set; }
         public DateTime DataCriacao { get; set; }

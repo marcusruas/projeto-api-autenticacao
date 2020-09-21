@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Dominio.Logica.Usuario;
 using SharedKernel.ObjetosValor.Formatos;
 
 namespace Abstracoes.Representacoes.Usuario.Pessoa
@@ -16,6 +17,31 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
             Cpf = cpf;
             Email = email;
             Telefone = telefone;
+        }
+
+        public PessoaDto(PessoaDpo pessoa)
+        {
+            Cpf cpf = pessoa.Cpf == 0 ?
+                null : new Cpf(pessoa.Cpf.ToString());
+
+            Telefone telefone =
+                string.IsNullOrWhiteSpace(pessoa.Ddd) && string.IsNullOrWhiteSpace(pessoa.Numero) ?
+                null : new Telefone(pessoa.Ddd, pessoa.Numero);
+
+            Id = pessoa.Id;
+            Nome = pessoa.Nome;
+            Cpf = cpf;
+            Email = pessoa.Email;
+            Telefone = telefone;
+        }
+
+        public PessoaDto(PessoaDom pessoa)
+        {
+            Id = pessoa.Id;
+            Nome = pessoa.Nome;
+            Cpf = pessoa.Cpf;
+            Email = pessoa.Email;
+            Telefone = pessoa.Telefone;
         }
 
         public int Id { get; set; }

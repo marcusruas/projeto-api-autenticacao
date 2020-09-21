@@ -5,6 +5,18 @@ namespace Abstracoes.Representacoes.Usuario.Grupo
 {
     public class GrupoDpo
     {
+        public GrupoDpo()
+        {
+        }
+
+        public GrupoDpo(GrupoInclusaoDto grupo)
+        {
+            Id = 0;
+            Nome = grupo.Nome;
+            Descricao = grupo.Descricao;
+            Pai = grupo.Pai.HasValue ? grupo.Pai.Value : 0;
+        }
+
         [Description("ID_GRUPO")]
         public GrupoDpo(int id, string nome, string descricao, int pai)
         {

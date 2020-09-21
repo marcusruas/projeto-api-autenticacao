@@ -19,6 +19,20 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
             Numero = numero;
         }
 
+        public PessoaDpo(PessoaDto pessoa)
+        {
+            long cpf = pessoa.Cpf == null ?
+                0 : long.Parse(pessoa.Cpf.ValorNumerico);
+            bool possuiTelefone = pessoa.Telefone != null;
+
+            Id = pessoa.Id;
+            Nome = pessoa.Nome;
+            Cpf = cpf;
+            Email = pessoa.Email;
+            Ddd = possuiTelefone ? pessoa.Telefone.Ddd : null;
+            Numero = possuiTelefone ? pessoa.Telefone.Numero : null;
+        }
+
         [Description("ID_PESSOA")]
         public int Id { get; set; }
         [Description("NOME")]
