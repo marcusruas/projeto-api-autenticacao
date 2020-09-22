@@ -24,15 +24,6 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
-        public RespostaApi<TokenDto> Autenticar(
-            string Usuario,
-            string Senha,
-            [FromServices] ConfiguracoesTokenDto configsToken,
-            [FromServices] AssinaturaTokenDto assinatura
-        ) =>
-            RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
-
-        [HttpPost]
         public RespostaApi Cadastrar(UsuarioInclusaoDto usuario) =>
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 

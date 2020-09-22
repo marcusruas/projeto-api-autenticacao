@@ -14,11 +14,6 @@ namespace Servicos.Usuario.Interfaces
         bool ExcluirUsuario(int id);
         PessoaDto ObterPessoaUsuario(int id);
         GrupoDto ObterGrupoUsuario(int id);
-        TokenDto Autenticar(
-            string usuario,
-            string senha,
-            ConfiguracoesTokenDto configsToken,
-            AssinaturaTokenDto assinatura
-        );
+        UsuarioDto ValidarUsuario(string usuario, string senha);
     }
 }

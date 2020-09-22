@@ -60,42 +60,6 @@ namespace Servicos.Usuario.Implementacoes
             return resultado;
         }
 
-        public TokenDto Autenticar(
-            string usuario,
-            string senha,
-            ConfiguracoesTokenDto configsToken,
-            AssinaturaTokenDto assinatura)
-        {
-            var usuarioBanco = ValidarUsuario(usuario, senha);
-
-            if (usuarioBanco == null)
-                throw new RegraNegocioException("Não foi possível localizar o usuário. Verifique os dados informados e tente novamente.");
-
-            ClaimsIdentity identity = new ClaimsIdentity(
-                new[] {
-                    new Claim("Usuario", usuarioBanco.Usuario),
-                    new Claim("Pessoa", usuarioBanco.Pessoa.Id.ToString()),
-                    new Claim("Grupo", usuarioBanco.Grupo.Id.ToString()),
-                }
-            );
-
-            DateTime dataCriacao = DateTime.Now;
-            DateTime dataExpiracao = dataCriacao + TimeSpan.FromMinutes(configsToken.DuracaoMinutos);
-
-            var handler = new JwtSecurityTokenHandler();
-            var dadosToken = handler.CreateToken(new SecurityTokenDescriptor
-            {
-                Issuer = configsToken.Originador,
-                SigningCredentials = assinatura.credenciais,
-                Subject = identity,
-                NotBefore = dataCriacao,
-                Expires = dataExpiracao
-            });
-            var token = handler.WriteToken(dadosToken);
-
-            return new TokenDto(token, dataCriacao, dataExpiracao);
-        }
-
         public bool ExcluirUsuario(int id)
         {
             var sucesso = _usuarioRepositorio.DeletarUsuario(id);
