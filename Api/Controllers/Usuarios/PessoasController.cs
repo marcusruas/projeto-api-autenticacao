@@ -10,11 +10,11 @@ namespace Api.Controllers.Usuarios
     [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class PessoaController : ControllerApi
+    public class PessoasController : ControllerApi
     {
         private IPessoaSrv _pessoaServico { get; }
 
-        public PessoaController(IPessoaSrv pessoaServico)
+        public PessoasController(IPessoaSrv pessoaServico)
         {
             _pessoaServico = pessoaServico;
         }

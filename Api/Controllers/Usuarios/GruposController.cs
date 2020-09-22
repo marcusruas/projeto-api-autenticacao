@@ -9,11 +9,11 @@ namespace Api.Controllers.Usuarios
     [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class GrupoController : ControllerApi
+    public class GruposController : ControllerApi
     {
         private IGrupoSrv _grupoServico { get; }
 
-        public GrupoController(IGrupoSrv grupoServico)
+        public GruposController(IGrupoSrv grupoServico)
         {
             _grupoServico = grupoServico;
         }

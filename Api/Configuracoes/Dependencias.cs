@@ -3,7 +3,8 @@ using Repositorios.Usuario.Interfaces;
 using Repositorios.Usuario.Implementacoes;
 using Servicos.Usuario.Interfaces;
 using Servicos.Usuario.Implementacoes;
-using Abstracoes;
+using Servicos.Permissoes.Interfaces;
+using Servicos.Permissoes.Implementacoes;
 
 namespace Api.Configuracoes
 {
@@ -27,6 +28,7 @@ namespace Api.Configuracoes
             servicos.AddScoped<IGrupoSrv, GrupoSrv>();
             servicos.AddScoped<IPessoaSrv, PessoaSrv>();
             servicos.AddScoped<IUsuarioSrv, UsuarioSrv>();
+            servicos.AddScoped<IPermissoesSrv, PermissoesSrv>();
         }
     }
 }

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
-using Aplicacao.Representacoes.Usuario;
-using AutoMapper;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servicos.Usuario.Interfaces;
