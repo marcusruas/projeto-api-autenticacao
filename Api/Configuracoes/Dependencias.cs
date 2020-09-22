@@ -13,7 +13,6 @@ namespace Api.Configuracoes
         {
             ConfigurarCamadaRepositorios(servicos);
             ConfigurarCamadaServico(servicos);
-            Mapeamentos.DefinirConfiguracoesMapeamento(servicos);
         }
 
         private static void ConfigurarCamadaRepositorios(IServiceCollection servicos)

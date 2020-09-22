@@ -5,10 +5,10 @@ using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
-using Abstracoes.Tradutores.Usuario.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Abstracoes.Builders.Usuario;
 
 namespace Servicos.Usuario.Implementacoes
 {
@@ -16,18 +16,19 @@ namespace Servicos.Usuario.Implementacoes
     {
         private IMensagensApi _mensagens { get; }
         private IPessoaRep _Repositorio { get; }
-        private IPessoaTrd _tradutor { get; }
 
-        public PessoaSrv(IMensagensApi mensagens, IPessoaRep Repositorios, IPessoaTrd tradutor)
+        public PessoaSrv(IMensagensApi mensagens, IPessoaRep Repositorios)
         {
             _mensagens = mensagens;
             _Repositorio = Repositorios;
-            _tradutor = tradutor;
         }
 
         public bool IncluirPessoa(PessoaInclusaoDto pessoa)
         {
-            PessoaDom dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
+            var construtorDominio = new PessoaBuilder()
+                .ConstruirObjeto(pessoa)
+                .AdicionarMensageria(_mensagens);
+            PessoaDom dominio = construtorDominio.Construir();
             PessoaDto dto = new PessoaDto(dominio);
             dominio.ValidarDados();
 
@@ -65,7 +66,10 @@ namespace Servicos.Usuario.Implementacoes
 
         public bool AtualizarDadosPessoa(PessoaDto pessoa)
         {
-            var dominio = _tradutor.MapearParaDominio(pessoa, _mensagens);
+            var construtorDominio = new PessoaBuilder()
+                .ConstruirObjeto(pessoa)
+                .AdicionarMensageria(_mensagens);
+            PessoaDom dominio = construtorDominio.Construir();
 
             if (pessoa.Id == 0)
                 throw new RegraNegocioException("Para realizar a alteração da pessoa, deve ser informado o número de identificação da mesma.");

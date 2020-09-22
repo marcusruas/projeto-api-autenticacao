@@ -7,7 +7,7 @@ namespace Dominio.Logica.Usuario
 {
     public class UsuarioDom
     {
-        public UsuarioDom(int id, string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDom grupo, PessoaDom pessoa, IMensagensApi mensagens)
+        public UsuarioDom(int id, string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDom grupo, PessoaDom pessoa)
         {
             Id = id;
             Usuario = usuario;
@@ -16,10 +16,9 @@ namespace Dominio.Logica.Usuario
             Ativo = ativo;
             Grupo = grupo;
             Pessoa = pessoa;
-            _mensagens = mensagens;
         }
 
-        public UsuarioDom(int id, string usuario, string senha, GrupoDom grupo, PessoaDom pessoa, IMensagensApi mensagens)
+        public UsuarioDom(int id, string usuario, string senha, GrupoDom grupo, PessoaDom pessoa)
         {
             Id = id;
             Usuario = usuario;
@@ -28,7 +27,6 @@ namespace Dominio.Logica.Usuario
             Pessoa = pessoa;
             DataCriacao = DateTime.Now;
             Ativo = true;
-            _mensagens = mensagens;
         }
 
         public int Id { get; }
@@ -38,7 +36,20 @@ namespace Dominio.Logica.Usuario
         public bool Ativo { get; }
         public GrupoDom Grupo { get; }
         public PessoaDom Pessoa { get; }
-        private IMensagensApi _mensagens { get; }
+        private IMensagensApi mensagens { get; set; }
+        public IMensagensApi _mensagens
+        {
+            get { return mensagens; }
+            private set { DefinirMensagens(value); }
+        }
+
+        public void DefinirMensagens(IMensagensApi mensagens)
+        {
+            if (this._mensagens != null)
+                this.mensagens = mensagens;
+            else
+                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
+        }
 
         public void ValidarDados()
         {

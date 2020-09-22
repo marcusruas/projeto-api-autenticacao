@@ -1,26 +1,25 @@
 ﻿using MandradePkgs.Mensagens;
 using SharedKernel.ObjetosValor.Formatos;
+using System;
 using System.Linq;
 
 namespace Dominio.Logica.Usuario
 {
     public class PessoaDom
     {
-        public PessoaDom(int id, string cpf, IMensagensApi mensagens)
+        public PessoaDom(int id, string cpf)
         {
             Id = id;
             Cpf = new Cpf(cpf);
-            _mensagens = mensagens;
         }
 
-        public PessoaDom(int id, string nome, Cpf cpf, string email, Telefone telefone, IMensagensApi mensagens)
+        public PessoaDom(int id, string nome, Cpf cpf, string email, Telefone telefone)
         {
             Id = id;
             Nome = nome;
             Cpf = cpf;
             Email = email;
             Telefone = telefone;
-            _mensagens = mensagens;
         }
 
         public int Id { get; }
@@ -28,7 +27,20 @@ namespace Dominio.Logica.Usuario
         public Cpf Cpf { get; }
         public string Email { get; }
         public Telefone Telefone { get; }
-        private IMensagensApi _mensagens { get; }
+        private IMensagensApi mensagens { get; set; }
+        public IMensagensApi _mensagens
+        {
+            get { return mensagens; }
+            private set { DefinirMensagens(value); }
+        }
+
+        public void DefinirMensagens(IMensagensApi mensagens)
+        {
+            if (this._mensagens != null)
+                this.mensagens = mensagens;
+            else
+                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
+        }
 
         public void ValidarDados()
         {

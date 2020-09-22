@@ -5,20 +5,18 @@ using MandradePkgs.Mensagens;
 using System;
 using System.Linq;
 using Abstracoes.Representacoes.Usuario.Grupo;
-using Abstracoes.Tradutores.Usuario.Interfaces;
 using System.Collections.Generic;
+using Abstracoes.Builders.Usuario;
 
 namespace Servicos.Usuario.Implementacoes
 {
     public class GrupoSrv : IGrupoSrv
     {
         private IGrupoRep _repositorio { get; }
-        private IGrupoTrd _tradutor { get; }
         private IMensagensApi _mensagens { get; }
-        public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens, IGrupoTrd trd)
+        public GrupoSrv(IGrupoRep Repositorios, IMensagensApi mensagens)
         {
             _repositorio = Repositorios;
-            _tradutor = trd;
             _mensagens = mensagens;
         }
 
@@ -31,8 +29,10 @@ namespace Servicos.Usuario.Implementacoes
                 if (pai == null)
                     throw new ArgumentException("Pai informado para o novo grupo inválido");
             }
-
-            var dominio = _tradutor.MapearParaDominio(grupo, _mensagens);
+            var construtorDominio = new GrupoBuilder()
+                .ConstruirObjeto(grupo)
+                .AdicionarMensageria(_mensagens);
+            var dominio = construtorDominio.Construir();
 
             dominio.ValidarDados();
 

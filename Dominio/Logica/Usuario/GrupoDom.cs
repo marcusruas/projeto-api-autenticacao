@@ -1,4 +1,5 @@
 ﻿using MandradePkgs.Mensagens;
+using System;
 using System.Linq;
 
 namespace Dominio.Logica.Usuario
@@ -6,28 +7,30 @@ namespace Dominio.Logica.Usuario
     public class GrupoDom
     {
 
-        public GrupoDom(int id, string nome, string descricao, int pai, IMensagensApi mensagens)
+        public GrupoDom(int id, string nome, string descricao, int pai)
         {
             this.Id = id;
             this.Nome = nome;
             this.Descricao = descricao;
             this.Pai = pai;
-            this._mensagens = mensagens;
         }
 
-        public GrupoDom(int id, string nome, string descricao, IMensagensApi _mensagens)
+        public GrupoDom(int id, string nome, string descricao)
         {
             this.Id = id;
             this.Nome = nome;
             this.Descricao = descricao;
-            this._mensagens = _mensagens;
-
         }
         public int Id { get; }
         public string Nome { get; }
         public string Descricao { get; }
         public int Pai { get; }
-        private IMensagensApi _mensagens { get; }
+        private IMensagensApi mensagens { get; set; }
+        public IMensagensApi _mensagens
+        {
+            get { return mensagens; }
+            private set { DefinirMensagens(value); }
+        }
 
         public const int LimiteCaracteresNome = 80;
         public const int LimiteCaracteresDescricao = 200;
@@ -36,6 +39,14 @@ namespace Dominio.Logica.Usuario
         {
             ValidarNome();
             ValidarDescricao();
+        }
+
+        public void DefinirMensagens(IMensagensApi mensagens)
+        {
+            if (this._mensagens != null)
+                this.mensagens = mensagens;
+            else
+                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
         }
 
         public void ValidarNome()
