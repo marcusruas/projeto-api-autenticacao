@@ -1,6 +1,6 @@
 using System;
 
-namespace Aplicacao.Representacoes.Usuario
+namespace Aplicacao.Representacoes.Permissoes.Token
 {
     public class TokenDto
     {

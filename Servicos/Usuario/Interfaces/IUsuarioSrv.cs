@@ -1,8 +1,6 @@
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
-using Aplicacao.Representacoes.Usuario;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Servicos.Usuario.Interfaces
 {

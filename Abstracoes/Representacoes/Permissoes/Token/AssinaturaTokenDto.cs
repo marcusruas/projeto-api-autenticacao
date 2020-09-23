@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Aplicacao.Representacoes.Usuario
+namespace Aplicacao.Representacoes.Permissoes.Token
 {
     public class AssinaturaTokenDto
     {

@@ -1,10 +1,14 @@
 using System;
+using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Aplicacao.Representacoes.Usuario;
+using Abstracoes.Representacoes.Permissoes.Permissao;
+using Aplicacao.Representacoes.Permissoes.Token;
+using Logica.Permissoes;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Microsoft.IdentityModel.Tokens;
+using Repositorios.Permissoes.Interfaces;
 using Servicos.Permissoes.Interfaces;
 using Servicos.Usuario.Interfaces;
 
@@ -12,11 +16,13 @@ namespace Servicos.Permissoes.Implementacoes
 {
     public class PermissoesSrv : IPermissoesSrv
     {
+        private IPermissoesRep _repositorio;
         private IUsuarioSrv _usuarioServico;
         private IMensagensApi _mensagens;
 
-        public PermissoesSrv(IUsuarioSrv _usuario, IMensagensApi mensagens)
+        public PermissoesSrv(IPermissoesRep repositorio, IUsuarioSrv _usuario, IMensagensApi mensagens)
         {
+            _repositorio = repositorio;
             _usuarioServico = _usuario;
             _mensagens = mensagens;
         }
@@ -51,6 +57,31 @@ namespace Servicos.Permissoes.Implementacoes
             var token = handler.WriteToken(dadosToken);
 
             return new TokenDto(token, dataCriacao, dataExpiracao);
+        }
+
+        public PermissaoDto IncluirPermissao(string descricao)
+        {
+            var dominio = new PermissaoDom(descricao);
+            bool sucesso = false;
+            try
+            {
+                sucesso = _repositorio.InserirPermissao(new PermissaoDpo(dominio));
+            }
+            catch (SqlException ex)
+            {
+                _mensagens.AdicionarMensagem(ex.Message);
+            }
+
+            if (sucesso)
+            {
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Permissão adicionada com sucesso!");
+                return new PermissaoDto(dominio);
+            }
+            else
+            {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Falha ao adicionar permissão, verifique os dados e tente novamente.");
+                return null;
+            }
         }
     }
 }

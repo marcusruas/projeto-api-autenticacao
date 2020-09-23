@@ -1,4 +1,6 @@
-using Aplicacao.Representacoes.Usuario;
+
+using Abstracoes.Representacoes.Permissoes.Permissao;
+using Aplicacao.Representacoes.Permissoes.Token;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servicos.Permissoes.Interfaces;
@@ -25,5 +27,9 @@ namespace Api.Controllers.Usuarios
             [FromServices] AssinaturaTokenDto assinatura
         ) =>
             RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
+
+        [HttpPost]
+        public RespostaApi<PermissaoDto> Cadastrar(string Descricao) =>
+            RespostaPadrao(_servico.IncluirPermissao(Descricao));
     }
 }

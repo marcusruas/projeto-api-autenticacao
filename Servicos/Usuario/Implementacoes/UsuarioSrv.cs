@@ -1,15 +1,11 @@
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Abstracoes.Builders.Usuario;
 using Abstracoes.Representacoes.Usuario.Grupo;
 using Abstracoes.Representacoes.Usuario.Pessoa;
 using Abstracoes.Representacoes.Usuario.Usuario;
-using Aplicacao.Representacoes.Usuario;
 using Dominio.Logica.Usuario;
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
-using Microsoft.IdentityModel.Tokens;
 using Repositorios.Usuario.Interfaces;
 using Servicos.Usuario.Interfaces;
 using SharedKernel.ObjetosValor.Formatos;

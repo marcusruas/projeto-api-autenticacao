@@ -1,4 +1,4 @@
-﻿using Aplicacao.Representacoes.Usuario;
+﻿using Aplicacao.Representacoes.Permissoes.Token;
 using MandradePkgs.Conexoes.Configuracao;
 using MandradePkgs.Mensagens.Configuracao;
 using MandradePkgs.Retornos.Configuracao;

@@ -5,6 +5,8 @@ using Servicos.Usuario.Interfaces;
 using Servicos.Usuario.Implementacoes;
 using Servicos.Permissoes.Interfaces;
 using Servicos.Permissoes.Implementacoes;
+using Repositorios.Permissoes.Implementacoes;
+using Repositorios.Permissoes.Interfaces;
 
 namespace Api.Configuracoes
 {
@@ -29,6 +31,7 @@ namespace Api.Configuracoes
             servicos.AddScoped<IPessoaSrv, PessoaSrv>();
             servicos.AddScoped<IUsuarioSrv, UsuarioSrv>();
             servicos.AddScoped<IPermissoesSrv, PermissoesSrv>();
+            servicos.AddScoped<IPermissoesRep, PermissoesRep>();
         }
     }
 }
