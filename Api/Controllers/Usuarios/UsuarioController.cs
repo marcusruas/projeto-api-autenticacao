@@ -24,11 +24,12 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpGet]
-        public RespostaApi<PessoaDto> Pesquisar(int Id) =>
+        //[Correção] Método está trazendo dados errados
+        public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int Id) =>
             RespostaPadrao(_servico.ObterPessoaUsuario(Id));
 
         [HttpGet]
-        public RespostaApi<GrupoDto> PesquisarGrupo(int Id) =>
+        public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int Id) =>
             RespostaPadrao(_servico.ObterGrupoUsuario(Id));
 
         [HttpPut]

@@ -36,7 +36,7 @@ namespace Dominio.Logica.Usuario
 
         public void DefinirMensagens(IMensagensApi mensagens)
         {
-            if (this._mensagens != null)
+            if (this._mensagens == null)
                 this.mensagens = mensagens;
             else
                 throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");

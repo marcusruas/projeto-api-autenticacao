@@ -6,7 +6,7 @@ namespace Logica.Permissoes
     {
         public PermissaoDom(string descricao)
         {
-            Permissao = new Guid();
+            Permissao = Guid.NewGuid();
             Descricao = descricao.ToUpper();
         }
         public Guid Permissao { get; set; }
