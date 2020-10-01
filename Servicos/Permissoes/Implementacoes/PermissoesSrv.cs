@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using Abstracoes.Representacoes.Permissoes.Permissao;
 using Aplicacao.Representacoes.Permissoes.Token;
@@ -82,6 +84,37 @@ namespace Servicos.Permissoes.Implementacoes
                 _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Falha ao adicionar permissão, verifique os dados e tente novamente.");
                 return null;
             }
+        }
+
+        public AcessoSistemicoDto IncluirAcesso(InclusaoAcessoSistemicoDto parametros)
+        {
+            List<PermissaoDto> permissoes = PesquisarPermissoes(parametros.Permissoes);
+            List<int> permissoesNaoEncontradas = parametros.Permissoes.Where(p => !permissoes.Any(pp => pp.Id == p)).ToList();
+
+            if (!permissoes.Any())
+            {
+                _mensagens.AdicionarMensagem("Não foi encontrada nenhuma permissão indicada, portanto a criação do acesso foi negada");
+                return null;
+            }
+
+            foreach (var permissao in permissoesNaoEncontradas)
+                _mensagens.AdicionarMensagem(
+                    TipoMensagem.Alerta,
+                    $"Não foi possível encontrar a permissão com Identificador {permissao}"
+                );
+
+            return null;
+        }
+
+        private List<PermissaoDto> PesquisarPermissoes(List<int> permissoes)
+        {
+            var listaPermissoes = _repositorio.PesquisarPermissoes(permissoes);
+            List<PermissaoDto> retorno = new List<PermissaoDto>();
+
+            foreach (var permissao in listaPermissoes)
+                retorno.Add(new PermissaoDto(permissao));
+
+            return retorno;
         }
     }
 }

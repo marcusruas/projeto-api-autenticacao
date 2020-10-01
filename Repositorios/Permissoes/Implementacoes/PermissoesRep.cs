@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Abstracoes.Representacoes.Permissoes.Permissao;
 using Dapper;
 using MandradePkgs.Conexoes;
@@ -20,6 +22,12 @@ namespace Repositorios.Permissoes.Implementacoes
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPermissao", "SHAREDB");
             var parametros = DpoParaParametros(permissao);
             return conexao.Execute(comando, parametros) == 1;
+        }
+
+        public List<PermissaoDpo> PesquisarPermissoes(List<int> permissoes)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPermissoesPorId", "SHAREDB");
+            return conexao.Query<PermissaoDpo>(comando, permissoes).ToList();
         }
     }
 }

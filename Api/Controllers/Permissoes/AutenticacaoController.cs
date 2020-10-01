@@ -10,21 +10,22 @@ namespace Api.Controllers.Usuarios
     [Route("[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
-    public class PermissoesController : ControllerApi
+    public class AutenticacaoController : ControllerApi
     {
         private IPermissoesSrv _servico { get; }
 
-        public PermissoesController(IPermissoesSrv servico)
+        public AutenticacaoController(IPermissoesSrv servico)
         {
             _servico = servico;
         }
 
         [HttpPost]
-        public RespostaApi<PermissaoDto> Cadastrar(string Descricao) =>
-            RespostaPadrao(_servico.IncluirPermissao(Descricao));
-
-        [HttpPost]
-        public RespostaApi<AcessoSistemicoDto> CadastrarAcesso(InclusaoAcessoSistemicoDto Parametros) =>
-            RespostaPadrao(_servico.IncluirAcesso(Parametros));
+        public RespostaApi<TokenDto> Autenticar(
+            string Usuario,
+            string Senha,
+            [FromServices] ConfiguracoesTokenDto configsToken,
+            [FromServices] AssinaturaTokenDto assinatura
+        ) =>
+            RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
     }
 }

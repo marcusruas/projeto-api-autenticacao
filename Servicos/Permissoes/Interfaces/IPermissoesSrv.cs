@@ -8,5 +8,6 @@ namespace Servicos.Permissoes.Interfaces
     {
         TokenDto Autenticar(string usuario, string senha, ConfiguracoesTokenDto configsToken, AssinaturaTokenDto assinatura);
         PermissaoDto IncluirPermissao(string descricao);
+        AcessoSistemicoDto IncluirAcesso(InclusaoAcessoSistemicoDto parametros);
     }
 }

@@ -20,6 +20,13 @@ namespace Abstracoes.Representacoes.Permissoes.Permissao
             this.Descricao = permissao.Descricao;
         }
 
+        public PermissaoDto(PermissaoDpo permissao)
+        {
+            this.Id = permissao.Id;
+            this.Permissao = permissao.Permissao;
+            this.Descricao = permissao.Descricao;
+        }
+
         public int Id { get; set; }
         public Guid Permissao { get; set; }
         public string Descricao { get; set; }
