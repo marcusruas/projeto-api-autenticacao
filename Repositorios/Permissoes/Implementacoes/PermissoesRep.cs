@@ -24,10 +24,28 @@ namespace Repositorios.Permissoes.Implementacoes
             return conexao.Execute(comando, parametros) == 1;
         }
 
+        public bool InserirAcesso(string acesso)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertAcesso", "SHAREDB");
+            return conexao.Execute(comando, new { Descricao = acesso }) == 1;
+        }
+
+        public bool VincularPermissaoAcesso(int idAcesso, int idPermissao)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertPermissaoAcesso", "SHAREDB");
+            return conexao.Execute(comando, new { idAcesso, idPermissao }) == 1;
+        }
+
         public List<PermissaoDpo> PesquisarPermissoes(List<int> permissoes)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPermissoesPorId", "SHAREDB");
-            return conexao.Query<PermissaoDpo>(comando, permissoes).ToList();
+            return conexao.Query<PermissaoDpo>(comando, new { Permissoes = permissoes }).ToList();
+        }
+
+        public AcessoSistemicoDpo PesquisarAcesso(string descricao)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessoPorDescricao", "SHAREDB");
+            return conexao.QueryFirstOrDefault<AcessoSistemicoDpo>(comando, new { descricao });
         }
     }
 }

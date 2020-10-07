@@ -103,7 +103,23 @@ namespace Servicos.Permissoes.Implementacoes
                     $"Não foi possível encontrar a permissão com Identificador {permissao}"
                 );
 
-            return null;
+            bool sucesso = _repositorio.InserirAcesso(parametros.Desricao);
+
+            if (!sucesso)
+            {
+                _mensagens.AdicionarMensagem("Falha ao adicionar acesso. Acesso Sistêmico já existe");
+                return null;
+            }
+
+            var acesso = _repositorio.PesquisarAcesso(parametros.Desricao);
+            AcessoSistemicoDto acessoDto = new AcessoSistemicoDto(acesso, permissoes);
+
+            foreach (var permissao in permissoes.Select(p => p.Id).OrderBy(p => p))
+                _repositorio.VincularPermissaoAcesso(acessoDto.Id, permissao);
+
+            _mensagens.AdicionarMensagem("Acesso criado com sucesso!");
+
+            return acessoDto;
         }
 
         private List<PermissaoDto> PesquisarPermissoes(List<int> permissoes)
