@@ -132,5 +132,21 @@ namespace Servicos.Permissoes.Implementacoes
 
             return retorno;
         }
+
+        public List<AcessoSistemicoDto> ListarAcessos(string descricao)
+        {
+            var consulta = _repositorio.PesquisarAcessos(descricao);
+            List<AcessoSistemicoDto> retorno = new List<AcessoSistemicoDto>();
+
+            if(!consulta.Any()) {
+                _mensagens.AdicionarMensagem("Não foi encontrado nenhum registro para a pesquisa");
+                return retorno;
+            }
+
+            foreach(var item in consulta)
+                retorno.Add(new AcessoSistemicoDto(item));
+
+            return retorno;
+        }
     }
 }

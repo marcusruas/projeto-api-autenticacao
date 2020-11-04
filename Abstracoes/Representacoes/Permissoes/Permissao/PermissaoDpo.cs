@@ -9,27 +9,32 @@ namespace Abstracoes.Representacoes.Permissoes.Permissao
         public PermissaoDpo()
         {
         }
-        public PermissaoDpo(Guid permissao, string descricao)
+
+        public PermissaoDpo(Guid permissao, string descricao, DateTime dataCriacao)
         {
             this.Permissao = permissao;
             this.Descricao = descricao;
+            this.DataCriacao = dataCriacao;
         }
+
         public PermissaoDpo(PermissaoDom permissao)
         {
             this.Permissao = permissao.Permissao;
             this.Descricao = permissao.Descricao;
         }
 
-        public PermissaoDpo(PermissaoDto permissao)
+        public PermissaoDpo(PermissaoAcessoDpo permissao)
         {
             this.Id = permissao.Id;
             this.Permissao = permissao.Permissao;
             this.Descricao = permissao.Descricao;
+            this.DataCriacao = permissao.DataCriacao;
         }
 
         public int Id { get; set; }
         public Guid Permissao { get; set; }
         [StringLength(100)]
         public string Descricao { get; set; }
+        public DateTime DataCriacao { get; set; }
     }
 }

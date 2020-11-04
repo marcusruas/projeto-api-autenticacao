@@ -25,10 +25,12 @@ namespace Abstracoes.Representacoes.Permissoes.Permissao
             this.Id = permissao.Id;
             this.Permissao = permissao.Permissao;
             this.Descricao = permissao.Descricao;
+            this.DataCriacao = permissao.DataCriacao;
         }
 
         public int Id { get; set; }
         public Guid Permissao { get; set; }
         public string Descricao { get; set; }
+        public DateTime DataCriacao { get; set; }
     }
 }

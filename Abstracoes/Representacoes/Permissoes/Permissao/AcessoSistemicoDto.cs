@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Abstracoes.Representacoes.Permissoes.Permissao
@@ -8,6 +9,11 @@ namespace Abstracoes.Representacoes.Permissoes.Permissao
         {
             Id = acesso.Id;
             Descricao = acesso.Descricao;
+            DataCriacao = acesso.DataCriacao;
+            Permissoes = new List<PermissaoDto>();
+            
+            foreach(var permissao in acesso.Permissoes)
+                Permissoes.Add(new PermissaoDto(permissao));
         }
 
         public AcessoSistemicoDto(AcessoSistemicoDpo acesso, List<PermissaoDto> permissoes)
@@ -15,10 +21,12 @@ namespace Abstracoes.Representacoes.Permissoes.Permissao
             Id = acesso.Id;
             Descricao = acesso.Descricao;
             Permissoes = permissoes;
+            DataCriacao = acesso.DataCriacao;
         }
 
         public int Id { get; set; }
         public string Descricao { get; set; }
+        public DateTime DataCriacao { get; set; }
         public List<PermissaoDto> Permissoes { get; set; }
     }
 }

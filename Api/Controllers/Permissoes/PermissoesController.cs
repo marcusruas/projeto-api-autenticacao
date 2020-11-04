@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using Abstracoes.Representacoes.Permissoes.Permissao;
 using Aplicacao.Representacoes.Permissoes.Token;
 using MandradePkgs.Retornos;
@@ -19,6 +20,10 @@ namespace Api.Controllers.Usuarios
             _servico = servico;
         }
 
+        [HttpGet]
+        public RespostaApi<List<AcessoSistemicoDto>> PesquisarAcessos(string descricao) =>
+            RespostaPadrao(_servico.ListarAcessos(descricao));
+
         [HttpPost]
         public RespostaApi<PermissaoDto> Cadastrar(string Descricao) =>
             RespostaPadrao(_servico.IncluirPermissao(Descricao));
@@ -26,5 +31,29 @@ namespace Api.Controllers.Usuarios
         [HttpPost]
         public RespostaApi<AcessoSistemicoDto> CadastrarAcesso(InclusaoAcessoSistemicoDto Parametros) =>
             RespostaPadrao(_servico.IncluirAcesso(Parametros));
+
+        [HttpPost]
+        public RespostaApi CadastrarAcessoGrupo(int idAcesso, int idGrupo) =>
+            RespostaPadrao();
+
+        [HttpPost]
+        public RespostaApi CadastrarAcessoUsuario(int idAcesso, int idUsuario) =>
+            RespostaPadrao();
+
+        [HttpPut]
+        public RespostaApi IncluirPermissaoAcesso(int idAcesso, int idPermissao) => 
+            RespostaPadrao();
+
+        [HttpPut]
+        public RespostaApi AlterarAcessoGrupo(int idAcesso) => 
+            RespostaPadrao();
+
+        [HttpPut]
+        public RespostaApi AlterarAcessoUsuario(int idAcesso) => 
+            RespostaPadrao();
+
+        [HttpDelete]
+        public RespostaApi ExcluirAcesso(int idAcesso) => 
+            RespostaPadrao();
     }
 }

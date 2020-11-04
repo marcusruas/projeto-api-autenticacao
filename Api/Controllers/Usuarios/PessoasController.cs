@@ -19,16 +19,16 @@ namespace Api.Controllers.Usuarios
             _pessoaServico = pessoaServico;
         }
 
+        [HttpGet]
+        public RespostaApi<List<PessoaDto>> Pesquisar(FiltroBuscaPessoasDto filtro)
+        {
+            return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
+        }
+        
         [HttpPost]
         public RespostaApi Cadastrar(PessoaInclusaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
-        }
-
-        [HttpPost]
-        public RespostaApi<List<PessoaDto>> Pesquisar(FiltroBuscaPessoasDto filtro)
-        {
-            return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
         }
 
         [HttpPut]

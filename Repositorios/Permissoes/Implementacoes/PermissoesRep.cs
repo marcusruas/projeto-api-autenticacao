@@ -45,7 +45,31 @@ namespace Repositorios.Permissoes.Implementacoes
         public AcessoSistemicoDpo PesquisarAcesso(string descricao)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessoPorDescricao", "SHAREDB");
-            return conexao.QueryFirstOrDefault<AcessoSistemicoDpo>(comando, new { descricao });
+            return conexao.Query<AcessoSistemicoDpo>(comando, new { descricao }).FirstOrDefault();
+        }
+
+        public List<AcessoSistemicoDpo> PesquisarAcessos(string descricao)
+        {
+            List<AcessoSistemicoDpo> retorno = new List<AcessoSistemicoDpo>();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessosPermissoes", "SHAREDB");
+            using (var grid = conexao.QueryMultiple(comando, new { descricao })) {
+                retorno = grid.Read<AcessoSistemicoDpo>().ToList();
+
+                if(!retorno.Any())
+                    return new List<AcessoSistemicoDpo>();
+                
+                List<PermissaoAcessoDpo> permissoes = grid.Read<PermissaoAcessoDpo>().ToList();
+
+                foreach(var acesso in retorno) {
+                    List<PermissaoDpo> permissoesAcesso = permissoes
+                        .Where(p => p.Acesso == acesso.Id)
+                        .Select(p => new PermissaoDpo(p)).ToList();
+
+                    acesso.Permissoes.AddRange(permissoesAcesso);
+                }
+            }
+
+            return retorno;
         }
     }
 }
