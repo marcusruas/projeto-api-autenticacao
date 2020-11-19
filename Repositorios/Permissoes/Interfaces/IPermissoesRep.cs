@@ -10,6 +10,8 @@ namespace Repositorios.Permissoes.Interfaces
         bool VincularPermissaoAcesso(int idAcesso, int idPermissao);
         List<PermissaoDpo> PesquisarPermissoes(List<int> permissoes);
         AcessoSistemicoDpo PesquisarAcesso(string descricao);
+        AcessoSistemicoDpo PesquisarAcesso(int acesso);
         List<AcessoSistemicoDpo> PesquisarAcessos(string descricao);
+        bool InserirAcessoGrupo(int acesso, int grupo);
     }
 }

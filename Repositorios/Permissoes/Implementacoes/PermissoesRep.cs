@@ -71,5 +71,17 @@ namespace Repositorios.Permissoes.Implementacoes
 
             return retorno;
         }
+
+        public AcessoSistemicoDpo PesquisarAcesso(int acesso)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessoPorId", "SHAREDB");
+            return conexao.Query<AcessoSistemicoDpo>(comando, new { Id = acesso }).FirstOrDefault();
+        }
+
+        public bool InserirAcessoGrupo(int acesso, int grupo)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertAcessoGrupo", "SHAREDB");
+            return conexao.Execute(comando, new { Acesso = acesso, Grupo = grupo }) == 1;
+        }
     }
 }

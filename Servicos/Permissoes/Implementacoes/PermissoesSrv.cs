@@ -20,12 +20,14 @@ namespace Servicos.Permissoes.Implementacoes
     {
         private IPermissoesRep _repositorio;
         private IUsuarioSrv _usuarioServico;
+        private IGrupoSrv _grupoServico;
         private IMensagensApi _mensagens;
 
-        public PermissoesSrv(IPermissoesRep repositorio, IUsuarioSrv _usuario, IMensagensApi mensagens)
+        public PermissoesSrv(IPermissoesRep repositorio, IUsuarioSrv _usuario, IGrupoSrv _grupo, IMensagensApi mensagens)
         {
             _repositorio = repositorio;
             _usuarioServico = _usuario;
+            _grupoServico = _grupo;
             _mensagens = mensagens;
         }
 
@@ -147,6 +149,34 @@ namespace Servicos.Permissoes.Implementacoes
                 retorno.Add(new AcessoSistemicoDto(item));
 
             return retorno;
+        }
+
+        public bool CadastrarAcessoGrupo(int acesso, int grupo)
+        {
+            var acessoBanco = _repositorio.PesquisarAcesso(acesso);
+
+            if(acessoBanco == null) {
+                _mensagens.AdicionarMensagem("Acesso informado não existe.");
+                return false;
+            }
+
+            var grupoBanco = _grupoServico.PesquisarGrupoPorId(grupo);
+
+            if(grupoBanco == null) {
+                _mensagens.AdicionarMensagem("Grupo informado não existe.");
+                return false;
+            }
+
+            bool sucesso = _repositorio.InserirAcessoGrupo(acessoBanco.Id, grupoBanco.Id);
+
+            if(sucesso) {
+                _mensagens.AdicionarMensagem("Acesso ao grupo cadastrado com sucesso");
+                return sucesso;
+            }
+            else {
+                _mensagens.AdicionarMensagem("Falha ao adicionar acesso ao grupo, verifique os dados e tente novamente");
+                return sucesso;
+            }
         }
     }
 }
