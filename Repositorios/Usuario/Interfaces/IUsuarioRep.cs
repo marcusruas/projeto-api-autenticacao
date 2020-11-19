@@ -13,5 +13,6 @@ namespace Repositorios.Usuario.Interfaces
         PessoaDpo BuscarPessoaUsuario(int id);
         GrupoDpo BuscarGrupoUsuario(int id);
         (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha);
+        UsuarioDto BuscarUsuario(int usuario);
     }
 }

@@ -135,6 +135,19 @@ namespace Servicos.Usuario.Implementacoes
             return new PessoaDto(pessoa);
         }
 
+        public UsuarioDto PesquisarUsuario(int usuario)
+        {
+            var usuarioBanco = _usuarioRepositorio.BuscarUsuario(usuario);
+            
+            if (usuarioBanco == null)
+            {
+                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                return null;
+            }
+
+            return usuarioBanco;
+        }
+
         public UsuarioDto ValidarUsuario(string usuario, string senha)
         {
             string senhaCriptografada = new Senha(senha).ValorCriptografado;

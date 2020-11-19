@@ -19,8 +19,8 @@ namespace Servicos.Permissoes.Implementacoes
     public class PermissoesSrv : IPermissoesSrv
     {
         private IPermissoesRep _repositorio;
-        private IUsuarioSrv _usuarioServico;
         private IGrupoSrv _grupoServico;
+        private IUsuarioSrv _usuarioServico;
         private IMensagensApi _mensagens;
 
         public PermissoesSrv(IPermissoesRep repositorio, IUsuarioSrv _usuario, IGrupoSrv _grupo, IMensagensApi mensagens)
@@ -175,6 +175,34 @@ namespace Servicos.Permissoes.Implementacoes
             }
             else {
                 _mensagens.AdicionarMensagem("Falha ao adicionar acesso ao grupo, verifique os dados e tente novamente");
+                return sucesso;
+            }
+        }
+
+        public bool CadastrarAcessoUsuario(int acesso, int usuario)
+        {
+            var acessoBanco = _repositorio.PesquisarAcesso(acesso);
+
+            if(acessoBanco == null) {
+                _mensagens.AdicionarMensagem("Acesso informado não existe.");
+                return false;
+            }
+
+            var usuarioBanco = _usuarioServico.PesquisarUsuario(usuario);
+
+            if(usuarioBanco == null) {
+                _mensagens.AdicionarMensagem("Usuario informado não existe.");
+                return false;
+            }
+
+            bool sucesso = _repositorio.InserirAcessoUsuario(acessoBanco.Id, usuarioBanco.Id);
+
+            if(sucesso) {
+                _mensagens.AdicionarMensagem("Acesso ao usuário cadastrado com sucesso");
+                return sucesso;
+            }
+            else {
+                _mensagens.AdicionarMensagem("Falha ao adicionar acesso ao usuário, verifique os dados e tente novamente");
                 return sucesso;
             }
         }

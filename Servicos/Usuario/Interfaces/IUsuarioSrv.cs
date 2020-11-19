@@ -13,5 +13,6 @@ namespace Servicos.Usuario.Interfaces
         PessoaDto ObterPessoaUsuario(int id);
         GrupoDto ObterGrupoUsuario(int id);
         UsuarioDto ValidarUsuario(string usuario, string senha);
+        UsuarioDto PesquisarUsuario(int usuario);
     }
 }

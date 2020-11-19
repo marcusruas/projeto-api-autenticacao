@@ -12,5 +12,6 @@ namespace Servicos.Permissoes.Interfaces
         AcessoSistemicoDto IncluirAcesso(InclusaoAcessoSistemicoDto parametros);
         List<AcessoSistemicoDto> ListarAcessos(string descricao);
         bool CadastrarAcessoGrupo(int acesso, int grupo);
+        bool CadastrarAcessoUsuario(int acesso, int usuario);
     }
 }

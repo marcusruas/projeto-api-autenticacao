@@ -13,5 +13,6 @@ namespace Repositorios.Permissoes.Interfaces
         AcessoSistemicoDpo PesquisarAcesso(int acesso);
         List<AcessoSistemicoDpo> PesquisarAcessos(string descricao);
         bool InserirAcessoGrupo(int acesso, int grupo);
+        bool InserirAcessoUsuario(int acesso, int usuario);
     }
 }

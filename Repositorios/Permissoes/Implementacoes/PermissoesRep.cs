@@ -83,5 +83,11 @@ namespace Repositorios.Permissoes.Implementacoes
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertAcessoGrupo", "SHAREDB");
             return conexao.Execute(comando, new { Acesso = acesso, Grupo = grupo }) == 1;
         }
+
+        public bool InserirAcessoUsuario(int acesso, int usuario)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertAcessoUsuario", "SHAREDB");
+            return conexao.Execute(comando, new { Acesso = acesso, Usuario = usuario }) == 1;
+        }
     }
 }

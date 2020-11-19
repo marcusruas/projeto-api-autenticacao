@@ -85,5 +85,28 @@ namespace Repositorios.Usuario.Implementacoes
             var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
+
+        public UsuarioDto BuscarUsuario(int usuario)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectUsuarioPorId", "SHAREDB");
+            UsuarioDpo usuarioBanco;
+            GrupoDpo grupoBanco;
+            PessoaDpo pessoaBanco;
+            using (var retorno = conexao.QueryMultiple(
+                comando,
+                new { Usuario = usuario })
+            )
+            {
+                usuarioBanco = retorno.Read<UsuarioDpo>().First();
+                grupoBanco = retorno.Read<GrupoDpo>().First();
+                pessoaBanco = retorno.Read<PessoaDpo>().First();
+            }
+
+            if(usuarioBanco == null) {
+                return null;
+            }
+
+            return new UsuarioDto(usuarioBanco, grupoBanco, pessoaBanco);
+        }
     }
 }

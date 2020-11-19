@@ -46,7 +46,7 @@ namespace Api.Controllers.Usuarios
 
         [HttpPost]
         public RespostaApi CadastrarAcessoUsuario(int idAcesso, int idUsuario) =>
-            RespostaPadrao();
+            RespostaPadrao(_servico.CadastrarAcessoUsuario(idAcesso, idUsuario));
 
         [HttpPut]
         public RespostaApi IncluirPermissaoAcesso(int idAcesso, int idPermissao) => 
