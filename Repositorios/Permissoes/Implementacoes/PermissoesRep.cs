@@ -89,5 +89,53 @@ namespace Repositorios.Permissoes.Implementacoes
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertAcessoUsuario", "SHAREDB");
             return conexao.Execute(comando, new { Acesso = acesso, Usuario = usuario }) == 1;
         }
+
+        public List<AcessoSistemicoDpo> PesquisarAcessosGrupo(int grupo)
+        {
+            List<AcessoSistemicoDpo> retorno = new List<AcessoSistemicoDpo>();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessosGrupo", "SHAREDB");
+            using (var grid = conexao.QueryMultiple(comando, new { grupo })) {
+                retorno = grid.Read<AcessoSistemicoDpo>().ToList();
+
+                if(!retorno.Any())
+                    return new List<AcessoSistemicoDpo>();
+                
+                List<PermissaoAcessoDpo> permissoes = grid.Read<PermissaoAcessoDpo>().ToList();
+
+                foreach(var acesso in retorno) {
+                    List<PermissaoDpo> permissoesAcesso = permissoes
+                        .Where(p => p.Acesso == acesso.Id)
+                        .Select(p => new PermissaoDpo(p)).ToList();
+
+                    acesso.Permissoes.AddRange(permissoesAcesso);
+                }
+            }
+
+            return retorno;
+        }
+
+        public List<AcessoSistemicoDpo> PesquisarAcessosUsuario(int usuario)
+        {
+            List<AcessoSistemicoDpo> retorno = new List<AcessoSistemicoDpo>();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectAcessosUsuario", "SHAREDB");
+            using (var grid = conexao.QueryMultiple(comando, new { usuario })) {
+                retorno = grid.Read<AcessoSistemicoDpo>().ToList();
+
+                if(!retorno.Any())
+                    return new List<AcessoSistemicoDpo>();
+                
+                List<PermissaoAcessoDpo> permissoes = grid.Read<PermissaoAcessoDpo>().ToList();
+
+                foreach(var acesso in retorno) {
+                    List<PermissaoDpo> permissoesAcesso = permissoes
+                        .Where(p => p.Acesso == acesso.Id)
+                        .Select(p => new PermissaoDpo(p)).ToList();
+
+                    acesso.Permissoes.AddRange(permissoesAcesso);
+                }
+            }
+
+            return retorno;
+        }
     }
 }

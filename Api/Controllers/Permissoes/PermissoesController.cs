@@ -25,12 +25,12 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.ListarAcessos(descricao));
 
         [HttpGet]
-        public RespostaApi ListarAcessosGrupos(int idGrupo) =>
-            RespostaPadrao();
+        public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosGrupos(int idGrupo) =>
+            RespostaPadrao(_servico.ListarAcessosGrupo(idGrupo));
 
         [HttpGet]
-        public RespostaApi ListarAcessosUsuario(int idUsuario) =>
-            RespostaPadrao();
+        public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosUsuario(int idUsuario) =>
+            RespostaPadrao(_servico.ListarAcessosUsuario(idUsuario));
 
         [HttpPost]
         public RespostaApi<PermissaoDto> Cadastrar(string Descricao) =>
@@ -58,10 +58,6 @@ namespace Api.Controllers.Usuarios
 
         [HttpPut]
         public RespostaApi AlterarAcessoUsuario(int idAcesso) => 
-            RespostaPadrao();
-
-        [HttpDelete]
-        public RespostaApi ExcluirAcesso(int idAcesso) => 
             RespostaPadrao();
     }
 }

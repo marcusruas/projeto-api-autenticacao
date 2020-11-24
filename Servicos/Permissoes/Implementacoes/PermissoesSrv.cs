@@ -206,5 +206,37 @@ namespace Servicos.Permissoes.Implementacoes
                 return sucesso;
             }
         }
+
+        public List<AcessoSistemicoDto> ListarAcessosGrupo(int grupo)
+        {
+            var consulta = _repositorio.PesquisarAcessosGrupo(grupo);
+            List<AcessoSistemicoDto> retorno = new List<AcessoSistemicoDto>();
+
+            if(!consulta.Any()) {
+                _mensagens.AdicionarMensagem("Não foi encontrado nenhum registro para a pesquisa");
+                return retorno;
+            }
+
+            foreach(var item in consulta)
+                retorno.Add(new AcessoSistemicoDto(item));
+
+            return retorno;
+        }
+
+        public List<AcessoSistemicoDto> ListarAcessosUsuario(int usuario)
+        {
+            var consulta = _repositorio.PesquisarAcessosGrupo(usuario);
+            List<AcessoSistemicoDto> retorno = new List<AcessoSistemicoDto>();
+
+            if(!consulta.Any()) {
+                _mensagens.AdicionarMensagem("Não foi encontrado nenhum registro para a pesquisa");
+                return retorno;
+            }
+
+            foreach(var item in consulta)
+                retorno.Add(new AcessoSistemicoDto(item));
+
+            return retorno;
+        }
     }
 }
