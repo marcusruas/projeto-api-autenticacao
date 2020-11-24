@@ -4,9 +4,8 @@ using Abstracoes.Representacoes.Usuario.Grupo;
 using Servicos.Usuario.Interfaces;
 using System.Collections.Generic;
 
-namespace Api.Controllers.Usuarios
+namespace Api.Controllers.usuarios
 {
-    [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
     public class GruposController : ControllerApi
@@ -19,31 +18,38 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpGet]
-        public RespostaApi<GrupoDto> ObterDados(int Id) =>
-            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(Id));
-
-        [HttpGet]
-        public RespostaApi<GrupoDto> ObterPai(int Id) =>
-            RespostaPadrao(_grupoServico.ObterPai(Id));
-
-        [HttpGet]
-        public RespostaApi<List<GrupoDto>> ObterFilhos(int Id) =>
-            RespostaPadrao(_grupoServico.ListarFilhos(Id));
-
-        [HttpGet]
-        public RespostaApi<List<GrupoDto>> ListarTodos() =>
+        [Route("/usuarios/grupos/")]
+        public RespostaApi<List<GrupoDto>> Get() =>
             RespostaPadrao(_grupoServico.ListarTodosGrupos());
 
+        [HttpGet]
+        [Route("/usuarios/grupos/{id}")]
+        public RespostaApi<GrupoDto> ObterDados(int id) =>
+            RespostaPadrao(_grupoServico.PesquisarGrupoPorId(id));
+
+        [HttpGet]
+        [Route("/usuarios/grupos/{id}/pai")]
+        public RespostaApi<GrupoDto> ObterPai(int id) =>
+            RespostaPadrao(_grupoServico.ObterPai(id));
+
+        [HttpGet]
+        [Route("/usuarios/grupos/{id}/filhos")]
+        public RespostaApi<List<GrupoDto>> ObterFilhos(int id) =>
+            RespostaPadrao(_grupoServico.ListarFilhos(id));
+
         [HttpPut]
-        public RespostaApi Vincular(int GrupoPai, int GrupoFilho) =>
-            RespostaPadrao(_grupoServico.VincularGrupos(GrupoPai, GrupoFilho));
+        [Route("/usuarios/grupos")]
+        public RespostaApi Put(int grupoPai, int grupoFilho) =>
+            RespostaPadrao(_grupoServico.VincularGrupos(grupoPai, grupoFilho));
 
         [HttpPost]
-        public RespostaApi Cadastrar(GrupoInclusaoDto grupo) =>
+        [Route("/usuarios/grupos")]
+        public RespostaApi Post(GrupoInclusaoDto grupo) =>
             RespostaPadrao(_grupoServico.InserirNovoUsuario(grupo));
 
         [HttpDelete]
-        public RespostaApi Excluir(int Id) =>
-            RespostaPadrao(_grupoServico.ExcluirGrupo(Id));
+        [Route("/usuarios/grupos")]
+        public RespostaApi Delete(int id) =>
+            RespostaPadrao(_grupoServico.ExcluirGrupo(id));
     }
 }

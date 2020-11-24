@@ -60,10 +60,10 @@ namespace Repositorios.Usuario.Implementacoes
             return (usuarioBanco, grupoBanco, pessoaBanco);
         }
 
-        public bool AtualizarAtivoUsuario(int Id, bool Ativo)
+        public bool AtualizarAtivoUsuario(int id, bool ativo)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateAtivoUsuario", "SHAREDB");
-            var parametros = new { Id, Ativo };
+            var parametros = new { id, ativo };
             return conexao.Execute(comando, parametros) == 1;
         }
 

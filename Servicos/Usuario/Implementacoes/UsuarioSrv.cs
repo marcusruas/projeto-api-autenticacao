@@ -42,10 +42,10 @@ namespace Servicos.Usuario.Implementacoes
             return resultado;
         }
 
-        public bool AtualizarSenhaUsuario(UsuarioAlteracaoSenhaDto alteracao)
+        public bool AtualizarSenhaUsuario(int id, UsuarioAlteracaoSenhaDto alteracao)
         {
             var resultado = _usuarioRepositorio.AtualizarSenhaUsuario(
-                alteracao.Id,
+                id,
                 alteracao.SenhaAntiga,
                 alteracao.SenhaNova
             );

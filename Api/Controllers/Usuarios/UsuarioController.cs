@@ -7,7 +7,6 @@ using Servicos.Usuario.Interfaces;
 
 namespace Api.Controllers.Usuarios
 {
-    [Route("[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
     public class UsuariosController : ControllerApi
@@ -19,30 +18,35 @@ namespace Api.Controllers.Usuarios
             _servico = servico;
         }
 
+        [HttpGet]
+        [Route("/usuarios/{id}/pessoa")]
+        public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int id) =>
+            RespostaPadrao(_servico.ObterPessoaUsuario(id));
+
+        [HttpGet]
+        [Route("/usuarios/{id}/grupo")]
+        public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int id) =>
+            RespostaPadrao(_servico.ObterGrupoUsuario(id));
+
         [HttpPost]
+        [Route("/usuarios/")]
         public RespostaApi Cadastrar(UsuarioInclusaoDto usuario) =>
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
-        [HttpGet]
-        //[Correção] Método está trazendo dados errados
-        public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int Id) =>
-            RespostaPadrao(_servico.ObterPessoaUsuario(Id));
-
-        [HttpGet]
-        public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int Id) =>
-            RespostaPadrao(_servico.ObterGrupoUsuario(Id));
+        [HttpPut]
+        [Route("/usuarios/{id}")]
+        public RespostaApi AlterarAtividade(int id, bool ativo) =>
+            RespostaPadrao(_servico.AtualizarAtividadeUsuario(id, ativo));
 
         [HttpPut]
-        public RespostaApi AlterarAtividade(int Id, bool Ativo) =>
-            RespostaPadrao(_servico.AtualizarAtividadeUsuario(Id, Ativo));
-
-        [HttpPut]
-        public RespostaApi AlterarSenha(UsuarioAlteracaoSenhaDto Usuario) =>
-            RespostaPadrao(_servico.AtualizarSenhaUsuario(Usuario));
+        [Route("/usuarios/{id}/alterar-senha")]
+        public RespostaApi AlterarSenha(int id, UsuarioAlteracaoSenhaDto alteracao) =>
+            RespostaPadrao(_servico.AtualizarSenhaUsuario(id, alteracao));
 
         [HttpDelete]
-        public RespostaApi Excluir(int Id) =>
-            RespostaPadrao(_servico.ExcluirUsuario(Id));
+        [Route("/usuarios/")]
+        public RespostaApi Excluir(int id) =>
+            RespostaPadrao(_servico.ExcluirUsuario(id));
 
     }
 }

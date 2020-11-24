@@ -7,7 +7,7 @@ namespace Repositorios.Usuario.Interfaces
     public interface IUsuarioRep
     {
         bool InserirUsuario(UsuarioDpo usuario);
-        bool AtualizarAtivoUsuario(int Id, bool Ativo);
+        bool AtualizarAtivoUsuario(int id, bool ativo);
         bool AtualizarSenhaUsuario(int id, string senhaAntiga, string senhaNova);
         bool DeletarUsuario(int id);
         PessoaDpo BuscarPessoaUsuario(int id);

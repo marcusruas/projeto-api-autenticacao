@@ -5,9 +5,8 @@ using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Servicos.Usuario.Interfaces;
 
-namespace Api.Controllers.Usuarios
+namespace Api.Controllers.usuarios
 {
-    [Route("Usuarios/[controller]/[action]")]
     [Produces("application/json")]
     [ApiController]
     public class PessoasController : ControllerApi
@@ -20,27 +19,31 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpGet]
+        [Route("/usuarios/pessoas/")]
         public RespostaApi<List<PessoaDto>> Pesquisar(FiltroBuscaPessoasDto filtro)
         {
             return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
         }
         
         [HttpPost]
+        [Route("/usuarios/pessoas/")]
         public RespostaApi Cadastrar(PessoaInclusaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
         }
 
         [HttpPut]
+        [Route("/usuarios/pessoas/")]
         public RespostaApi Atualizar(PessoaDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.AtualizarDadosPessoa(pessoa));
         }
 
         [HttpDelete]
-        public RespostaApi Excluir(int Id)
+        [Route("/usuarios/pessoas/{id}")]
+        public RespostaApi Excluir(int id)
         {
-            return RespostaPadrao(_pessoaServico.ExcluirPessoa(Id));
+            return RespostaPadrao(_pessoaServico.ExcluirPessoa(id));
         }
 
     }
