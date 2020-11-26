@@ -59,10 +59,20 @@ namespace Repositorios.Usuario.Implementacoes
             return conexao.Query<GrupoDpo>(comando, parametros).ToList();
         }
 
-        public List<GrupoDpo> ObterGrupos()
+        public List<GrupoDpo> ObterGrupos(GrupoPesquisaDto filtro)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupos", "SHAREDB");
-            return conexao.Query<GrupoDpo>(comando).ToList();
+
+            var builder = new SqlBuilder();
+            var selector = builder.AddTemplate(comando);
+
+            if (!string.IsNullOrWhiteSpace(filtro.Nome))
+                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.Nome}%" });
+
+            if (!string.IsNullOrWhiteSpace(filtro.Descricao))
+                builder.Where("DESCRICAO LIKE @DESCRICAO", new { Descricao = $"%{filtro.Descricao}%" });
+
+            return conexao.Query<GrupoDpo>(selector.RawSql, selector.Parameters).ToList();
         }
     }
 }

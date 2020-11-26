@@ -19,8 +19,8 @@ namespace Api.Controllers.usuarios
 
         [HttpGet]
         [Route("/usuarios/grupos/")]
-        public RespostaApi<List<GrupoDto>> Get() =>
-            RespostaPadrao(_grupoServico.ListarTodosGrupos());
+        public RespostaApi<List<GrupoDto>> Get([FromQuery] GrupoPesquisaDto filtro) =>
+            RespostaPadrao(_grupoServico.ListarTodosGrupos(filtro));
 
         [HttpGet]
         [Route("/usuarios/grupos/{id}")]
@@ -38,7 +38,7 @@ namespace Api.Controllers.usuarios
             RespostaPadrao(_grupoServico.ListarFilhos(id));
 
         [HttpPut]
-        [Route("/usuarios/grupos")]
+        [Route("/usuarios/grupos/vincular")]
         public RespostaApi Put(int grupoPai, int grupoFilho) =>
             RespostaPadrao(_grupoServico.VincularGrupos(grupoPai, grupoFilho));
 
@@ -48,7 +48,7 @@ namespace Api.Controllers.usuarios
             RespostaPadrao(_grupoServico.InserirNovoUsuario(grupo));
 
         [HttpDelete]
-        [Route("/usuarios/grupos")]
+        [Route("/usuarios/grupos/{id}")]
         public RespostaApi Delete(int id) =>
             RespostaPadrao(_grupoServico.ExcluirGrupo(id));
     }

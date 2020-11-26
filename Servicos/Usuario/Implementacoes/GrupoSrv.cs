@@ -100,9 +100,9 @@ namespace Servicos.Usuario.Implementacoes
             return listaRetorno;
         }
 
-        public List<GrupoDto> ListarTodosGrupos()
+        public List<GrupoDto> ListarTodosGrupos(GrupoPesquisaDto filtro)
         {
-            var grupos = _repositorio.ObterGrupos();
+            var grupos = _repositorio.ObterGrupos(filtro);
             if (!grupos.Any())
                 return null;
 

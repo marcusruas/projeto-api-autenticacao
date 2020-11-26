@@ -4,3 +4,4 @@ SELECT
     ,G.DESCRICAO
     ,G.ID_PAI AS PAI
 FROM GRUPOS G
+/**where**/

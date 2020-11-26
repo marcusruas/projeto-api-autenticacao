@@ -11,6 +11,6 @@ namespace Servicos.Usuario.Interfaces
         GrupoDto PesquisarGrupoPorId(int id);
         GrupoDto ObterPai(int id);
         List<GrupoDto> ListarFilhos(int id);
-        List<GrupoDto> ListarTodosGrupos();
+        List<GrupoDto> ListarTodosGrupos(GrupoPesquisaDto filtro);
     }
 }

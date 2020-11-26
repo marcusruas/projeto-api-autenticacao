@@ -3,7 +3,6 @@ using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 using Repositorios.Usuario.Interfaces;
 using Abstracoes.Representacoes.Usuario.Pessoa;
-using SharedKernel.ObjetosValor.Formatos;
 using System.Collections.Generic;
 using System.Linq;
 
