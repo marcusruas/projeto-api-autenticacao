@@ -35,7 +35,7 @@ namespace Repositorios.Usuario.Implementacoes
                 builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.Nome}%" });
 
             if (filtro.PossuiCpf())
-                builder.Where("CPF = @CPF", new { Cpf = filtro.Cpf.ValorNumerico });
+                builder.Where("CPF = @CPF", new { Cpf = filtro.Cpf });
 
             return conexao.Query<PessoaDpo>(selector.RawSql, selector.Parameters).ToList();
         }

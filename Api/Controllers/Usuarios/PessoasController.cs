@@ -20,9 +20,16 @@ namespace Api.Controllers.usuarios
 
         [HttpGet]
         [Route("/usuarios/pessoas/")]
-        public RespostaApi<List<PessoaDto>> Pesquisar(FiltroBuscaPessoasDto filtro)
+        public RespostaApi<List<PessoaDto>> Pesquisar([FromQuery] FiltroBuscaPessoasDto filtro)
         {
             return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
+        }
+
+        [HttpGet]
+        [Route("/usuarios/pessoas/{id}")]
+        public RespostaApi<PessoaDto> Get(int id)
+        {
+            return RespostaPadrao(_pessoaServico.PesquisarPessoaPorId(id));
         }
         
         [HttpPost]
