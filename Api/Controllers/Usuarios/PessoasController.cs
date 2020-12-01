@@ -19,13 +19,6 @@ namespace Api.Controllers.usuarios
         }
 
         [HttpGet]
-        [Route("/usuarios/pessoas/")]
-        public RespostaApi<List<PessoaDto>> Pesquisar([FromQuery] FiltroBuscaPessoasDto filtro)
-        {
-            return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
-        }
-
-        [HttpGet]
         [Route("/usuarios/pessoas/{id}")]
         public RespostaApi<PessoaDto> Get(int id)
         {
@@ -34,24 +27,30 @@ namespace Api.Controllers.usuarios
         
         [HttpPost]
         [Route("/usuarios/pessoas/")]
-        public RespostaApi Cadastrar(PessoaInclusaoDto pessoa)
+        public RespostaApi Post(PessoaInclusaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.IncluirPessoa(pessoa));
         }
 
         [HttpPut]
         [Route("/usuarios/pessoas/")]
-        public RespostaApi Atualizar(PessoaDto pessoa)
+        public RespostaApi Put(PessoaDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.AtualizarDadosPessoa(pessoa));
         }
 
         [HttpDelete]
         [Route("/usuarios/pessoas/{id}")]
-        public RespostaApi Excluir(int id)
+        public RespostaApi Delete(int id)
         {
             return RespostaPadrao(_pessoaServico.ExcluirPessoa(id));
         }
 
+        [HttpGet]
+        [Route("/usuarios/pessoas/")]
+        public RespostaApi<List<PessoaDto>> Pesquisar([FromQuery] FiltroBuscaPessoasDto filtro)
+        {
+            return RespostaPadrao(_pessoaServico.PesquisarPessoas(filtro));
+        }
     }
 }
