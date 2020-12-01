@@ -34,7 +34,7 @@ namespace Api.Controllers.usuarios
 
         [HttpPut]
         [Route("/usuarios/pessoas/")]
-        public RespostaApi Put(PessoaDto pessoa)
+        public RespostaApi Put(PessoaAlteracaoDto pessoa)
         {
             return RespostaPadrao(_pessoaServico.AtualizarDadosPessoa(pessoa));
         }

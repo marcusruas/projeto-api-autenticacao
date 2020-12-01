@@ -21,7 +21,7 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
 
         public PessoaDto(PessoaDpo pessoa)
         {
-            Cpf cpf = pessoa.Cpf == 0 ?
+            Cpf cpf = string.IsNullOrWhiteSpace(pessoa.Cpf) ?
                 null : new Cpf(pessoa.Cpf.ToString());
 
             Telefone telefone =

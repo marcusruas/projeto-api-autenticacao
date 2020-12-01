@@ -23,6 +23,19 @@ namespace Abstracoes.Builders.Usuario
             return this;
         }
 
+        public PessoaBuilder ConstruirObjeto(PessoaAlteracaoDto pessoa)
+        {
+            this.pessoa = new PessoaDom(
+                pessoa.Id,
+                pessoa.Nome,
+                new Cpf(pessoa.Cpf),
+                pessoa.Email,
+                new Telefone(pessoa.DddTelefone, pessoa.NumeroTelefone)
+            );
+
+            return this;
+        }
+
         public PessoaBuilder ConstruirObjeto(PessoaInclusaoDto pessoa)
         {
             this.pessoa = new PessoaDom(

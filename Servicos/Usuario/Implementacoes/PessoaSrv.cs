@@ -64,22 +64,18 @@ namespace Servicos.Usuario.Implementacoes
             return listaRetorno;
         }
 
-        public bool AtualizarDadosPessoa(PessoaDto pessoa)
+        public bool AtualizarDadosPessoa(PessoaAlteracaoDto pessoa)
         {
-            var construtorDominio = new PessoaBuilder()
-                .ConstruirObjeto(pessoa)
-                .AdicionarMensageria(_mensagens);
-            PessoaDom dominio = construtorDominio.Construir();
-
-            bool nenhumDadoAlterado = 
-                string.IsNullOrWhiteSpace(pessoa.Nome) && string.IsNullOrWhiteSpace(pessoa.Email) &&
-                pessoa.Cpf == null && pessoa.Telefone == null;
-
-            if (nenhumDadoAlterado)
+            if (!pessoa.possuiDadosAlteracao())
                 throw new ArgumentException("Para realizar a alteração da pessoa, ao menos um dado deve ser alterado.");
 
             if (pessoa.Id == 0)
                 throw new RegraNegocioException("Para realizar a alteração da pessoa, deve ser informado o número de identificação da mesma.");
+
+            var construtorDominio = new PessoaBuilder()
+                .ConstruirObjeto(pessoa)
+                .AdicionarMensageria(_mensagens);
+            PessoaDom dominio = construtorDominio.Construir();
 
             if (!string.IsNullOrWhiteSpace(pessoa.Nome))
                 dominio.ValidarNome();

@@ -1,7 +1,7 @@
 ## Padrões
     - Padrão de retorno de queries para DML.
     - Padrão de segurança, tabelas
-    - Mensagens de erro em json
+    - Mensagens de erro em json separado
 ### Endpoints
     - Todos os controllers devem ter um método de consulta por filtros
     - Ações de DML devem ser utilizadas via ID

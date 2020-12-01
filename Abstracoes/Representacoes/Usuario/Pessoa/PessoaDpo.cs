@@ -9,7 +9,7 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
         {
         }
 
-        public PessoaDpo(int id, string nome, long cpf, string email, string ddd, string numero)
+        public PessoaDpo(int id, string nome, string cpf, string email, string ddd, string numero)
         {
             Id = id;
             Nome = nome;
@@ -21,16 +21,24 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
 
         public PessoaDpo(PessoaDto pessoa)
         {
-            long cpf = pessoa.Cpf == null ?
-                0 : long.Parse(pessoa.Cpf.ValorNumerico);
             bool possuiTelefone = pessoa.Telefone != null;
 
             Id = pessoa.Id;
             Nome = pessoa.Nome;
-            Cpf = cpf;
+            Cpf = pessoa.Cpf?.ValorNumerico;
             Email = pessoa.Email;
             Ddd = possuiTelefone ? pessoa.Telefone.Ddd : null;
             Numero = possuiTelefone ? pessoa.Telefone.Numero : null;
+        }
+
+        public PessoaDpo(PessoaAlteracaoDto pessoa)
+        {
+            Id = pessoa.Id;
+            Nome = pessoa.Nome;
+            Cpf = pessoa.Cpf;
+            Email = pessoa.Email;
+            Ddd = pessoa.DddTelefone;
+            Numero = pessoa.NumeroTelefone;
         }
 
         [Description("ID_PESSOA")]
@@ -39,7 +47,7 @@ namespace Abstracoes.Representacoes.Usuario.Pessoa
         [StringLength(80)]
         public string Nome { get; set; }
         [Description("CPF")]
-        public long Cpf { get; set; }
+        public string Cpf { get; set; }
         [Description("EMAIL")]
         [StringLength(100)]
         public string Email { get; set; }

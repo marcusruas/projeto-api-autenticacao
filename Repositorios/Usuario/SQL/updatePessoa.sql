@@ -1,5 +1,5 @@
-IF EXISTS(SELECT 1 FROM PESSOAS WHERE CPF = @CPF)
-   THROW 51000, 'CPF solicitado já está cadastrado.', 1;  
+IF EXISTS(SELECT 1 FROM PESSOAS WHERE CPF = @CPF AND ID_PESSOA <> @ID_PESSOA)
+   THROW 51000, 'CPF solicitado para alteração já está cadastrado.', 1;  
 
 UPDATE PESSOAS
    SET NOME		= @NOME	
