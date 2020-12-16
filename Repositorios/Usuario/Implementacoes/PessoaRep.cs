@@ -32,10 +32,10 @@ namespace Repositorios.Usuario.Implementacoes
             var selector = builder.AddTemplate(comando);
 
             if (filtro.PossuiNome())
-                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.Nome}%" });
+                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.nome}%" });
 
             if (filtro.PossuiCpf())
-                builder.Where("CPF = @CPF", new { Cpf = filtro.Cpf });
+                builder.Where("CPF = @CPF", new { Cpf = filtro.cpf });
 
             return conexao.Query<PessoaDpo>(selector.RawSql, selector.Parameters).ToList();
         }

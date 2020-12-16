@@ -66,11 +66,11 @@ namespace Repositorios.Usuario.Implementacoes
             var builder = new SqlBuilder();
             var selector = builder.AddTemplate(comando);
 
-            if (!string.IsNullOrWhiteSpace(filtro.Nome))
-                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.Nome}%" });
+            if (!string.IsNullOrWhiteSpace(filtro.nome))
+                builder.Where("NOME LIKE @NOME", new { Nome = $"%{filtro.nome}%" });
 
-            if (!string.IsNullOrWhiteSpace(filtro.Descricao))
-                builder.Where("DESCRICAO LIKE @DESCRICAO", new { Descricao = $"%{filtro.Descricao}%" });
+            if (!string.IsNullOrWhiteSpace(filtro.descricao))
+                builder.Where("DESCRICAO LIKE @DESCRICAO", new { Descricao = $"%{filtro.descricao}%" });
 
             return conexao.Query<GrupoDpo>(selector.RawSql, selector.Parameters).ToList();
         }

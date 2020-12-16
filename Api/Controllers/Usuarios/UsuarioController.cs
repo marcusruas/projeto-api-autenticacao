@@ -44,7 +44,7 @@ namespace Api.Controllers.Usuarios
             RespostaPadrao(_servico.AtualizarSenhaUsuario(id, alteracao));
 
         [HttpDelete]
-        [Route("/usuarios/")]
+        [Route("/usuarios/{id}")]
         public RespostaApi Excluir(int id) =>
             RespostaPadrao(_servico.ExcluirUsuario(id));
 

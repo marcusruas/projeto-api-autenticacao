@@ -7,3 +7,6 @@
     - Ações de DML devem ser utilizadas via ID
     - Padrão REST
     - Alterar método de update dos clientes. Parece inseguro
+
+
+    REST: PERMISSOES TENQUE SER LIST<GUID>
