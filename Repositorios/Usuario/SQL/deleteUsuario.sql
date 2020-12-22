@@ -1,4 +1,0 @@
-IF NOT EXISTS(SELECT TOP 1 1 FROM USUARIOS WHERE ID_USUARIO = @ID)
-    THROW 51000, 'Não foi possível localizar o usuário informado.', 1;  
-
-DELETE FROM USUARIOS WHERE ID_USUARIO = @ID
