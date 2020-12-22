@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Threading.Tasks;
 
 namespace Api.Configuracoes
@@ -21,36 +22,10 @@ namespace Api.Configuracoes
         public void ConfigurarAplicacao()
         {
             if (Ambiente.IsDevelopment())
-            {
-                EmDesenvolvimento();
-            }
-            else
-            {
-                EmProducao();
-            }
-        }
+                Aplicacao.UseDeveloperExceptionPage();
 
-        private void EmDesenvolvimento()
-        {
-            Aplicacao.UseDeveloperExceptionPage();
             Aplicacao.UseSwagger();
-            Aplicacao.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Usuário API v1");
-            });
-
-            Aplicacao.UseCors("Permissionamentos");
-            Aplicacao.UseHttpsRedirection();
-
-            Aplicacao.UseMvc();
-        }
-
-        private void EmProducao()
-        {
-            Aplicacao.UseHsts();
-            Aplicacao.UseSwagger();
-            Aplicacao.UseSwaggerUI(c =>
-            {
+            Aplicacao.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Usuário API v1");
             });
 
