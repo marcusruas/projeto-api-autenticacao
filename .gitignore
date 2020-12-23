@@ -10,3 +10,4 @@ healthchecksdb
 
 #conexoes
 conexoes.json
+appsettings.Development.json
