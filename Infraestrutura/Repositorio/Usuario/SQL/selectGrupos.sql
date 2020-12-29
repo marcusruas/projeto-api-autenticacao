@@ -1,0 +1,7 @@
+SELECT
+     G.ID_GRUPO AS ID
+    ,G.NOME
+    ,G.DESCRICAO
+    ,G.ID_PAI AS PAI
+FROM GRUPOS G
+/**where**/

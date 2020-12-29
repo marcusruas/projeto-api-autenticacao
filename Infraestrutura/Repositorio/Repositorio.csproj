@@ -4,4 +4,31 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Conexoes" Version="0.2.9" />
+    <PackageReference Include="Dapper" Version="1.60.1" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="1.60.1" />
+    <PackageReference Include="Mensagens" Version="0.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="MongoDB.Bson" Version="2.9.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="conexoes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Usuario\SQL\*.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Permissoes\SQL\*.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dominio\ObjetoValor\ObjetoValor.csproj" />
+  </ItemGroup>
+
 </Project>

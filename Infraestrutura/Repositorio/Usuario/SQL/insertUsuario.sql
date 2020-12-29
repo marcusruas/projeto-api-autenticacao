@@ -1,0 +1,22 @@
+IF EXISTS (SELECT 1 FROM USUARIOS WHERE USUARIO = @USUARIO)
+     THROW 51000, 'Usuário Já foi cadastrado.', 1;  
+
+INSERT INTO USUARIOS 
+(
+     USUARIO
+    ,SENHA
+    ,DATA_CRIACAO
+    ,ATIVO
+    ,GRUPO
+    ,PESSOA
+)
+VALUES
+(
+     @USUARIO
+    ,@SENHA
+    ,@DATACRIACAO
+    ,@ATIVO
+    ,@IDGRUPO
+    ,@IDPESSOA
+)
+

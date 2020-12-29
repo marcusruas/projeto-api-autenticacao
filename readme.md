@@ -16,3 +16,9 @@ Api criada com o framework .NET Core na versão 3.1, utilizando pacotes criados 
         * Camada de Repositorio - Rp
         * Camada de Comunicacao - Cm
         * Camada de Api - Controller
+
+### Ideias a serem implementadas
+    * Utilizar Fluent Assertions no Dominio;
+    * Adicionar um gerenciador de recuros para mensagens (Resource Manager);
+    * Padrão de retorno de queries para DML;
+    * Padrão de segurança, tabelas.
