@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 
-namespace Repositorios.Usuario.Interfaces
+namespace Infraestrutura.Repositorio.Usuario.Interface
 {
-    public interface IPessoaRep
+    public interface IPessoaRp
     {
         bool InserirPessoa(PessoaDpo pessoa);
         List<PessoaDpo> BuscarPessoas(string nome, string cpf);

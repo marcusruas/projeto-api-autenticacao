@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 
-namespace Repositorios.Usuario.Interfaces
+namespace Infraestrutura.Repositorio.Usuario.Interface
 {
-    public interface IGrupoRep
+    public interface IGrupoRp
     {
         bool AdicionarGrupo(GrupoDpo grupo);
         GrupoDpo ObterGrupoPorId(int id);

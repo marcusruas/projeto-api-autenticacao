@@ -1,18 +1,18 @@
 ﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
-using Repositorios.Usuario.Interfaces;
+using Infraestrutura.Repositorio.Usuario.Interface;
 using System.Linq;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using System.Collections.Generic;
 
-namespace Repositorios.Usuario.Implementacoes
+namespace Infraestrutura.Repositorio.Usuario.Implementacao
 {
-    public class GrupoRep : IGrupoRep
+    public class GrupoRp : IGrupoRp
     {
         private IConexaoSQL _conexao { get; set; }
 
-        public GrupoRep(IConexaoSQL conexao)
+        public GrupoRp(IConexaoSQL conexao)
         {
             _conexao = conexao;
         }

@@ -1,9 +1,9 @@
 using Infraestrutura.Repositorio.Entidade;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 
-namespace Repositorios.Usuario.Interfaces
+namespace Infraestrutura.Repositorio.Usuario.Interface
 {
-    public interface IUsuarioRep
+    public interface IUsuarioRp
     {
         bool InserirUsuario(UsuarioDpo usuario);
         bool AtualizarAtivoUsuario(int id, bool ativo);

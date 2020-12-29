@@ -1,18 +1,18 @@
 ﻿using Dapper;
 using MandradePkgs.Conexoes;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
-using Repositorios.Usuario.Interfaces;
+using Infraestrutura.Repositorio.Usuario.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 
-namespace Repositorios.Usuario.Implementacoes
+namespace Infraestrutura.Repositorio.Usuario.Implementacao
 {
-    public class PessoaRep : IPessoaRep
+    public class PessoaRp : IPessoaRp
     {
         private IConexaoSQL _conexao { get; }
 
-        public PessoaRep(IConexaoSQL conexao)
+        public PessoaRp(IConexaoSQL conexao)
         {
             _conexao = conexao;
         }

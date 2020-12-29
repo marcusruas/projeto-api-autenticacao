@@ -3,16 +3,16 @@ using Dapper;
 using Infraestrutura.Repositorio.Entidade;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using MandradePkgs.Conexoes;
-using Repositorios.Usuario.Interfaces;
+using Infraestrutura.Repositorio.Usuario.Interface;
 using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
 
-namespace Repositorios.Usuario.Implementacoes
+namespace Infraestrutura.Repositorio.Usuario.Implementacao
 {
-    public class UsuarioRep : IUsuarioRep
+    public class UsuarioRp : IUsuarioRp
     {
         private IConexaoSQL _conexao { get; }
 
-        public UsuarioRep(IConexaoSQL conexao)
+        public UsuarioRp(IConexaoSQL conexao)
         {
             _conexao = conexao;
         }
