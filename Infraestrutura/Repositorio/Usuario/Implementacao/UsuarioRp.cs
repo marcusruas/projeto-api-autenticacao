@@ -4,41 +4,42 @@ using Infraestrutura.Repositorio.Entidade;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using MandradePkgs.Conexoes;
 using Infraestrutura.Repositorio.Usuario.Interface;
-using static MandradePkgs.Conexoes.Mapeamentos.DpoSqlMapper;
+using static MandradePkgs.Conexoes.Estrutura.Mapeamento.DpoSqlMapper;
+using MandradePkgs.Conexoes.Estrutura.Model;
 
 namespace Infraestrutura.Repositorio.Usuario.Implementacao
 {
-    public class UsuarioRp : IUsuarioRp
+    public class UsuarioRp : ClasseRepositorio, IUsuarioRp
     {
         private IConexaoSQL _conexao { get; }
 
-        public UsuarioRp(IConexaoSQL conexao)
+        public UsuarioRp(IConexaoSQL conexao) : base("Usuario")
         {
             _conexao = conexao;
         }
 
         public bool InserirUsuario(UsuarioDpo usuario)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "insertUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertUsuario", "SHAREDB");
             var parametros = DpoParaParametros(usuario);
             return conexao.Execute(comando, parametros) == 1;
         }
 
         public PessoaDpo BuscarPessoaUsuario(int id)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectPessoaUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPessoaUsuario", "SHAREDB");
             return conexao.QueryFirstOrDefault<PessoaDpo>(comando, new { Id = id });
         }
 
         public GrupoDpo BuscarGrupoUsuario(int id)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectGrupoUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectGrupoUsuario", "SHAREDB");
             return conexao.QueryFirstOrDefault<GrupoDpo>(comando, new { Id = id });
         }
 
         public (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectUsuario", "SHAREDB");
             UsuarioDpo usuarioBanco;
             GrupoDpo grupoBanco;
             PessoaDpo pessoaBanco;
@@ -65,14 +66,14 @@ namespace Infraestrutura.Repositorio.Usuario.Implementacao
 
         public bool AtualizarAtivoUsuario(int id, bool ativo)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateAtivoUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "updateAtivoUsuario", "SHAREDB");
             var parametros = new { id, ativo };
             return conexao.Execute(comando, parametros) == 1;
         }
 
         public bool AtualizarSenhaUsuario(int id, string senhaAntiga, string senhaNova)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "updateSenhaUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "updateSenhaUsuario", "SHAREDB");
             var parametros = new
             {
                 Id = id,
@@ -84,14 +85,14 @@ namespace Infraestrutura.Repositorio.Usuario.Implementacao
 
         public bool DeletarUsuario(int id)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "deleteUsuario", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "deleteUsuario", "SHAREDB");
             var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
 
         public (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(int usuario)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(GetType(), "selectUsuarioPorId", "SHAREDB");
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectUsuarioPorId", "SHAREDB");
             UsuarioDpo usuarioBanco;
             GrupoDpo grupoBanco;
             PessoaDpo pessoaBanco;

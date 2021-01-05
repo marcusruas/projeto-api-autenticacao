@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Conexoes" Version="0.2.9" />
+    <PackageReference Include="Conexoes" Version="0.3.10" />
     <PackageReference Include="Mensagens" Version="0.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
