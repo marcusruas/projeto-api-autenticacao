@@ -4,6 +4,7 @@ using MandradePkgs.Retornos.Configuracao;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 
@@ -42,7 +43,9 @@ namespace Api.Configuracoes
 
         private void AdicionarMiddlewares(IServiceCollection servicos)
         {
-            servicos.AddSwaggerGen();
+            string versao = "v1";
+            OpenApiInfo configsSwagger = new OpenApiInfo { Title = "Usuario API", Version = versao };
+            servicos.AddSwaggerGen(c => { c.SwaggerDoc(versao, configsSwagger); });
 
             servicos.AddCors(options =>
             {
