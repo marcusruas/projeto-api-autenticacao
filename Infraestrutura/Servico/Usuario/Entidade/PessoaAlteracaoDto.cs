@@ -1,23 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
 namespace Infraestrutura.Servico.Usuario.Entidade
 {
     public class PessoaAlteracaoDto
     {
-        [Required(ErrorMessage = "ID da pessoa é obrigatório")]
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Nome da pessoa é obrigatório")]
-        public string Nome { get; set; }
-        [Required(ErrorMessage = "CPF da pessoa é obrigatório")]
-        public string Cpf { get; set; }
-        public string Email { get; set; }
-        public string DddTelefone { get; set; }
-        public string NumeroTelefone { get; set; }
+        public bool AlterarNome { get; set; }
+        public bool AlterarEmail { get; set; }
+        public bool AlterarTelefone { get; set; }
+        public PessoaDadosAlteracaoDto Dados { get; set; }
 
-        public bool possuiDadosAlteracao() {
-            return !(string.IsNullOrWhiteSpace(Nome) && string.IsNullOrWhiteSpace(Email) &&
-            string.IsNullOrWhiteSpace(DddTelefone) &&  string.IsNullOrWhiteSpace(NumeroTelefone) &&
-            Cpf == null);
-        }
+        public bool PossuiSolicitacaoAlteracao() =>
+            AlterarNome || AlterarEmail || AlterarTelefone;
     }
 }

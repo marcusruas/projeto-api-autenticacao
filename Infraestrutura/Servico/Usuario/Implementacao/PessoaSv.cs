@@ -68,29 +68,32 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public bool AtualizarDadosPessoa(PessoaAlteracaoDto pessoa)
         {
-            if (!pessoa.possuiDadosAlteracao())
+            if (!pessoa.PossuiSolicitacaoAlteracao())
                 throw new ArgumentException("Para realizar a alteração da pessoa, ao menos um dado deve ser alterado.");
 
-            if (pessoa.Id == 0)
+            if (pessoa.Dados.Id == 0)
                 throw new RegraNegocioException("Para realizar a alteração da pessoa, deve ser informado o número de identificação da mesma.");
 
-            Telefone telefonePessoa = new Telefone(pessoa.DddTelefone, pessoa.NumeroTelefone);
-            Cpf cpfPessoa = new Cpf(pessoa.Cpf);
+            var dadosAtuaisPessoa = _Repositorio.ObterPessoaPorId(pessoa.Dados.Id);
 
-            var dominio = new PessoaDm(pessoa.Id, pessoa.Nome, cpfPessoa, pessoa.Email, telefonePessoa);
+            string emailPessoa = pessoa.AlterarEmail ? pessoa.Dados.Email : dadosAtuaisPessoa.Email;
+                
+            var dominio = new PessoaDm(pessoa.Dados.Id, pessoa.Dados.Nome, null, emailPessoa, ValidarTelefone(dadosAtuaisPessoa, pessoa));
             dominio.DefinirMensagens(_mensagens);
 
-            if (!string.IsNullOrWhiteSpace(pessoa.Nome))
+            if (pessoa.AlterarNome)
                 dominio.ValidarNome();
-
             dominio.ValidarDadosContato();
-            dominio.ValidarCpf();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
 
-            var pessoaBanco = new PessoaDpo(pessoa.Id, pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.DddTelefone, pessoa.NumeroTelefone);
-            var sucesso = _Repositorio.UpdateDadosPessoa(pessoaBanco);
+            if (dadosAtuaisPessoa == null) {
+                throw new FalhaExecucaoException("Não foi possível localizar a pessoa indicada para alteração de dados");
+            }
+
+            var pessoaAtualizacao = RealizarMergeInformacoes(dadosAtuaisPessoa, pessoa);
+            var sucesso = _Repositorio.UpdateDadosPessoa(pessoaAtualizacao);
 
             if (!sucesso)
                 throw new RegraNegocioException("Não foi possível atualizar a pessoa. Favor Verificar informações.");
@@ -115,6 +118,34 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             if (pessoa == null)
                 return null;
             return new PessoaDto(pessoa);
+        }
+
+        private PessoaDpo RealizarMergeInformacoes(PessoaDpo pessoa, PessoaAlteracaoDto alteracao) {
+            string nomeNovo = alteracao.AlterarNome ? alteracao.Dados.Nome : pessoa.Nome;
+            string emailNovo = alteracao.AlterarEmail ? alteracao.Dados.Email : pessoa.Email;
+            string dddNovo = alteracao.AlterarTelefone ? alteracao.Dados.DddTelefone : pessoa.Ddd;
+            string numeroNovo = alteracao.AlterarTelefone ? alteracao.Dados.NumeroTelefone : pessoa.Numero;
+
+            return new PessoaDpo(
+                alteracao.Dados.Id,
+                nomeNovo,
+                null,
+                emailNovo,
+                dddNovo,
+                numeroNovo
+            );
+        }
+
+        private Telefone ValidarTelefone(PessoaDpo pessoa, PessoaAlteracaoDto alteracao) {
+            Telefone telefonePessoa = null;
+            if(alteracao.AlterarTelefone) {
+                if(!string.IsNullOrWhiteSpace(alteracao.Dados.DddTelefone) && !string.IsNullOrWhiteSpace(alteracao.Dados.NumeroTelefone))
+                    telefonePessoa = new Telefone(alteracao.Dados.DddTelefone, alteracao.Dados.NumeroTelefone);
+            }
+            else if(!string.IsNullOrWhiteSpace(pessoa.Ddd) && !string.IsNullOrWhiteSpace(pessoa.Numero))
+                telefonePessoa = new Telefone(pessoa.Ddd, pessoa.Numero);
+            
+            return telefonePessoa;
         }
     }
 }
