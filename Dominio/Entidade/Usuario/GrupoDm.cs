@@ -1,6 +1,7 @@
 ﻿using MandradePkgs.Mensagens;
 using System;
 using System.Linq;
+using Entidade.Recurso;
 
 namespace Dominio.Entidade.Usuario
 {
@@ -45,26 +46,23 @@ namespace Dominio.Entidade.Usuario
             if (this._mensagens == null)
                 this.mensagens = mensagens;
             else
-                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
+                throw new ArgumentException(Mensagens.MensageriaErroSobrescrita);
         }
 
         public void ValidarNome()
         {
             if (string.IsNullOrEmpty(Nome))
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nome é obrigatório");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.NomeObrigatorio);
                 return;
             }
 
             if (Nome.Length <= 5)
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Nome do grupo deve ter mais de 5 caractéres");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.GrupoNomeMinimo.Replace('N', '5'));
             if (Nome.Length > LimiteCaracteresNome)
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Nome do grupo deve ter menos de 80 caractéres");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.GrupoNomeMaximo.Replace("N", LimiteCaracteresNome.ToString()));
             if (Nome.Any(x => char.IsNumber(x)))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                             "Nome do grupo não pode conter números");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.GrupoNomeNumeros);
         }
 
         public void ValidarDescricao()
@@ -72,11 +70,9 @@ namespace Dominio.Entidade.Usuario
             if (!string.IsNullOrEmpty(Descricao))
             {
                 if (Descricao.Length <= 15)
-                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                                 "Descrição do grupo deve conter mais de 15 caractéres");
+                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.GrupoDescricaoMinimo.Replace("N", "20"));
                 if (Descricao.Length > LimiteCaracteresDescricao)
-                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao,
-                                                $"Descrição do grupo deve conter menos de {LimiteCaracteresDescricao} caractéres");
+                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.GrupoDescricaoMinimo.Replace("N", LimiteCaracteresDescricao.ToString()));
             }
         }
     }

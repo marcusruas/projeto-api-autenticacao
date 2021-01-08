@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Dominio.ObjetoValor.Formatos;
+using Entidade.Recurso;
 using MandradePkgs.Mensagens;
 
 namespace Dominio.Entidade.Usuario
@@ -48,7 +49,7 @@ namespace Dominio.Entidade.Usuario
             if (this._mensagens == null)
                 this.mensagens = mensagens;
             else
-                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
+                throw new ArgumentException(Mensagens.MensageriaErroSobrescrita);
         }
 
         public void ValidarDados()
@@ -63,36 +64,30 @@ namespace Dominio.Entidade.Usuario
         {
             if (string.IsNullOrWhiteSpace(Usuario))
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Usuário é obrigatório");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioObrigatorio);
                 return;
             }
 
             if (!char.IsUpper(Usuario[0]))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Usuário deve iniciar com letra maiúscula");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioLetraMaiuscula);
 
             if (Usuario.Length < 5)
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Usuário deve conter mais de 5 caractéres");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioMinimo.Replace("N", "5"));
         }
 
         public void ValidarSenha()
         {
             if (Senha.SenhaNula())
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Senha do usuário é obrigatória");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioSenhaObrigatoria);
                 return;
             }
 
             if (!Senha.PossuiCaracteresNecessarios())
-                _mensagens.AdicionarMensagem(
-                    TipoMensagem.FalhaValidacao,
-                    "Senha do usuário deve conter ao menos uma letra maiúscula, um número e um caractere especial"
-                );
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioSenhaEspecificacoes);
 
             if (!Senha.PossuiMinimoCaracteres())
-                _mensagens.AdicionarMensagem(
-                    TipoMensagem.FalhaValidacao,
-                    $"Senha deve conter mais de {Senha.MinimoCaracteresNecessarios} caractéres"
-                );
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioSenhaMinima.Replace("N", Senha.MinimoCaracteresNecessarios.ToString()));
         }
     }
 }

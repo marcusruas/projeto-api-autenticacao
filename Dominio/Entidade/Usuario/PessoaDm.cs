@@ -2,6 +2,7 @@
 using Dominio.ObjetoValor.Formatos;
 using System;
 using System.Linq;
+using Entidade.Recurso;
 
 namespace Dominio.Entidade.Usuario
 {
@@ -39,7 +40,7 @@ namespace Dominio.Entidade.Usuario
             if (this._mensagens == null)
                 this.mensagens = mensagens;
             else
-                throw new ArgumentException("Não é possível sobrescrever a mensageria do objeto");
+                throw new ArgumentException(Mensagens.MensageriaErroSobrescrita);
         }
 
         public void ValidarDados()
@@ -53,14 +54,19 @@ namespace Dominio.Entidade.Usuario
         public void ValidarNome()
         {
             if (string.IsNullOrWhiteSpace(Nome))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Nome é obrigatório.");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.NomeObrigatorio);
             else
             {
                 var nomes = Nome.Split(' ').ToList();
-                var mensagemErro = "Nome e sobrenomes dos usuários devem iniciar com letra maiúscula";
                 foreach (var nome in nomes)
-                    if (!char.IsUpper(nome[0]) && !_mensagens.Mensagens.Any(m => m.Texto == mensagemErro))
-                        _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, mensagemErro);
+                {
+                    if (!char.IsUpper(nome[0]))
+                    {
+                        _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PessoaNomeMaiusculo);
+                        return;
+                    }
+                }
+                        
             }
         }
 
@@ -68,21 +74,18 @@ namespace Dominio.Entidade.Usuario
         {
             if (Cpf != null && !string.IsNullOrWhiteSpace(Cpf.ValorNumerico))
                 if (!Cpf.CpfValido())
-                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "CPF inválido, verifique os dados.");
+                    _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PessoaCPFInvalido);
         }
 
         public void ValidarTelefone()
         {
-            if (Telefone == null)
-                return;
-
-            if (string.IsNullOrEmpty(Telefone.Ddd) && string.IsNullOrEmpty(Telefone.Numero))
+            if (Telefone == null || (string.IsNullOrEmpty(Telefone.Ddd) && string.IsNullOrEmpty(Telefone.Numero)))
                 return;
 
             if (string.IsNullOrEmpty(Telefone.Ddd))
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Telefone da pessoa deve conter DDD.");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PessoaTelefoneInvalido);
             if (string.IsNullOrEmpty(Telefone.Numero) || Telefone.Numero.Length < 8 || Telefone.Numero.Length > 9)
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Número de telefone inválido.");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PessoaNumeroInvalido);
         }
 
         public void ValidarDadosContato()
@@ -91,7 +94,7 @@ namespace Dominio.Entidade.Usuario
                 string.IsNullOrEmpty(Email) &&
                 Telefone == null
             )
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "Ao menos uma forma de contato deve ser fornecido da pessoa.");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PessoaFormaContato);
         }
     }
 }
