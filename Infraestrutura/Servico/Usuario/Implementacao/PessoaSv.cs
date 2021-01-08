@@ -1,6 +1,6 @@
 ﻿using MandradePkgs.Mensagens;
 using Infraestrutura.Repositorio.Usuario.Interface;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ using Dominio.Entidade.Usuario;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Dominio.ObjetoValor.Formatos;
+using Servico.Recurso;
 
 namespace Infraestrutura.Servico.Usuario.Implementacao
 {
@@ -35,28 +36,25 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+                throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
             var pessoaBanco = new PessoaDpo(0, pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Ddd, pessoa.Numero);
             var sucesso = _Repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)
-                throw new RegraNegocioException("Não foi possível incluir esta pessoa. Verifique os dados ou tente novamente mais tarde.");
+                throw new RegraNegocioException(MensagensErro.PessoaFalhaInclusao);
 
-            _mensagens.AdicionarMensagem("Pessoa adicionada com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.PessoaSucessoInclusao);
             return sucesso;
         }
 
         public List<PessoaDto> PesquisarPessoas(FiltroBuscaPessoasDto filtro)
         {
-            if (!filtro.PossuiCpf() && !filtro.PossuiNome())
-                throw new ArgumentException("Ao menos um filtro deve ser preenchido.");
-
             var pessoas = _Repositorio.BuscarPessoas(filtro.nome, filtro.cpf);
 
-            if (pessoas.Count() == 0)
+            if (!pessoas.Any())
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "A consulta não retornou resultados");
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, MensagensErro.PesquisaSemResultados);
                 return new List<PessoaDto>();
             }
 
@@ -69,15 +67,14 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         public bool AtualizarDadosPessoa(PessoaAlteracaoDto pessoa)
         {
             if (!pessoa.PossuiSolicitacaoAlteracao())
-                throw new ArgumentException("Para realizar a alteração da pessoa, ao menos um dado deve ser alterado.");
+                throw new ArgumentException(MensagensErro.PessoaAlteracaoSemDados);
 
             if (pessoa.Dados.Id == 0)
-                throw new RegraNegocioException("Para realizar a alteração da pessoa, deve ser informado o número de identificação da mesma.");
+                throw new RegraNegocioException(MensagensErro.PessoaAlteracaoSemId);
 
             var dadosAtuaisPessoa = _Repositorio.ObterPessoaPorId(pessoa.Dados.Id);
 
             string emailPessoa = pessoa.AlterarEmail ? pessoa.Dados.Email : dadosAtuaisPessoa.Email;
-                
             var dominio = new PessoaDm(pessoa.Dados.Id, pessoa.Dados.Nome, null, emailPessoa, ValidarTelefone(dadosAtuaisPessoa, pessoa));
             dominio.DefinirMensagens(_mensagens);
 
@@ -86,19 +83,19 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             dominio.ValidarDadosContato();
 
             if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+                throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
             if (dadosAtuaisPessoa == null) {
-                throw new FalhaExecucaoException("Não foi possível localizar a pessoa indicada para alteração de dados");
+                throw new FalhaExecucaoException(MensagensErro.PessoaAlteracaoNaoEncontrada);
             }
 
             var pessoaAtualizacao = RealizarMergeInformacoes(dadosAtuaisPessoa, pessoa);
             var sucesso = _Repositorio.UpdateDadosPessoa(pessoaAtualizacao);
 
             if (!sucesso)
-                throw new RegraNegocioException("Não foi possível atualizar a pessoa. Favor Verificar informações.");
+                throw new RegraNegocioException(MensagensErro.PessoaFalhaAlteracao);
 
-            _mensagens.AdicionarMensagem("Pessoa atualizada com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.PessoaAlteracaoSucesso);
             return sucesso;
         }
 
@@ -106,9 +103,9 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         {
             var sucesso = _Repositorio.DeletarPessoa(id);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível deletar a pessoa. Tente novamente mais tarde");
+                throw new FalhaExecucaoException(MensagensErro.PessoaFalhaExclusao);
 
-            _mensagens.AdicionarMensagem($"Pessoa foi excluída com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.PessoaSucessoExclusao);
             return sucesso;
         }
 
@@ -148,4 +145,4 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             return telefonePessoa;
         }
     }
-}
+}   

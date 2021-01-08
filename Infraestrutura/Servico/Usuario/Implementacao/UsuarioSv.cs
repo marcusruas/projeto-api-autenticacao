@@ -1,12 +1,13 @@
 using MandradePkgs.Mensagens;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Infraestrutura.Repositorio.Usuario.Interface;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 using Infraestrutura.Servico.Usuario.Entidade;
 using System;
 using Dominio.Entidade.Usuario;
 using Infraestrutura.Repositorio.Entidade;
 using Dominio.ObjetoValor.Formatos;
+using Servico.Recurso;
 
 namespace Infraestrutura.Servico.Usuario.Implementacao
 {
@@ -35,7 +36,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             var resultado = _UsuarioRpositorio.AtualizarAtivoUsuario(id, ativo);
 
             if (resultado)
-                _mensagens.AdicionarMensagem("Usuário foi atualizado com sucesso!");
+                _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoAtualizacao);
 
             return resultado;
         }
@@ -49,7 +50,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             );
 
             if (resultado)
-                _mensagens.AdicionarMensagem("Usuário foi atualizado com sucesso!");
+                _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoAtualizacao);
 
             return resultado;
         }
@@ -58,29 +59,29 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         {
             var sucesso = _UsuarioRpositorio.DeletarUsuario(id);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar o usuário. Verifique os dados e tente novamente.");
+                throw new FalhaExecucaoException(MensagensErro.UsuarioNaoLocalizado);
 
-            _mensagens.AdicionarMensagem($"Usuário foi excluído com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoExclusao);
             return sucesso;
         }
 
         public bool IncluirUsuario(UsuarioInclusaoDto usuario)
         {
             if (usuario.Senha != usuario.ConfirmacaoSenha)
-                throw new ArgumentException("Senha e confirmação de senha não são iguais, verifique os dados");
+                throw new ArgumentException(MensagensErro.UsuarioFalhaConfirmacaoSenha);
 
             DateTime dataAtual = DateTime.Now;
 
             GrupoDto grupo = _grupoServico.PesquisarGrupoPorId(usuario.IdGrupo);
             if (grupo == null)
-                throw new ArgumentException("Grupo informado para o usuário não encontrado");
+                throw new ArgumentException(MensagensErro.UsuarioGrupoNaoEncontrado);
 
             var grupoDominio = new GrupoDm(grupo.Id, grupo.Nome, grupo.Descricao, grupo.Pai);
             grupoDominio.DefinirMensagens(_mensagens);
 
             var pessoa = _pessoaServico.PesquisarPessoaPorId(usuario.IdPessoa);
             if (pessoa == null)
-                throw new ArgumentException("Pessoa informada para o usuário não encontrada");
+                throw new ArgumentException(MensagensErro.UsuarioPessoaNaoEncontrada);
 
             var pessoaDominio = new PessoaDm(pessoa.Id, pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone);
             pessoaDominio.DefinirMensagens(_mensagens);
@@ -89,15 +90,15 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+                throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
             var usuarioBanco = new UsuarioDpo(dominio.Id, dominio.Usuario, dominio.Senha.Valor, dataAtual, dominio.Ativo, dominio.Grupo.Id, dominio.Pessoa.Id);
             var sucessoInsercao = _UsuarioRpositorio.InserirUsuario(usuarioBanco);
 
             if (!sucessoInsercao)
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível adicionar o novo usuário. Tente novamente mais tarde.");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.UsuarioFalhaInclusao);
 
-            _mensagens.AdicionarMensagem("Usuário Adicionado com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoInclusao);
             return sucessoInsercao;
         }
 
@@ -107,7 +108,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
             if (grupo == null)
             {
-                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                _mensagens.AdicionarMensagem(MensagensErro.UsuarioGrupoNaoEncontrado);
                 return null;
             }
 
@@ -120,7 +121,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
             if (pessoa == null)
             {
-                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                _mensagens.AdicionarMensagem(MensagensErro.UsuarioPessoaNaoEncontrada);
                 return null;
             }
 
@@ -133,7 +134,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             
             if (usuarioBanco.Item1 == null)
             {
-                _mensagens.AdicionarMensagem("Não foi possível localizar o usuário.");
+                _mensagens.AdicionarMensagem(MensagensErro.UsuarioNaoLocalizado);
                 return null;
             }
 

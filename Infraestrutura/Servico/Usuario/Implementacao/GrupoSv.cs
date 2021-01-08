@@ -1,7 +1,6 @@
 ﻿using Infraestrutura.Repositorio.Usuario.Interface;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 using MandradePkgs.Mensagens;
-using MandradePkgs.Retornos;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using Infraestrutura.Servico.Usuario.Entidade;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using MandradePkgs.Retornos.Erros.Exceptions;
 using Dominio.Entidade.Usuario;
+using Servico.Recurso;
 
 namespace Infraestrutura.Servico.Usuario.Implementacao
 {
@@ -31,7 +31,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
                 possuiPai = true;
                 pai = _repositorio.ObterGrupoPorId(grupo.Pai.Value);
                 if (pai == null)
-                    throw new ArgumentException("Pai informado para o novo grupo inválido");
+                    throw new ArgumentException(MensagensErro.GrupoPaiInvalido);
             }
             var dominio = new GrupoDm(0, grupo.Nome, grupo.Descricao, possuiPai ? grupo.Pai.Value : 0);
             dominio.DefinirMensagens(_mensagens);
@@ -39,15 +39,15 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
-                throw new RegraNegocioException("Houve erros de validação. Favor verificar notificações.");
+                throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
             var grupoBanco = new GrupoDpo(0, grupo.Nome, grupo.Descricao, possuiPai ? grupo.Pai.Value : 0);
             var sucesso = _repositorio.AdicionarGrupo(grupoBanco);
 
             if (!sucesso)
-                throw new FalhaExecucaoException("Ocorreu uma falha ao cadastrar este grupo. Tente novamente mais tarde.");
+                throw new FalhaExecucaoException(MensagensErro.GrupoFalhaCadastro);
 
-            _mensagens.AdicionarMensagem("Grupo adicionado com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.GrupoSucessoInclusao);
             return sucesso;
         }
 
@@ -73,9 +73,9 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         {
             var sucesso = _repositorio.DeletarGrupo(id);
             if (!sucesso)
-                throw new FalhaExecucaoException("Não foi possível localizar o grupo. Verifique os dados e tente novamente.");
+                throw new FalhaExecucaoException(MensagensErro.GrupoNaoLocalizado);
 
-            _mensagens.AdicionarMensagem($"Grupo foi excluído com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.GrupoSucessoExclusao);
             return sucesso;
         }
 
@@ -83,9 +83,9 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         {
             var sucesso = _repositorio.VincularGrupos(grupoPai, grupoFilho);
             if (!sucesso)
-                throw new FalhaExecucaoException("Ocorreu uma falha ao realizar o vínculo, tente novamente mais tarde.");
+                throw new FalhaExecucaoException(MensagensErro.GrupoFalhaVinculo);
 
-            _mensagens.AdicionarMensagem($"Grupos foram vinculados com sucesso!");
+            _mensagens.AdicionarMensagem(MensagensErro.GrupoSucessoVinculo);
             return sucesso;
         }
 
@@ -105,8 +105,12 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         public List<GrupoDto> ListarTodosGrupos(GrupoPesquisaDto filtro)
         {
             var grupos = _repositorio.ObterGrupos(filtro.nome, filtro.descricao);
+
             if (!grupos.Any())
+            {
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, MensagensErro.PesquisaSemResultados);
                 return null;
+            }
 
             var listaRetorno = new List<GrupoDto>();
             foreach (var grupo in grupos)

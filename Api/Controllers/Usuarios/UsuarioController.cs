@@ -1,5 +1,5 @@
 using Infraestrutura.Servico.Usuario.Entidade;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 

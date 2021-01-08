@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Infraestrutura.Repositorio.Usuario.Interface;
 using Infraestrutura.Repositorio.Usuario.Implementacao;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 using Infraestrutura.Servico.Usuario.Implementacao;
 
 namespace Api.Configuracoes

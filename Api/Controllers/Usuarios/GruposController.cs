@@ -2,7 +2,7 @@ using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Infraestrutura.Servico.Usuario.Entidade;
-using Infraestrutura.Servicos.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Interface;
 
 namespace Api.Controllers.usuarios
 {

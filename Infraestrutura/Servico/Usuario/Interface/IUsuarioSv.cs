@@ -1,6 +1,6 @@
 using Infraestrutura.Servico.Usuario.Entidade;
 
-namespace Infraestrutura.Servicos.Usuario.Interface
+namespace Infraestrutura.Servico.Usuario.Interface
 {
     public interface IUsuarioSv
     {
