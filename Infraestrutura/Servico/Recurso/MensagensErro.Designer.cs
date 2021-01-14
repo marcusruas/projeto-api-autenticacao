@@ -124,6 +124,24 @@ namespace Servico.Recurso {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao adicionar permissão, verifique os dados e tente novamente..
+        /// </summary>
+        public static string PermissaoFalhaInclusao {
+            get {
+                return ResourceManager.GetString("PermissaoFalhaInclusao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Permissão adicionada com sucesso!.
+        /// </summary>
+        public static string PermissaoSucessoInclusao {
+            get {
+                return ResourceManager.GetString("PermissaoSucessoInclusao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A consulta não retornou resultados..
         /// </summary>
         public static string PesquisaSemResultados {

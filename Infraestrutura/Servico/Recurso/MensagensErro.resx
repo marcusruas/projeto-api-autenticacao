@@ -138,6 +138,12 @@
   <data name="GrupoSucessoVinculo" xml:space="preserve">
     <value>Grupos foram vinculados com sucesso!</value>
   </data>
+  <data name="PermissaoFalhaInclusao" xml:space="preserve">
+    <value>Falha ao adicionar permissão, verifique os dados e tente novamente.</value>
+  </data>
+  <data name="PermissaoSucessoInclusao" xml:space="preserve">
+    <value>Permissão adicionada com sucesso!</value>
+  </data>
   <data name="PesquisaSemResultados" xml:space="preserve">
     <value>A consulta não retornou resultados.</value>
   </data>

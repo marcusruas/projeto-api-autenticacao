@@ -5,6 +5,7 @@ using Infraestrutura.Repositorio.Permissao.Entidade;
 using Infraestrutura.Repositorios.Permissao.Interface;
 using Infraestrutura.Servico.Permissao.Interface;
 using MandradePkgs.Mensagens;
+using Servico.Recurso;
 
 namespace Infraestrutura.Servico.Permissao.Implementacao
 {
@@ -36,12 +37,12 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
 
             if (sucesso)
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, "Permissão adicionada com sucesso!");
+                _mensagens.AdicionarMensagem(TipoMensagem.Informativo, MensagensErro.PermissaoSucessoInclusao);
                 return new PermissaoDto(dominio.Permissao, dominio.Descricao);
             }
             else
             {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Falha ao adicionar permissão, verifique os dados e tente novamente.");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoFalhaInclusao);
                 return null;
             }
         }
