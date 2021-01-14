@@ -17,17 +17,15 @@ namespace Api.Controllers.Usuarios
             _servico = servico;
         }
 
-        /*
-        [HttpPost]
-        [Route("acessos/autenticar")]
-        public RespostaApi<TokenDto> Autenticar(
-            string Usuario,
-            string Senha,
-            [FromServices] ConfiguracoesTokenDto configsToken,
-            [FromServices] AssinaturaTokenDto assinatura
-        ) =>
-            RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
-        */
+        // [HttpPost]
+        // [Route("acessos/autenticar")]
+        // public RespostaApi<TokenDto> Autenticar(
+        //     string Usuario,
+        //     string Senha,
+        //     [FromServices] ConfiguracoesTokenDto configsToken,
+        //     [FromServices] AssinaturaTokenDto assinatura
+        // ) =>
+        //     RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
 
         [HttpGet]
         [Route("{id}/pessoa")]

@@ -1,4 +1,6 @@
 using Api.Configuracoes;
+using MandradePkgs.ConfiguracaoAPI.Configuracao;
+using MandradePkgs.ConfiguracaoAPI.Estrutura.Modelos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,15 +21,19 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            Middlewares Configuracoes = new Middlewares(services, Configuration, GetType());
-            Configuracoes.ConfigurarServicos();
             ConfigurarInjecoesDependencia(services);
+            ConfiguracaoAPI.ImplementarConfiguracoesServicos(services);
+            ConfiguracaoAPI.ImplementarMandradePKGS(services, Configuration, GetType());
+            services.AddMvc(cnf => ConfiguracaoAPI.ImplementarConfiguracoesMvc(cnf));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Implementacoes Configuracoes = new Implementacoes(app, env);
-            Configuracoes.ConfigurarAplicacao();
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            SwaggerParametros parametros = new SwaggerParametros("UsuarioAPI", "V1");
+            ConfiguracaoAPI.ImplementarConfiguracoesMiddlewares(app, parametros);
         }
     }
 }

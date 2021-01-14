@@ -3,6 +3,10 @@ using Infraestrutura.Repositorio.Usuario.Interface;
 using Infraestrutura.Repositorio.Usuario.Implementacao;
 using Infraestrutura.Servico.Usuario.Interface;
 using Infraestrutura.Servico.Usuario.Implementacao;
+using Infraestrutura.Servico.Permissao.Interface;
+using Infraestrutura.Repositorios.Permissao.Implementacao;
+using Infraestrutura.Servico.Permissao.Implementacao;
+using Infraestrutura.Repositorios.Permissao.Interface;
 
 namespace Api.Configuracoes
 {
@@ -26,8 +30,8 @@ namespace Api.Configuracoes
             servicos.AddScoped<IGrupoSv, GrupoSv>();
             servicos.AddScoped<IPessoaSv, PessoaSv>();
             servicos.AddScoped<IUsuarioSv, UsuarioSv>();
-            // servicos.AddScoped<IPermissoesSv, PermissoesSv>();
-            // servicos.AddScoped<IPermissoesRep, PermissoesRep>();
+            servicos.AddScoped<IPermissaoSv, PermissaoSv>();
+            servicos.AddScoped<IPermissaoRp, PermissaoRp>();
         }
     }
 }

@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autenticacao" Version="0.0.2" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Conexoes" Version="0.3.10" />
+    <PackageReference Include="ConfiguracoesAPI" Version="0.0.4" />
     <PackageReference Include="Mensagens" Version="0.1.4" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

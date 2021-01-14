@@ -1,24 +1,25 @@
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Infraestrutura.Servico.Usuario.Entidade;
+using Infraestrutura.Servico.Permissao.Interface;
+using infraestrutura.Servico.Permissao.Entidade;
 
 namespace Api.Controllers.usuarios
 {
+    [Route("/AcessosSistemicos/")]
     [Produces("application/json")]
-    [Route("Acessos")]
     [ApiController]
     public class AcessosSistemicosController : ControllerApi
     {
-
-        public AcessosSistemicosController()
+        private readonly IPermissaoSv _servico;
+        public AcessosSistemicosController(IPermissaoSv servico)
         {
+            _servico = servico;
         }
 
-        // [HttpPost]
-        // [Route("permissoes")]
-        // public RespostaApi<PermissaoDto> Cadastrar(string descricao) =>
-        //     RespostaPadrao(_servico.IncluirPermissao(descricao));
+        [HttpPost]
+        [Route("/permissoes/")]
+        public RespostaApi<PermissaoDto> Cadastrar(string descricao) =>
+            RespostaPadrao(_servico.IncluirPermissao(descricao));
 
         // [HttpGet]
         // [Route("permissoes/{permissao}")]

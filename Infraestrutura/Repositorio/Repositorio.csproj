@@ -22,7 +22,7 @@
     <None Update="Usuario\SQL\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Permissoes\SQL\*.sql">
+    <None Update="Permissao\SQL\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
