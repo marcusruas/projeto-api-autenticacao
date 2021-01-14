@@ -7,7 +7,7 @@ namespace Dominio.Entidade.Permissao
         public PermissaoDm(string descricao)
         {
             Permissao = Guid.NewGuid();
-            Descricao = descricao;
+            Descricao = descricao.ToUpper();
         }
 
         public Guid Permissao { get; set; }

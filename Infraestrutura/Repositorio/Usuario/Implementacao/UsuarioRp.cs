@@ -39,18 +39,13 @@ namespace Infraestrutura.Repositorio.Usuario.Implementacao
 
         public (UsuarioDpo, GrupoDpo, PessoaDpo) BuscarUsuario(string usuario, string senha)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectUsuario", "SHAREDB");
             UsuarioDpo usuarioBanco;
             GrupoDpo grupoBanco;
             PessoaDpo pessoaBanco;
-            using (var retorno = conexao.QueryMultiple(
-                comando,
-                new
-                {
-                    Usuario = usuario,
-                    Senha = senha
-                })
-            )
+            object parametros = new { usuario, senha };
+
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectUsuario", "SHAREDB");
+            using (var retorno = conexao.QueryMultiple(comando, parametros))
             {
                 usuarioBanco = retorno.Read<UsuarioDpo>().First();
                 grupoBanco = retorno.Read<GrupoDpo>().First();
@@ -80,13 +75,6 @@ namespace Infraestrutura.Repositorio.Usuario.Implementacao
                 SenhaAntiga = senhaAntiga,
                 senhaNova = senhaNova
             };
-            return conexao.Execute(comando, parametros) == 1;
-        }
-
-        public bool DeletarUsuario(int id)
-        {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "deleteUsuario", "SHAREDB");
-            var parametros = DpoParaParametros(new { id });
             return conexao.Execute(comando, parametros) == 1;
         }
 

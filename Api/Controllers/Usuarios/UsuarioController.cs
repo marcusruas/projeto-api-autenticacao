@@ -1,5 +1,6 @@
 using Infraestrutura.Servico.Usuario.Entidade;
 using Infraestrutura.Servico.Usuario.Interface;
+using MandradePkgs.Autenticacao.Estrutura.Token;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,15 +18,10 @@ namespace Api.Controllers.Usuarios
             _servico = servico;
         }
 
-        // [HttpPost]
-        // [Route("acessos/autenticar")]
-        // public RespostaApi<TokenDto> Autenticar(
-        //     string Usuario,
-        //     string Senha,
-        //     [FromServices] ConfiguracoesTokenDto configsToken,
-        //     [FromServices] AssinaturaTokenDto assinatura
-        // ) =>
-        //     RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
+        [HttpPost]
+        [Route("autenticar/")]
+        public RespostaApi<Token> Autenticar(string Usuario, string Senha, [FromServices] ConfiguracoesToken configsToken, [FromServices] AssinaturaToken assinatura) =>
+            RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
 
         [HttpGet]
         [Route("{id}/pessoa")]
@@ -50,11 +46,5 @@ namespace Api.Controllers.Usuarios
         [Route("{id}/alterar-senha")]
         public RespostaApi AlterarSenha(int id, UsuarioAlteracaoSenhaDto alteracao) =>
             RespostaPadrao(_servico.AtualizarSenhaUsuario(id, alteracao));
-
-        [HttpDelete]
-        [Route("{id}")]
-        public RespostaApi Excluir(int id) =>
-            RespostaPadrao(_servico.ExcluirUsuario(id));
-
     }
 }

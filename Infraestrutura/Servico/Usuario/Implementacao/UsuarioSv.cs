@@ -8,12 +8,16 @@ using Dominio.Entidade.Usuario;
 using Infraestrutura.Repositorio.Entidade;
 using Dominio.ObjetoValor.Formatos;
 using Servico.Recurso;
+using MandradePkgs.Autenticacao.Estrutura.Token;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infraestrutura.Servico.Usuario.Implementacao
 {
     public class UsuarioSv : IUsuarioSv
     {
-        private IUsuarioRp _UsuarioRpositorio;
+        private IUsuarioRp _UsuarioRepositorio;
         private IGrupoSv _grupoServico;
         private IPessoaSv _pessoaServico;
         private IMensagensApi _mensagens;
@@ -25,7 +29,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             IMensagensApi mensagens
         )
         {
-            _UsuarioRpositorio = _usuario;
+            _UsuarioRepositorio = _usuario;
             _grupoServico = _grupo;
             _pessoaServico = _pessoa;
             _mensagens = mensagens;
@@ -33,7 +37,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public bool AtualizarAtividadeUsuario(int id, bool ativo)
         {
-            var resultado = _UsuarioRpositorio.AtualizarAtivoUsuario(id, ativo);
+            var resultado = _UsuarioRepositorio.AtualizarAtivoUsuario(id, ativo);
 
             if (resultado)
                 _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoAtualizacao);
@@ -43,7 +47,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public bool AtualizarSenhaUsuario(int id, UsuarioAlteracaoSenhaDto alteracao)
         {
-            var resultado = _UsuarioRpositorio.AtualizarSenhaUsuario(
+            var resultado = _UsuarioRepositorio.AtualizarSenhaUsuario(
                 id,
                 alteracao.SenhaAntiga,
                 alteracao.SenhaNova
@@ -53,16 +57,6 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
                 _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoAtualizacao);
 
             return resultado;
-        }
-
-        public bool ExcluirUsuario(int id)
-        {
-            var sucesso = _UsuarioRpositorio.DeletarUsuario(id);
-            if (!sucesso)
-                throw new FalhaExecucaoException(MensagensErro.UsuarioNaoLocalizado);
-
-            _mensagens.AdicionarMensagem(MensagensErro.UsuarioSucessoExclusao);
-            return sucesso;
         }
 
         public bool IncluirUsuario(UsuarioInclusaoDto usuario)
@@ -92,8 +86,8 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
-            var usuarioBanco = new UsuarioDpo(dominio.Id, dominio.Usuario, dominio.Senha.Valor, dataAtual, dominio.Ativo, dominio.Grupo.Id, dominio.Pessoa.Id);
-            var sucessoInsercao = _UsuarioRpositorio.InserirUsuario(usuarioBanco);
+            var usuarioBanco = new UsuarioDpo(dominio.Id, dominio.Usuario, dominio.Senha.ValorCriptografado, dataAtual, dominio.Ativo, dominio.Grupo.Id, dominio.Pessoa.Id);
+            var sucessoInsercao = _UsuarioRepositorio.InserirUsuario(usuarioBanco);
 
             if (!sucessoInsercao)
                 _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.UsuarioFalhaInclusao);
@@ -104,7 +98,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public GrupoDto ObterGrupoUsuario(int id)
         {
-            var grupo = _UsuarioRpositorio.BuscarGrupoUsuario(id);
+            var grupo = _UsuarioRepositorio.BuscarGrupoUsuario(id);
 
             if (grupo == null)
             {
@@ -117,7 +111,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public PessoaDto ObterPessoaUsuario(int id)
         {
-            var pessoa = _UsuarioRpositorio.BuscarPessoaUsuario(id);
+            var pessoa = _UsuarioRepositorio.BuscarPessoaUsuario(id);
 
             if (pessoa == null)
             {
@@ -130,7 +124,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public UsuarioDto PesquisarUsuario(int usuario)
         {
-            var usuarioBanco = _UsuarioRpositorio.BuscarUsuario(usuario);
+            var usuarioBanco = _UsuarioRepositorio.BuscarUsuario(usuario);
             
             if (usuarioBanco.Item1 == null)
             {
@@ -145,8 +139,40 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
         {
             string senhaCriptografada = new Senha(senha).ValorCriptografado;
 
-            var (usuarioBanco, grupo, pessoa) = _UsuarioRpositorio.BuscarUsuario(usuario, senhaCriptografada);
+            var (usuarioBanco, grupo, pessoa) = _UsuarioRepositorio.BuscarUsuario(usuario, senhaCriptografada);
             return new UsuarioDto(usuarioBanco, grupo, pessoa);
+        }
+
+        public Token Autenticar(string usuario, string senha, ConfiguracoesToken configsToken, AssinaturaToken assinatura)
+        {
+            var usuarioBanco = ValidarUsuario(usuario, senha);
+
+            if (usuarioBanco == null)
+                throw new RegraNegocioException("Não foi possível localizar o usuário. Verifique os dados informados e tente novamente.");
+
+            ClaimsIdentity identity = new ClaimsIdentity(
+                new[] {
+                    new Claim("Usuario", usuarioBanco.Usuario),
+                    new Claim("Pessoa", usuarioBanco.Pessoa.Id.ToString()),
+                    new Claim("Grupo", usuarioBanco.Grupo.Id.ToString()),
+                }
+            );
+
+            DateTime dataCriacao = DateTime.Now;
+            DateTime dataExpiracao = dataCriacao + TimeSpan.FromMinutes(configsToken.DuracaoMinutos);
+
+            var handler = new JwtSecurityTokenHandler();
+            var dadosToken = handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = configsToken.Originador,
+                SigningCredentials = assinatura.credenciais,
+                Subject = identity,
+                NotBefore = dataCriacao,
+                Expires = dataExpiracao
+            });
+            var token = handler.WriteToken(dadosToken);
+
+            return new Token(token, dataCriacao, dataExpiracao);
         }
     }
 }
