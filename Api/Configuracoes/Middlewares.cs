@@ -29,7 +29,6 @@ namespace Api.Configuracoes
 
             ConfigurarPacotesApi(ServicosStartup, Startup);
             AdicionarMiddlewares(ServicosStartup);
-            ConfigurarTokens();
         }
 
         private void ConfigurarPacotesApi(IServiceCollection servicos, Type startup)
@@ -38,7 +37,7 @@ namespace Api.Configuracoes
             servicos.ImplementarMensagensServico();
         }
 
-        private Action<MvcOptions> ConfigurarOpcoesMvc() =>
+        private Action<MvcOptions> ConfigurarOpcoesMvc() => 
             cfg => cfg.ImplementarFiltrosRetorno();
 
         private void AdicionarMiddlewares(IServiceCollection servicos)
@@ -55,44 +54,6 @@ namespace Api.Configuracoes
                                       .AllowAnyHeader()
                                       .AllowAnyOrigin());
             });
-        }
-
-        private void ConfigurarTokens()
-        {
-            // var assinatura = new AssinaturaTokenDto();
-
-            // var configuracoes = new ConfiguracoesTokenDto();
-            // new ConfigureFromConfigurationOptions<ConfiguracoesTokenDto>(
-            //     Configuracao.GetSection("ConfiguracoesToken")
-            // ).Configure(configuracoes);
-
-            // ServicosStartup.AddSingleton(assinatura);
-            // ServicosStartup.AddSingleton(configuracoes);
-            // ServicosStartup.AddAuthentication(authOptions =>
-            // {
-            //     authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            // }).AddJwtBearer(bearerOptions =>
-            // {
-            //     var parametrosValidacao = bearerOptions.TokenValidationParameters;
-            //     parametrosValidacao.IssuerSigningKey = assinatura.Key;
-            //     parametrosValidacao.ValidIssuer = configuracoes.Originador;
-            //     parametrosValidacao.ClockSkew = TimeSpan.Zero;
-
-            //     // Valida a assinatura de um token recebido
-            //     parametrosValidacao.ValidateIssuerSigningKey = true;
-            //     // Verifica se um token recebido ainda é válido
-            //     parametrosValidacao.ValidateLifetime = true;
-            // });
-
-            // // Ativa o uso do token como forma de autorizar o acesso
-            // // a recursos deste projeto
-            // ServicosStartup.AddAuthorization(auth =>
-            // {
-            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            //         .RequireAuthenticatedUser().Build());
-            // });
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.Usuarios
 {
+    [Route("/usuarios/")]
     [Produces("application/json")]
     [ApiController]
     public class UsuariosController : ControllerApi
@@ -29,32 +30,31 @@ namespace Api.Controllers.Usuarios
         */
 
         [HttpGet]
-        [Route("/usuarios/{id}/pessoa")]
+        [Route("{id}/pessoa")]
         public RespostaApi<PessoaDto> PesquisarPessoaUsuario(int id) =>
             RespostaPadrao(_servico.ObterPessoaUsuario(id));
 
         [HttpGet]
-        [Route("/usuarios/{id}/grupo")]
+        [Route("{id}/grupo")]
         public RespostaApi<GrupoDto> PesquisarGrupoUsuario(int id) =>
             RespostaPadrao(_servico.ObterGrupoUsuario(id));
 
         [HttpPost]
-        [Route("/usuarios/")]
         public RespostaApi Cadastrar(UsuarioInclusaoDto usuario) =>
             RespostaPadrao(_servico.IncluirUsuario(usuario));
 
         [HttpPut]
-        [Route("/usuarios/{id}")]
+        [Route("{id}")]
         public RespostaApi AlterarAtividade(int id, bool ativo) =>
             RespostaPadrao(_servico.AtualizarAtividadeUsuario(id, ativo));
 
         [HttpPut]
-        [Route("/usuarios/{id}/alterar-senha")]
+        [Route("{id}/alterar-senha")]
         public RespostaApi AlterarSenha(int id, UsuarioAlteracaoSenhaDto alteracao) =>
             RespostaPadrao(_servico.AtualizarSenhaUsuario(id, alteracao));
 
         [HttpDelete]
-        [Route("/usuarios/{id}")]
+        [Route("{id}")]
         public RespostaApi Excluir(int id) =>
             RespostaPadrao(_servico.ExcluirUsuario(id));
 
