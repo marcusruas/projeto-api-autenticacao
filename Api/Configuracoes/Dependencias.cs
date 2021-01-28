@@ -4,9 +4,9 @@ using Infraestrutura.Repositorio.Usuario.Implementacao;
 using Infraestrutura.Servico.Usuario.Interface;
 using Infraestrutura.Servico.Usuario.Implementacao;
 using Infraestrutura.Servico.Permissao.Interface;
-using Infraestrutura.Repositorios.Permissao.Implementacao;
 using Infraestrutura.Servico.Permissao.Implementacao;
-using Infraestrutura.Repositorios.Permissao.Interface;
+using Infraestrutura.Repositorio.Permissao.Interface;
+using Infraestrutura.Repositorio.Permissao.Implementacao;
 
 namespace Api.Configuracoes
 {
