@@ -8,6 +8,5 @@ namespace Infraestrutura.Servico.Permissao.Entidade
         public int Id { get; set; }
         public string Descricao { get; set; }
         public List<PermissaoDpo> Permissoes { get; set; }
-        public bool Ativo { get; set; }
     }
 }

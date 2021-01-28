@@ -124,6 +124,15 @@ namespace Entidade.Recurso {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Descrição informada é invalida. A descrição deve conter somente letras sem acento..
+        /// </summary>
+        internal static string PermissaoCaracteresInvalidos {
+            get {
+                return ResourceManager.GetString("PermissaoCaracteresInvalidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a CPF inválido, verifique os dados..
         /// </summary>
         internal static string PessoaCPFInvalido {

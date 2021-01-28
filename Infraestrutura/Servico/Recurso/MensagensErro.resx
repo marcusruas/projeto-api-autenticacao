@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcessoJaExiste" xml:space="preserve">
+    <value>Falha ao adicionar acesso. Acesso Sistêmico já existe</value>
+  </data>
+  <data name="AcessoPermissoesNaoEncontradas" xml:space="preserve">
+    <value>Não foi encontrada nenhuma permissão indicada, portanto a criação do acesso foi negada</value>
+  </data>
+  <data name="AcessoSucessoInclusao" xml:space="preserve">
+    <value>Acesso criado com sucesso!</value>
+  </data>
   <data name="GrupoFalhaCadastro" xml:space="preserve">
     <value>Ocorreu uma falha ao cadastrar este grupo. Tente novamente mais tarde.</value>
   </data>
@@ -140,6 +149,9 @@
   </data>
   <data name="PermissaoFalhaInclusao" xml:space="preserve">
     <value>Falha ao adicionar permissão, verifique os dados e tente novamente.</value>
+  </data>
+  <data name="PermissaoNaoEncontrada" xml:space="preserve">
+    <value>Não foi possível encontrar a permissão com Identificador N</value>
   </data>
   <data name="PermissaoSucessoInclusao" xml:space="preserve">
     <value>Permissão adicionada com sucesso!</value>
@@ -182,6 +194,9 @@
   </data>
   <data name="UsuarioFalhaInclusao" xml:space="preserve">
     <value>Não foi possível adicionar o novo usuário. Tente novamente mais tarde.</value>
+  </data>
+  <data name="UsuarioGrupoInvalido" xml:space="preserve">
+    <value>Não foi possível localizar o grupo do usuário informado, contate o suporte técnico para mais informações.</value>
   </data>
   <data name="UsuarioGrupoNaoEncontrado" xml:space="preserve">
     <value>Grupo do usuário não encontrado.</value>

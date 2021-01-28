@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.usuarios
 {
-    [Route("/usuarios/pessoas/")]
+    [Route("/usuarios/pessoas")]
     [Produces("application/json")]
     [ApiController]
     public class PessoasController : ControllerApi

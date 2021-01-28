@@ -14,6 +14,14 @@ namespace Dominio.Entidade.Permissao
             Descricao = descricao.ToUpper();
         }
 
+        public PermissaoDm(int id, string descricao)
+        {
+            Id = id;
+            Permissao = Guid.NewGuid();
+            Descricao = descricao.ToUpper();
+        }
+
+        public int Id { get; set; }
         public Guid Permissao { get; set; }
         public string Descricao { get; set; }
         private IMensagensApi mensagens { get; set; }
@@ -36,8 +44,7 @@ namespace Dominio.Entidade.Permissao
             
             var matches = expressao.Matches(Descricao);
             if(!matches.Any())
-                //MSG
-                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, "teste");
+                _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PermissaoCaracteresInvalidos);
         }
     }
 }

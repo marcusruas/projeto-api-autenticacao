@@ -1,6 +1,7 @@
 using System;
+using Infraestrutura.Repositorio.Permissao.Entidade;
 
-namespace infraestrutura.Servico.Permissao.Entidade
+namespace Infraestrutura.Servico.Permissao.Entidade
 {
     public class PermissaoDto
     {
@@ -9,7 +10,15 @@ namespace infraestrutura.Servico.Permissao.Entidade
             Permissao = permissao;
             Descricao = descricao;
         }
+
+        public PermissaoDto(PermissaoDpo permissao)
+        {
+            Id = permissao.Id;
+            Permissao = permissao.Permissao;
+            Descricao = permissao.Descricao;
+        }
         
+        public int Id { get; set; }
         public Guid Permissao { get; set; }
         public string Descricao { get; set; }
     }

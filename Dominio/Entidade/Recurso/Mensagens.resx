@@ -138,6 +138,9 @@
   <data name="NomeObrigatorio" xml:space="preserve">
     <value>Nome é obrigatório.</value>
   </data>
+  <data name="PermissaoCaracteresInvalidos" xml:space="preserve">
+    <value>Descrição informada é invalida. A descrição deve conter somente letras sem acento.</value>
+  </data>
   <data name="PessoaCPFInvalido" xml:space="preserve">
     <value>CPF inválido, verifique os dados.</value>
   </data>

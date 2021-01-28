@@ -148,7 +148,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             var usuarioBanco = ValidarUsuario(usuario, senha);
 
             if (usuarioBanco == null)
-                throw new RegraNegocioException("Não foi possível localizar o usuário. Verifique os dados informados e tente novamente.");
+                throw new RegraNegocioException("Nï¿½o foi possï¿½vel localizar o usuï¿½rio. Verifique os dados informados e tente novamente.");
 
             ClaimsIdentity identity = new ClaimsIdentity(
                 new[] {

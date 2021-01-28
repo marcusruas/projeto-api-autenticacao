@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.Usuarios
 {
-    [Route("/usuarios/")]
+    [Route("/usuarios")]
     [Produces("application/json")]
     [ApiController]
     public class UsuariosController : ControllerApi
@@ -19,7 +19,7 @@ namespace Api.Controllers.Usuarios
         }
 
         [HttpPost]
-        [Route("autenticar/")]
+        [Route("autenticar")]
         public RespostaApi<Token> Autenticar(string Usuario, string Senha, [FromServices] ConfiguracoesToken configsToken, [FromServices] AssinaturaToken assinatura) =>
             RespostaPadrao(_servico.Autenticar(Usuario, Senha, configsToken, assinatura));
 

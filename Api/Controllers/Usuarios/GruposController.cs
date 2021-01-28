@@ -7,7 +7,7 @@ using Infraestrutura.Servico.Usuario.Interface;
 namespace Api.Controllers.usuarios
 {
 
-    [Route("/usuarios/grupos/")]
+    [Route("/usuarios/grupos")]
     [Produces("application/json")]
     [ApiController]
     public class GruposController : ControllerApi

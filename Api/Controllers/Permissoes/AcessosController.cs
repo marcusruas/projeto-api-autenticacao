@@ -1,10 +1,8 @@
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
 using Infraestrutura.Servico.Permissao.Interface;
-using infraestrutura.Servico.Permissao.Entidade;
 using Infraestrutura.Servico.Permissao.Entidade;
 using System.Collections.Generic;
-using Servico.Permissao.Entidade;
 using System;
 
 namespace Api.Controllers.usuarios
@@ -21,8 +19,8 @@ namespace Api.Controllers.usuarios
         }
 
         [HttpPost]
-        public RespostaApi<PermissaoDto> CadastrarAcesso(AcessoInclusaoDto acesso) =>
-            throw new NotImplementedException();
+        public RespostaApi CadastrarAcesso(string descricao, List<int> permissoes) =>
+            RespostaPadrao(_servico.IncluirAcesso(descricao, permissoes));
 
         [HttpPost]
         [Route("/{acesso}/grupos/{grupo}")]
@@ -37,16 +35,11 @@ namespace Api.Controllers.usuarios
         [HttpGet]
         [Route("/{acesso}/usuarios/{usuario}")]
         public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosUsuario(int usuario) =>
-            RespostaPadrao(_servico.ListarAcessos(usuario));
+            RespostaPadrao(_servico.ListarAcessosUsuario(usuario));
 
         [HttpGet]
         [Route("/{acesso}/grupos/{grupo}")]
         public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosGrupo(int grupo) =>
-            RespostaPadrao(_servico.ListarAcessos(grupo));
-
-        [HttpPost]
-        [Route("/permissoes")]
-        public RespostaApi<PermissaoDto> Cadastrar(string descricao) =>
-            RespostaPadrao(_servico.IncluirPermissao(descricao));
+            throw new NotImplementedException();
     }
   }

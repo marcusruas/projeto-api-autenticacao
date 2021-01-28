@@ -10,6 +10,14 @@ namespace Infraestrutura.Repositorio.Permissao.Entidade
             Descricao = descricao;
         }
 
+        public PermissaoDpo(int id, Guid permissao, string descricao)
+        {
+            Id = id;
+            Permissao = permissao;
+            Descricao = descricao;
+        }
+
+        public int Id { get; set; }
         public Guid Permissao { get; set; }
         public string Descricao { get; set; }
     }
