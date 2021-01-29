@@ -18,13 +18,15 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
         private IAcessoRp _repositorio;
         private IPermissaoRp _permissaoRepositorio;
         private IUsuarioSv _usuarioSv;
+        private IGrupoSv _grupoSv;
         private IMensagensApi _mensagens;
 
-        public AcessoSv(IAcessoRp repositorio, IPermissaoRp permissaoRepositorio, IUsuarioSv usuarioSv, IMensagensApi mensagens)
+        public AcessoSv(IAcessoRp repositorio, IGrupoSv grupoSv, IPermissaoRp permissaoRepositorio, IUsuarioSv usuarioSv, IMensagensApi mensagens)
         {
             _repositorio = repositorio;
             _mensagens = mensagens;
             _usuarioSv = usuarioSv;
+            _grupoSv = grupoSv;
             _permissaoRepositorio = permissaoRepositorio;
         }
 
@@ -65,6 +67,12 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
 
         public List<AcessoSistemicoDto> ListarAcessosUsuario(int idUsuario)
         {
+            var dadosUsuario = _usuarioSv.PesquisarUsuario(idUsuario);
+            if (dadosUsuario == null) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.UsuarioNaoLocalizado);
+                return new List<AcessoSistemicoDto>();
+            }
+
             var grupoUsuario = _usuarioSv.ObterGrupoUsuario(idUsuario);
             if (grupoUsuario == null || grupoUsuario.Id == 0) {
                 _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.UsuarioGrupoInvalido);
@@ -81,6 +89,22 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             return listaAcessos.Distinct<AcessoSistemicoDto>().ToList();
         }
 
+        public List<AcessoSistemicoDto> ListarAcessosGrupo(int idGrupo)
+        {
+            var grupoUsuario = _grupoSv.PesquisarGrupoPorId(idGrupo);
+            if (grupoUsuario == null || grupoUsuario.Id == 0) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.UsuarioGrupoInvalido);
+                return new List<AcessoSistemicoDto>();
+            }
+
+            var acessosGrupo = _repositorio.PesquisarAcessosGrupo(grupoUsuario.Id);
+
+            List<AcessoSistemicoDto> listaAcessos = new List<AcessoSistemicoDto>();
+            acessosGrupo.ForEach(acesso => listaAcessos.Add(new AcessoSistemicoDto(acesso)));
+            
+            return listaAcessos;
+        }
+
         private List<PermissaoDto> PesquisarPermissoes(List<int> permissoes)
         {
             var listaPermissoes = _permissaoRepositorio.PesquisarPermissoes(permissoes);
@@ -90,6 +114,60 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
                 retorno.Add(new PermissaoDto(permissao));
 
             return retorno;
+        }
+
+        public bool CadastrarAcessoGrupo(int idAcesso, int idGrupo)
+        {
+            var acessoBanco = _repositorio.PesquisarAcesso(idAcesso);
+
+            if(acessoBanco == null) {
+                _mensagens.AdicionarMensagem("Acesso informado não existe.");
+                return false;
+            }
+
+            var grupoBanco = _grupoSv.PesquisarGrupoPorId(idGrupo);
+
+            if(grupoBanco == null) {
+                _mensagens.AdicionarMensagem("Grupo informado não existe.");
+                return false;
+            }
+
+            bool sucesso = _repositorio.CadastrarAcessoGrupo(acessoBanco.Id, grupoBanco.Id);
+
+            if(sucesso) {
+                _mensagens.AdicionarMensagem("Falha ao adicionar acesso ao grupo, verifique os dados e tente novamente");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem("Acesso ao grupo cadastrado com sucesso");
+            return sucesso;
+        }
+
+        public bool CadastrarAcessoUsuario(int idAcesso, int idUsuario)
+        {
+            var acessoBanco = _repositorio.PesquisarAcesso(idAcesso);
+
+            if(acessoBanco == null) {
+                _mensagens.AdicionarMensagem("Acesso informado não existe.");
+                return false;
+            }
+
+            var usuarioBanco = _usuarioSv.PesquisarUsuario(idUsuario);
+
+            if(usuarioBanco == null) {
+                _mensagens.AdicionarMensagem("Usuario informado não existe.");
+                return false;
+            }
+
+            bool sucesso = _repositorio.CadastrarAcessoUsuario(acessoBanco.Id, usuarioBanco.Id);
+
+            if(!sucesso) {
+                _mensagens.AdicionarMensagem("Falha ao adicionar acesso ao usuário, verifique os dados e tente novamente");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem("Acesso ao usuário cadastrado com sucesso");
+            return sucesso;
         }
     }
 }

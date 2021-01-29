@@ -11,7 +11,9 @@ namespace Infraestrutura.Repositorio.Permissao.Interface
         List<AcessoSistemicoDpo> PesquisarAcessosUsuario(int idUsuario);
         List<AcessoSistemicoDpo> PesquisarAcessosGrupo(int idGrupo);
         AcessoSistemicoDpo PesquisarAcesso(string descricao);
-        AcessoSistemicoDpo PesquisarAcesso(int acesso);
+        AcessoSistemicoDpo PesquisarAcesso(int idAcesso);
         bool VincularPermissaoAcesso(int idAcesso, int idPermissao);
+        bool CadastrarAcessoGrupo(int idAcesso, int idGrupo);
+        bool CadastrarAcessoUsuario(int idAcesso, int idUsuario);
     }
 }

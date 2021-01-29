@@ -53,5 +53,17 @@ namespace Infraestrutura.Repositorio.Permissao.Implementacao
         {
             throw new System.NotImplementedException();
         }
+
+        public bool CadastrarAcessoGrupo(int idAcesso, int idGrupo)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertAcessoGrupo", "SHAREDB");
+            return conexao.Execute(comando, new { Acesso = idAcesso, Grupo = idGrupo }) == 1;
+        }
+
+        public bool CadastrarAcessoUsuario(int idAcesso, int idUsuario)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertAcessoUsuario", "SHAREDB");
+            return conexao.Execute(comando, new { Acesso = idAcesso, Usuario = idUsuario }) == 1;
+        }
     }
 }

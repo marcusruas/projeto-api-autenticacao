@@ -24,13 +24,13 @@ namespace Api.Controllers.usuarios
 
         [HttpPost]
         [Route("/{acesso}/grupos/{grupo}")]
-        public RespostaApi<PermissaoDto> CadastrarAcessoGrupo(int acesso, int grupo) =>
-            throw new NotImplementedException();
+        public RespostaApi CadastrarAcessoGrupo(int acesso, int grupo) =>
+            RespostaPadrao(_servico.CadastrarAcessoGrupo(acesso, grupo));
 
         [HttpPost]
         [Route("/{acesso}/usuarios/{usuario}")]
-        public RespostaApi<PermissaoDto> CadastrarAcessoUsuario(int acesso, int usuario) =>
-            throw new NotImplementedException();
+        public RespostaApi CadastrarAcessoUsuario(int acesso, int usuario) =>
+            RespostaPadrao(_servico.CadastrarAcessoUsuario(acesso, usuario));
 
         [HttpGet]
         [Route("/{acesso}/usuarios/{usuario}")]
@@ -40,6 +40,6 @@ namespace Api.Controllers.usuarios
         [HttpGet]
         [Route("/{acesso}/grupos/{grupo}")]
         public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosGrupo(int grupo) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.ListarAcessosGrupo(grupo));
     }
   }

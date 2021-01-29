@@ -7,5 +7,8 @@ namespace Infraestrutura.Servico.Permissao.Interface
     {
         bool IncluirAcesso(string descricao, List<int> permissoes);
         List<AcessoSistemicoDto> ListarAcessosUsuario(int idUsuario);
+        List<AcessoSistemicoDto> ListarAcessosGrupo(int idGrupo);
+        bool CadastrarAcessoGrupo(int idAcesso, int idGrupo);
+        bool CadastrarAcessoUsuario(int idAcesso, int idUsuario);
     }
 }
