@@ -12,8 +12,8 @@ namespace Api.Controllers.usuarios
     [ApiController]
     public class AcessosController : ControllerApi
     {
-        private readonly IPermissaoSv _servico;
-        public AcessosController(IPermissaoSv servico)
+        private readonly IAcessoSv _servico;
+        public AcessosController(IAcessoSv servico)
         {
             _servico = servico;
         }
