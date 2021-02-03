@@ -26,8 +26,16 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
 
         public bool IncluirPessoa(PessoaInclusaoDto pessoa)
         {
-            Telefone telefonePessoa = new Telefone(pessoa.Ddd, pessoa.Numero);
-            Cpf cpfPessoa = new Cpf(pessoa.Cpf);
+            Telefone telefonePessoa = null;
+
+            if (!string.IsNullOrWhiteSpace(pessoa.Ddd) || !string.IsNullOrWhiteSpace(pessoa.Numero))
+                telefonePessoa = new Telefone(pessoa.Ddd, pessoa.Numero);
+            
+            
+            Cpf cpfPessoa = null;
+
+            if (!string.IsNullOrWhiteSpace(pessoa.Cpf))
+                cpfPessoa = new Cpf(pessoa.Cpf);
 
             var dominio = new PessoaDm(0, pessoa.Nome, cpfPessoa, pessoa.Email, telefonePessoa);
             dominio.DefinirMensagens(_mensagens);
@@ -38,7 +46,7 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
-            var pessoaBanco = new PessoaDpo(0, pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Ddd, pessoa.Numero);
+            var pessoaBanco = new PessoaDpo(0, pessoa.Nome, cpfPessoa?.ValorNumerico, pessoa.Email, pessoa.Ddd, pessoa.Numero);
             var sucesso = _Repositorio.InserirPessoa(pessoaBanco);
 
             if (!sucesso)

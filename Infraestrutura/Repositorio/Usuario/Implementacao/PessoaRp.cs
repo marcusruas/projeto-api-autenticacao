@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Infraestrutura.Repositorio.Usuario.Entidade;
 using MandradePkgs.Conexoes.Estrutura.Model;
+using System.Data;
 
 namespace Infraestrutura.Repositorio.Usuario.Implementacao
 {
@@ -21,8 +22,7 @@ namespace Infraestrutura.Repositorio.Usuario.Implementacao
         public bool InserirPessoa(PessoaDpo pessoa)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertPessoa", "SHAREDB");
-            var parametros = DpoParaParametros(pessoa, new { pessoa.Id });
-            return conexao.Execute(comando, parametros) == 1;
+            return conexao.Execute(comando, pessoa) == 1;
         }
 
         public List<PessoaDpo> BuscarPessoas(string nome, string cpf)

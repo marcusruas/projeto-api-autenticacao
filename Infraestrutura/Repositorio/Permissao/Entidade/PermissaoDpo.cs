@@ -4,6 +4,10 @@ namespace Infraestrutura.Repositorio.Permissao.Entidade
 {
     public class PermissaoDpo
     {
+        public PermissaoDpo()
+        {
+        }
+        
         public PermissaoDpo(Guid permissao, string descricao)
         {
             Permissao = permissao;

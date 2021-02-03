@@ -10,24 +10,26 @@ namespace Infraestrutura.Servico.Permissao.Entidade
         {
         }
         
-        public AcessoSistemicoDto(int id, string descricao)
+        public AcessoSistemicoDto(int id, bool ativo, string descricao)
         {
-            this.Id = id;
-            this.Descricao = descricao;
+            Id = id;
+            Ativo = ativo;
+            Descricao = descricao;
             Permissoes = new List<PermissaoDto>();
         }
 
         public AcessoSistemicoDto(AcessoSistemicoDpo acesso)
         {
-            this.Id = acesso.Id;
-            this.Descricao = acesso.Descricao;
-
+            Id = acesso.Id;
+            Descricao = acesso.Descricao;
+            Ativo = acesso.Ativo;
             Permissoes = new List<PermissaoDto>();
-            acesso.Permissoes.ForEach(p => Permissoes.Add(new PermissaoDto(p.Permissao, p.Descricao)));
+            acesso.Permissoes.ForEach(p => Permissoes.Add(new PermissaoDto(p)));
         }
 
         public int Id { get; set; }
         public string Descricao { get; set; }
+        public bool Ativo { get; set; }
         public List<PermissaoDto> Permissoes { get; set; }
     }
 }

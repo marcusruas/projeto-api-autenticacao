@@ -33,12 +33,12 @@ namespace Api.Controllers.usuarios
             RespostaPadrao(_servico.CadastrarAcessoUsuario(acesso, usuario));
 
         [HttpGet]
-        [Route("/{acesso}/usuarios/{usuario}")]
+        [Route("/acessos/usuarios/{usuario}")]
         public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosUsuario(int usuario) =>
             RespostaPadrao(_servico.ListarAcessosUsuario(usuario));
 
         [HttpGet]
-        [Route("/{acesso}/grupos/{grupo}")]
+        [Route("/acessos/grupos/{grupo}")]
         public RespostaApi<List<AcessoSistemicoDto>> ListarAcessosGrupo(int grupo) =>
             RespostaPadrao(_servico.ListarAcessosGrupo(grupo));
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
@@ -7,7 +6,7 @@ using Infraestrutura.Repositorio.Permissao.Interface;
 using Infraestrutura.Servico.Permissao.Entidade;
 using MandradePkgs.Conexoes;
 using MandradePkgs.Conexoes.Estrutura.Model;
-using static MandradePkgs.Conexoes.Estrutura.Mapeamento.DpoSqlMapper;
+using Slapper;
 
 namespace Infraestrutura.Repositorio.Permissao.Implementacao
 {
@@ -46,12 +45,28 @@ namespace Infraestrutura.Repositorio.Permissao.Implementacao
 
         public List<AcessoSistemicoDpo> PesquisarAcessosGrupo(int idGrupo)
         {
-            throw new System.NotImplementedException();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectAcessoSGrupo", "SHAREDB");
+            var lista = conexao.Query<dynamic>(comando, new { grupo = idGrupo });
+
+            AutoMapper.Configuration.AddIdentifier(typeof(AcessoSistemicoDpo), "ID");
+            AutoMapper.Configuration.AddIdentifier(typeof(PermissaoDpo), "ID");
+
+            var retorno = (AutoMapper.MapDynamic<AcessoSistemicoDpo>(lista) as IEnumerable<AcessoSistemicoDpo>).ToList();
+
+            return retorno;
         }
 
         public List<AcessoSistemicoDpo> PesquisarAcessosUsuario(int idUsuario)
         {
-            throw new System.NotImplementedException();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectAcessosUsuario", "SHAREDB");
+            var lista = conexao.Query<dynamic>(comando, new { usuario = idUsuario });
+
+            AutoMapper.Configuration.AddIdentifier(typeof(AcessoSistemicoDpo), "ID");
+            AutoMapper.Configuration.AddIdentifier(typeof(PermissaoDpo), "ID");
+
+            var retorno = (AutoMapper.MapDynamic<AcessoSistemicoDpo>(lista) as IEnumerable<AcessoSistemicoDpo>).ToList();
+
+            return retorno;
         }
 
         public bool CadastrarAcessoGrupo(int idAcesso, int idGrupo)
