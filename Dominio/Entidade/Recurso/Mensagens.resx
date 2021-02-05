@@ -139,7 +139,7 @@
     <value>Nome é obrigatório.</value>
   </data>
   <data name="PermissaoCaracteresInvalidos" xml:space="preserve">
-    <value>Descrição informada é invalida. A descrição deve conter somente letras sem acento.</value>
+    <value>Nome da permissão informado é invalido. O Nome deve conter somente letras sem acento.</value>
   </data>
   <data name="PessoaCPFInvalido" xml:space="preserve">
     <value>CPF inválido, verifique os dados.</value>

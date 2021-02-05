@@ -8,22 +8,28 @@ namespace Dominio.Entidade.Permissao
 {
     public class PermissaoDm
     {
-        public PermissaoDm(string descricao)
+        public PermissaoDm(string nome, string descricao)
         {
             Permissao = Guid.NewGuid();
-            Descricao = descricao.ToUpper();
+            Nome = nome.ToUpper();
+            Descricao = descricao;
+            Ativo = true;
         }
 
-        public PermissaoDm(int id, string descricao)
+        public PermissaoDm(int id, Guid permissao, string nome, string descricao, bool ativo)
         {
             Id = id;
-            Permissao = Guid.NewGuid();
-            Descricao = descricao.ToUpper();
+            Permissao = permissao;
+            Nome = nome.ToUpper();
+            Descricao = descricao;
+            Ativo = ativo;
         }
 
         public int Id { get; set; }
         public Guid Permissao { get; set; }
+        public string Nome { get; set; }
         public string Descricao { get; set; }
+        public bool Ativo { get; set; }
         private IMensagensApi mensagens { get; set; }
         public IMensagensApi _mensagens
         {
@@ -42,7 +48,7 @@ namespace Dominio.Entidade.Permissao
         public void PossuiCaracteresInvalidos() {
             var expressao = new Regex(@"^[a-z A-Z]*$");
             
-            var matches = expressao.Matches(Descricao);
+            var matches = expressao.Matches(Nome);
             if(!matches.Any())
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.PermissaoCaracteresInvalidos);
         }

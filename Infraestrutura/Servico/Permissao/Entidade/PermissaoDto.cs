@@ -15,11 +15,15 @@ namespace Infraestrutura.Servico.Permissao.Entidade
         {
             Id = permissao.Id;
             Permissao = permissao.Permissao;
+            Nome = permissao.Nome;
             Descricao = permissao.Descricao;
+            Ativo = permissao.Ativo;
         }
         
         public int Id { get; set; }
         public Guid Permissao { get; set; }
+        public string Nome { get; set; }
         public string Descricao { get; set; }
+        public bool Ativo { get; set; }
     }
 }

@@ -61,33 +61,6 @@ namespace Servico.Recurso {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao adicionar acesso. Acesso Sistêmico já existe.
-        /// </summary>
-        public static string AcessoJaExiste {
-            get {
-                return ResourceManager.GetString("AcessoJaExiste", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Não foi encontrada nenhuma permissão indicada, portanto a criação do acesso foi negada.
-        /// </summary>
-        public static string AcessoPermissoesNaoEncontradas {
-            get {
-                return ResourceManager.GetString("AcessoPermissoesNaoEncontradas", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Acesso criado com sucesso!.
-        /// </summary>
-        public static string AcessoSucessoInclusao {
-            get {
-                return ResourceManager.GetString("AcessoSucessoInclusao", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu uma falha ao cadastrar este grupo. Tente novamente mais tarde..
         /// </summary>
         public static string GrupoFalhaCadastro {

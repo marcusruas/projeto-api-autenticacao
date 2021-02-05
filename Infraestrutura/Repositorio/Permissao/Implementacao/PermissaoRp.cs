@@ -4,7 +4,6 @@ using System.Linq;
 using Dapper;
 using Infraestrutura.Repositorio.Permissao.Entidade;
 using Infraestrutura.Repositorio.Permissao.Interface;
-using Infraestrutura.Servico.Permissao.Entidade;
 using MandradePkgs.Conexoes;
 using MandradePkgs.Conexoes.Estrutura.Model;
 using static MandradePkgs.Conexoes.Estrutura.Mapeamento.DpoSqlMapper;
@@ -27,10 +26,10 @@ namespace Infraestrutura.Repositorio.Permissao.Implementacao
             return conexao.Execute(comando, parametros) == 1;
         }
 
-        public List<PermissaoDpo> PesquisarPermissoes(List<int> permissoes)
+        public List<PermissaoDpo> PesquisarPermissoes(string nome)
         {
-            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesPorId", "SHAREDB");
-            return conexao.Query<PermissaoDpo>(comando, new { Permissoes = permissoes }).ToList();
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesPorNome", "SHAREDB");
+            return conexao.Query<PermissaoDpo>(comando, new { Nome = nome }).ToList();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Infraestrutura.Servico.Permissao.Interface
 {
     public interface IPermissaoSv
     {
-        bool IncluirPermissao(string descricao);
+        bool IncluirPermissao(string nome, string descricao);
+        List<PermissaoDto> ListarPermissoes(string nome);
     }
 }

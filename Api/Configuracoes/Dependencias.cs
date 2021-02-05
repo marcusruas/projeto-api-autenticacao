@@ -24,7 +24,6 @@ namespace Api.Configuracoes
             servicos.AddScoped<IPessoaRp, PessoaRp>();
             servicos.AddScoped<IUsuarioRp, UsuarioRp>();
             servicos.AddScoped<IPermissaoRp, PermissaoRp>();
-            servicos.AddScoped<IAcessoRp, AcessoRp>();
         }
 
         private static void ConfigurarCamadaServico(IServiceCollection servicos)
@@ -33,7 +32,6 @@ namespace Api.Configuracoes
             servicos.AddScoped<IPessoaSv, PessoaSv>();
             servicos.AddScoped<IUsuarioSv, UsuarioSv>();
             servicos.AddScoped<IPermissaoSv, PermissaoSv>();
-            servicos.AddScoped<IAcessoSv, AcessoSv>();
         }
     }
 }
