@@ -26,10 +26,40 @@ namespace Infraestrutura.Repositorio.Permissao.Implementacao
             return conexao.Execute(comando, parametros) == 1;
         }
 
+        public PermissaoDpo PesquisarPermissaoPorId(int permissao)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesPorId", "SHAREDB");
+            return conexao.QueryFirstOrDefault<PermissaoDpo>(comando, new { permissao });
+        }
+
         public List<PermissaoDpo> PesquisarPermissoes(string nome)
         {
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesPorNome", "SHAREDB");
-            return conexao.Query<PermissaoDpo>(comando, new { Nome = nome }).ToList();
+            return conexao.Query<PermissaoDpo>(comando, new { nome }).ToList();
+        }
+
+        public List<PermissaoDpo> PesquisarPermissoesUsuario(int usuario)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesUsuario", "SHAREDB");
+            return conexao.Query<PermissaoDpo>(comando, new { usuario }).ToList();
+        }
+
+        public List<PermissaoDpo> PesquisarPermissoesGrupo(int grupo)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "selectPermissoesGrupo", "SHAREDB");
+            return conexao.Query<PermissaoDpo>(comando, new { grupo }).ToList();
+        }
+
+        public bool InserirPermissaoUsuario(int usuario, int permissao)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertPermissaoUsuario", "SHAREDB");
+            return conexao.Execute(comando, new { permissao, usuario }) == 1;
+        }
+
+        public bool InserirPermissaoGrupo(int grupo, int permissao)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertPermissaoGrupo", "SHAREDB");
+            return conexao.Execute(comando, new { permissao, grupo }) == 1;
         }
     }
 }

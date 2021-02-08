@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using Dominio.Entidade.Permissao;
 using Infraestrutura.Repositorio.Permissao.Entidade;
 using Infraestrutura.Repositorio.Permissao.Interface;
@@ -60,9 +61,71 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
         public List<PermissaoDto> ListarPermissoes(string nome)
         {
             var consulta = _repositorio.PesquisarPermissoes(nome);
-            List<PermissaoDto> retorno = new List<PermissaoDto>();
+            return CastToDto(consulta);
+        }
 
-            consulta.ForEach(item => retorno.Add(new PermissaoDto(item)));
+        public List<PermissaoDto> ListarPermissoesUsuario(int usuario)
+        {
+            var consulta = _repositorio.PesquisarPermissoesUsuario(usuario);
+
+            if(!consulta.Any())
+                _mensagens.AdicionarMensagem(TipoMensagem.Alerta, MensagensErro.PesquisaSemResultados);
+                
+            return CastToDto(consulta);
+        }
+
+        public PermissaoDto PesquisarPermissaoPorId(int permissao)
+        {
+            var permissaoBanco = _repositorio.PesquisarPermissaoPorId(permissao);
+
+            if(permissaoBanco == null) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PesquisaSemResultados);
+                return null;
+            }
+
+            return new PermissaoDto(permissaoBanco);
+        }
+
+        public List<PermissaoDto> ListarPermissoesGrupo(int grupo)
+        {
+            var consulta = _repositorio.PesquisarPermissoesGrupo(grupo);
+
+            if(!consulta.Any())
+                _mensagens.AdicionarMensagem(TipoMensagem.Alerta, MensagensErro.PesquisaSemResultados);
+                
+            return CastToDto(consulta);
+        }
+
+        public bool InserirPermissoesUsuario(int usuario, int permissao)
+        {
+            bool sucesso = _repositorio.InserirPermissaoUsuario(usuario, permissao);
+
+            if (!sucesso) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível cadastrar a permissão, verifique os dados e tente novamente mais tarde");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão cadastrada com sucesso!");
+            return sucesso;
+         }
+
+        public bool InserirPermissoesGrupo(int grupo, int permissao)
+        {
+            bool sucesso = _repositorio.InserirPermissaoGrupo(grupo, permissao);
+
+            if (!sucesso) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível cadastrar a permissão, verifique os dados e tente novamente mais tarde");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão cadastrada com sucesso!");
+            return sucesso;
+        }
+
+        public List<PermissaoDto> CastToDto(List<PermissaoDpo> lista) {
+            List<PermissaoDto> retorno = new List<PermissaoDto>();
+            lista.ForEach(reg => retorno.Add(new PermissaoDto(reg)));
+
             return retorno;
         }
     }

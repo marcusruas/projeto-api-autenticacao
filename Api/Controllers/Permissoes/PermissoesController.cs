@@ -28,34 +28,43 @@ namespace Api.Controllers.usuarios
             RespostaPadrao(_servico.ListarPermissoes(nome));
 
         [HttpGet]
+        [Route("/permissoes/{permissao}")]
+        public RespostaApi<PermissaoDto> ListarDadosPermissao(int permissao) =>
+            RespostaPadrao(_servico.PesquisarPermissaoPorId(permissao));
+
+        [HttpGet]
         [Route("/usuarios/{usuario}/permissoes")]
         public RespostaApi<List<PermissaoDto>> ListarPermissoesUsuario(int usuario) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.ListarPermissoesUsuario(usuario));
 
         [HttpGet]
         [Route("/usuarios/grupos/{grupo}/permissoes")]
         public RespostaApi<List<PermissaoDto>> ListarPermissoesGrupo(int grupo) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.ListarPermissoesGrupo(grupo));
         
         [HttpPost]
         [Route("/usuarios/grupos/{grupo}/permissoes/{permissao}")]
         public RespostaApi CadastrarPermissoesGrupo(int permissao, int grupo) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.InserirPermissoesGrupo(grupo, permissao));
 
         [HttpPost]
         [Route("/usuarios/{usuario}/permissoes/{permissao}")]
         public RespostaApi CadastrarPermissoesUsuario(int permissao, int usuario) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.InserirPermissoesUsuario(usuario, permissao));
 
         [HttpPut]
         [Route("/usuarios/permissoes/{permissao}")]
         public RespostaApi AlterarAtividadePermissao(int permissao, bool ativo) =>
             throw new NotImplementedException();
 
-        [HttpGet]
-        [Route("/permissoes/{permissao}")]
+        [HttpDelete]
+        [Route("/usuarios/{usuario}/permissoes/{permissao}")]
+        public RespostaApi ExcluirPermissaoUsuario(int permissao, int usuario) =>
+            throw new NotImplementedException();
 
-        public RespostaApi ListarDadosPermissao(int permissao) =>
+        [HttpDelete]
+        [Route("/usuarios/grupos/{grupo}/permissoes/{permissao}")]
+        public RespostaApi ExcluirPermissaoGrupo(int permissao, int grupo) =>
             throw new NotImplementedException();
     }
   }

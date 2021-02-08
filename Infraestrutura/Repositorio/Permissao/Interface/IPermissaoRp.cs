@@ -8,5 +8,10 @@ namespace Infraestrutura.Repositorio.Permissao.Interface
     {
         bool InserirPermissao(PermissaoDpo permissao);
         List<PermissaoDpo> PesquisarPermissoes(string nome);
+        PermissaoDpo PesquisarPermissaoPorId(int permissao);
+        List<PermissaoDpo> PesquisarPermissoesUsuario(int usuario);
+        List<PermissaoDpo> PesquisarPermissoesGrupo(int grupo);
+        bool InserirPermissaoUsuario(int usuario, int permissao);
+        bool InserirPermissaoGrupo(int grupo, int permissao);
     }
 }
