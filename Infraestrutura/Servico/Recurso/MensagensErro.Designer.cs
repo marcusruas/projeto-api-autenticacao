@@ -124,6 +124,24 @@ namespace Servico.Recurso {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não foi possível alterar a atividade da permissão, verifique os dados e tente novamente mais tarde.
+        /// </summary>
+        public static string PermissaoFalhaAtualizar {
+            get {
+                return ResourceManager.GetString("PermissaoFalhaAtualizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não foi possível excluir permissão indicada, verifique os dados e tente novamente mais tarde.
+        /// </summary>
+        public static string PermissaoFalhaExclusao {
+            get {
+                return ResourceManager.GetString("PermissaoFalhaExclusao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao adicionar permissão, verifique os dados e tente novamente..
         /// </summary>
         public static string PermissaoFalhaInclusao {
@@ -142,11 +160,38 @@ namespace Servico.Recurso {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Permissão alterada com sucesso!.
+        /// </summary>
+        public static string PermissaoSucessoAtualizar {
+            get {
+                return ResourceManager.GetString("PermissaoSucessoAtualizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Permissão excluída com sucesso!.
+        /// </summary>
+        public static string PermissaoSucessoExclusao {
+            get {
+                return ResourceManager.GetString("PermissaoSucessoExclusao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Permissão adicionada com sucesso!.
         /// </summary>
         public static string PermissaoSucessoInclusao {
             get {
                 return ResourceManager.GetString("PermissaoSucessoInclusao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não foi possível cadastrar a permissão, verifique os dados e tente novamente mais tarde.
+        /// </summary>
+        public static string PermissaoTerceirosFalhaInclusao {
+            get {
+                return ResourceManager.GetString("PermissaoTerceirosFalhaInclusao", resourceCulture);
             }
         }
         

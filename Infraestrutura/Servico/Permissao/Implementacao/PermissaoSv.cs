@@ -101,11 +101,11 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             bool sucesso = _repositorio.InserirPermissaoUsuario(usuario, permissao);
 
             if (!sucesso) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível cadastrar a permissão, verifique os dados e tente novamente mais tarde");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoTerceirosFalhaInclusao);
                 return sucesso;
             }
 
-            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão cadastrada com sucesso!");
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoSucessoInclusao);
             return sucesso;
          }
 
@@ -114,11 +114,11 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             bool sucesso = _repositorio.InserirPermissaoGrupo(grupo, permissao);
 
             if (!sucesso) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível cadastrar a permissão, verifique os dados e tente novamente mais tarde");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoTerceirosFalhaInclusao);
                 return sucesso;
             }
 
-            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão cadastrada com sucesso!");
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoSucessoInclusao);
             return sucesso;
         }
 
@@ -127,11 +127,11 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             bool sucesso = _repositorio.AtualizarAtividadePermissao(permissao, ativo);
 
             if (!sucesso) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível alterar a atividade da permissão, verifique os dados e tente novamente mais tarde");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoFalhaAtualizar);
                 return sucesso;
             }
 
-            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão alterada com sucesso!");
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoSucessoAtualizar);
             return sucesso;
         }
 
@@ -140,11 +140,11 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             bool sucesso = _repositorio.DeletarPermissaoGrupo(permissao, grupo);
 
             if (!sucesso) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível excluir permissão indicada, verifique os dados e tente novamente mais tarde");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoFalhaExclusao);
                 return sucesso;
             }
 
-            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão excluída com sucesso!");
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoSucessoExclusao);
             return sucesso;
         }
 
@@ -153,11 +153,11 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             bool sucesso = _repositorio.DeletarPermissaoUsuario(permissao, usuario);
 
             if (!sucesso) {
-                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível excluir permissão indicada, verifique os dados e tente novamente mais tarde");
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoFalhaExclusao);
                 return sucesso;
             }
 
-            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão excluída com sucesso!");
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, MensagensErro.PermissaoSucessoExclusao);
             return sucesso;
         }
 
