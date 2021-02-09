@@ -55,16 +55,16 @@ namespace Api.Controllers.usuarios
         [HttpPut]
         [Route("/usuarios/permissoes/{permissao}")]
         public RespostaApi AlterarAtividadePermissao(int permissao, bool ativo) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.AtualizarAtividadePermissao(permissao, ativo));
 
         [HttpDelete]
         [Route("/usuarios/{usuario}/permissoes/{permissao}")]
         public RespostaApi ExcluirPermissaoUsuario(int permissao, int usuario) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.ExcluirPermissaoUsuario(permissao, usuario));
 
         [HttpDelete]
         [Route("/usuarios/grupos/{grupo}/permissoes/{permissao}")]
         public RespostaApi ExcluirPermissaoGrupo(int permissao, int grupo) =>
-            throw new NotImplementedException();
+            RespostaPadrao(_servico.ExcluirPermissaoGrupo(permissao, grupo));
     }
   }

@@ -12,5 +12,8 @@ namespace Infraestrutura.Servico.Permissao.Interface
         List<PermissaoDto> ListarPermissoesGrupo(int grupo);
         bool InserirPermissoesUsuario(int usuario, int permissao);
         bool InserirPermissoesGrupo(int grupo, int permissao);
+        bool AtualizarAtividadePermissao(int permissao, bool ativo);
+        bool ExcluirPermissaoGrupo(int permissao, int grupo);
+        bool ExcluirPermissaoUsuario(int permissao, int usuario);
     }
 }

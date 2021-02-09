@@ -13,5 +13,8 @@ namespace Infraestrutura.Repositorio.Permissao.Interface
         List<PermissaoDpo> PesquisarPermissoesGrupo(int grupo);
         bool InserirPermissaoUsuario(int usuario, int permissao);
         bool InserirPermissaoGrupo(int grupo, int permissao);
+        bool AtualizarAtividadePermissao(int permissao, bool ativo);
+        bool DeletarPermissaoGrupo(int permissao, int grupo);
+        bool DeletarPermissaoUsuario(int permissao, int usuario);
     }
 }

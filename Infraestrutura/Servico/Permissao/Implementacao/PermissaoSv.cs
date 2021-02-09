@@ -122,6 +122,45 @@ namespace Infraestrutura.Servico.Permissao.Implementacao
             return sucesso;
         }
 
+        public bool AtualizarAtividadePermissao(int permissao, bool ativo)
+        {
+            bool sucesso = _repositorio.AtualizarAtividadePermissao(permissao, ativo);
+
+            if (!sucesso) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível alterar a atividade da permissão, verifique os dados e tente novamente mais tarde");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão alterada com sucesso!");
+            return sucesso;
+        }
+
+        public bool ExcluirPermissaoGrupo(int permissao, int grupo)
+        {
+            bool sucesso = _repositorio.DeletarPermissaoGrupo(permissao, grupo);
+
+            if (!sucesso) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível excluir permissão indicada, verifique os dados e tente novamente mais tarde");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão excluída com sucesso!");
+            return sucesso;
+        }
+
+        public bool ExcluirPermissaoUsuario(int permissao, int usuario)
+        {
+            bool sucesso = _repositorio.DeletarPermissaoUsuario(permissao, usuario);
+
+            if (!sucesso) {
+                _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Não foi possível excluir permissão indicada, verifique os dados e tente novamente mais tarde");
+                return sucesso;
+            }
+
+            _mensagens.AdicionarMensagem(TipoMensagem.Erro, "Permissão excluída com sucesso!");
+            return sucesso;
+        }
+
         public List<PermissaoDto> CastToDto(List<PermissaoDpo> lista) {
             List<PermissaoDto> retorno = new List<PermissaoDto>();
             lista.ForEach(reg => retorno.Add(new PermissaoDto(reg)));

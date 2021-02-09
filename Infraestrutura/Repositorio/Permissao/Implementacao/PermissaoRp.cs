@@ -61,5 +61,23 @@ namespace Infraestrutura.Repositorio.Permissao.Implementacao
             var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "insertPermissaoGrupo", "SHAREDB");
             return conexao.Execute(comando, new { permissao, grupo }) == 1;
         }
+
+        public bool AtualizarAtividadePermissao(int permissao, bool ativo)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "updateAtividadePermissao", "SHAREDB");
+            return conexao.Execute(comando, new { permissao, ativo }) == 1;
+        }
+
+        public bool DeletarPermissaoGrupo(int permissao, int grupo)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "deletePermissaoGrupo", "SHAREDB");
+            return conexao.Execute(comando, new { permissao, grupo }) == 1;
+        }
+
+        public bool DeletarPermissaoUsuario(int permissao, int usuario)
+        {
+            var (comando, conexao) = _conexao.ObterComandoSQLParaBanco(this, "deletePermissaoUsuario", "SHAREDB");
+            return conexao.Execute(comando, new { permissao, usuario }) == 1;
+        }
     }
 }
