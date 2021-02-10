@@ -5,8 +5,6 @@ obj/
 .vs/
 .vscode/
 
-#healthCheck MiddleWare
-healthchecksdb
-
 #conexoes
 conexoes.json
+appsettings.Development.json

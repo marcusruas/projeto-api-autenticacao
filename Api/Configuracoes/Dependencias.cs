@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Repositorios.Usuario.Interfaces;
-using Repositorios.Usuario.Implementacoes;
-using Servicos.Usuario.Interfaces;
-using Servicos.Usuario.Implementacoes;
-using Servicos.Permissoes.Interfaces;
-using Servicos.Permissoes.Implementacoes;
-using Repositorios.Permissoes.Implementacoes;
-using Repositorios.Permissoes.Interfaces;
+using Infraestrutura.Repositorio.Usuario.Interface;
+using Infraestrutura.Repositorio.Usuario.Implementacao;
+using Infraestrutura.Servico.Usuario.Interface;
+using Infraestrutura.Servico.Usuario.Implementacao;
+using Infraestrutura.Servico.Permissao.Interface;
+using Infraestrutura.Servico.Permissao.Implementacao;
+using Infraestrutura.Repositorio.Permissao.Interface;
+using Infraestrutura.Repositorio.Permissao.Implementacao;
 
 namespace Api.Configuracoes
 {
@@ -20,18 +20,18 @@ namespace Api.Configuracoes
 
         private static void ConfigurarCamadaRepositorios(IServiceCollection servicos)
         {
-            servicos.AddScoped<IGrupoRep, GrupoRep>();
-            servicos.AddScoped<IPessoaRep, PessoaRep>();
-            servicos.AddScoped<IUsuarioRep, UsuarioRep>();
+            servicos.AddScoped<IGrupoRp, GrupoRp>();
+            servicos.AddScoped<IPessoaRp, PessoaRp>();
+            servicos.AddScoped<IUsuarioRp, UsuarioRp>();
+            servicos.AddScoped<IPermissaoRp, PermissaoRp>();
         }
 
         private static void ConfigurarCamadaServico(IServiceCollection servicos)
         {
-            servicos.AddScoped<IGrupoSrv, GrupoSrv>();
-            servicos.AddScoped<IPessoaSrv, PessoaSrv>();
-            servicos.AddScoped<IUsuarioSrv, UsuarioSrv>();
-            servicos.AddScoped<IPermissoesSrv, PermissoesSrv>();
-            servicos.AddScoped<IPermissoesRep, PermissoesRep>();
+            servicos.AddScoped<IGrupoSv, GrupoSv>();
+            servicos.AddScoped<IPessoaSv, PessoaSv>();
+            servicos.AddScoped<IUsuarioSv, UsuarioSv>();
+            servicos.AddScoped<IPermissaoSv, PermissaoSv>();
         }
     }
 }
