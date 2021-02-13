@@ -42,6 +42,11 @@ namespace Api.Controllers.Usuarios
         public RespostaApi AlterarAtividade(int id, bool ativo) =>
             RespostaPadrao(_servico.AtualizarAtividadeUsuario(id, ativo));
 
+        [HttpGet]
+        [Route("{id}")]
+        public RespostaApi<UsuarioDto> Get(int id) =>
+            RespostaPadrao(_servico.PesquisarUsuario(id));
+
         [HttpPut]
         [Route("{id}/alterar-senha")]
         public RespostaApi AlterarSenha(int id, UsuarioAlteracaoSenhaDto alteracao) =>

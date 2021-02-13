@@ -80,13 +80,34 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             var pessoaDominio = new PessoaDm(pessoa.Id, pessoa.Nome, pessoa.Cpf, pessoa.Email, pessoa.Telefone);
             pessoaDominio.DefinirMensagens(_mensagens);
 
-            var dominio = new UsuarioDm(0, usuario.Usuario, usuario.Senha, dataAtual, true, grupoDominio, pessoaDominio);
+            var dominio = new UsuarioDm(
+                0, 
+                usuario.Usuario, 
+                usuario.Senha, 
+                dataAtual, 
+                true, 
+                dataAtual, 
+                usuario.DiasRenovacao,
+                grupoDominio, 
+                pessoaDominio
+            );
             dominio.ValidarDados();
 
             if (_mensagens.PossuiFalhasValidacao())
                 throw new RegraNegocioException(MensagensErro.RegraNegocioErroValidacao);
 
-            var usuarioBanco = new UsuarioDpo(dominio.Id, dominio.Usuario, dominio.Senha.ValorCriptografado, dataAtual, dominio.Ativo, dominio.Grupo.Id, dominio.Pessoa.Id);
+            var usuarioBanco = new UsuarioDpo(
+                dominio.Id, 
+                dominio.Usuario, 
+                dominio.Senha.ValorCriptografado, 
+                dataAtual, 
+                dataAtual,
+                dominio.DiasRenovacao,
+                dominio.Ativo,
+                dominio.Grupo.Id, 
+                dominio.Pessoa.Id
+            );
+
             var sucessoInsercao = _UsuarioRepositorio.InserirUsuario(usuarioBanco);
 
             if (!sucessoInsercao)
@@ -150,9 +171,11 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             if (usuarioBanco == null)
                 throw new RegraNegocioException("N�o foi poss�vel localizar o usu�rio. Verifique os dados informados e tente novamente.");
 
+            int usuarioAtivo = usuarioBanco.Ativo ? 1 : 0;
+
             ClaimsIdentity identity = new ClaimsIdentity(
                 new[] {
-                    new Claim("Usuario", usuarioBanco.Usuario),
+                    new Claim("Usuario", usuarioBanco.Id.ToString()),
                     new Claim("Pessoa", usuarioBanco.Pessoa.Id.ToString()),
                     new Claim("Grupo", usuarioBanco.Grupo.Id.ToString()),
                 }

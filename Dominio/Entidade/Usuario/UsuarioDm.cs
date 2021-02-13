@@ -8,18 +8,38 @@ namespace Dominio.Entidade.Usuario
 {
     public class UsuarioDm
     {
-        public UsuarioDm(int id, string usuario, string senha, DateTime dataCriacao, bool ativo, GrupoDm grupo, PessoaDm pessoa)
+        public UsuarioDm(
+            int id, 
+            string usuario, 
+            string senha, 
+            DateTime dataCriacao, 
+            bool ativo, 
+            DateTime dataCadastroSenha,
+            int diasRenovacao, 
+            GrupoDm grupo, 
+            PessoaDm pessoa
+        )
         {
             Id = id;
             Usuario = usuario;
             Senha = new Senha(senha);
             DataCriacao = dataCriacao;
-            Ativo = ativo;
+            DataCadastroSenha = dataCadastroSenha;
+            DiasRenovacao = diasRenovacao;
             Grupo = grupo;
             Pessoa = pessoa;
+
+            Ativo = ativo && !PossuiSenhaExpirada();
         }
 
-        public UsuarioDm(int id, string usuario, string senha, GrupoDm grupo, PessoaDm pessoa)
+        public UsuarioDm(
+            int id, 
+            string usuario, 
+            string senha, 
+            int diasRenovacao,
+            GrupoDm grupo, 
+            PessoaDm pessoa
+        )
         {
             Id = id;
             Usuario = usuario;
@@ -27,6 +47,8 @@ namespace Dominio.Entidade.Usuario
             Grupo = grupo;
             Pessoa = pessoa;
             DataCriacao = DateTime.Now;
+            DataCadastroSenha = new DateTime(DataCriacao.Year, DataCriacao.Month, DataCriacao.Day);
+            DiasRenovacao = diasRenovacao;
             Ativo = true;
         }
 
@@ -34,6 +56,8 @@ namespace Dominio.Entidade.Usuario
         public string Usuario { get; }
         public Senha Senha { get; }
         public DateTime DataCriacao { get; }
+        public DateTime DataCadastroSenha { get; set; }
+        public int DiasRenovacao { get; set; }
         public bool Ativo { get; }
         public GrupoDm Grupo { get; }
         public PessoaDm Pessoa { get; }
@@ -88,6 +112,12 @@ namespace Dominio.Entidade.Usuario
 
             if (!Senha.PossuiMinimoCaracteres())
                 _mensagens.AdicionarMensagem(TipoMensagem.FalhaValidacao, Mensagens.UsuarioSenhaMinima.Replace("N", Senha.MinimoCaracteresNecessarios.ToString()));
+        }
+
+        public bool PossuiSenhaExpirada() {
+            DateTime dataAtual = DateTime.Now;
+            bool senhaExpirada = DataCadastroSenha.AddDays(DiasRenovacao) < dataAtual;
+            return senhaExpirada;
         }
     }
 }
