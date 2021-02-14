@@ -169,9 +169,25 @@ namespace Infraestrutura.Servico.Usuario.Implementacao
             var usuarioBanco = ValidarUsuario(usuario, senha);
 
             if (usuarioBanco == null)
-                throw new RegraNegocioException("N�o foi poss�vel localizar o usu�rio. Verifique os dados informados e tente novamente.");
+                throw new RegraNegocioException(MensagensErro.UsuarioNaoLocalizado);
 
-            int usuarioAtivo = usuarioBanco.Ativo ? 1 : 0;
+            var dominio = new UsuarioDm(
+                usuarioBanco.Id,
+                usuarioBanco.Usuario,
+                string.Empty,
+                usuarioBanco.DataCriacao,
+                usuarioBanco.Ativo,
+                usuarioBanco.DataCadastroSenha,
+                usuarioBanco.DiasRenovacao,
+                null,
+                null
+            );
+
+            if(dominio.PossuiSenhaExpirada())
+                throw new RegraNegocioException(MensagensErro.UsuarioSenhaExpirada);
+
+            if(!dominio.Ativo)
+                throw new RegraNegocioException(MensagensErro.UsuarioBloqueado);         
 
             ClaimsIdentity identity = new ClaimsIdentity(
                 new[] {

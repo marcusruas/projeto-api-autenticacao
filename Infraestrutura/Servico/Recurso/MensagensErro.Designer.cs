@@ -295,6 +295,15 @@ namespace Servico.Recurso {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuario está bloqueado.
+        /// </summary>
+        public static string UsuarioBloqueado {
+            get {
+                return ResourceManager.GetString("UsuarioBloqueado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Senha e confirmação de senha não são iguais, verifique os dados..
         /// </summary>
         public static string UsuarioFalhaConfirmacaoSenha {
@@ -345,6 +354,15 @@ namespace Servico.Recurso {
         public static string UsuarioPessoaNaoEncontrada {
             get {
                 return ResourceManager.GetString("UsuarioPessoaNaoEncontrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Senha do usuário informado está expirada..
+        /// </summary>
+        public static string UsuarioSenhaExpirada {
+            get {
+                return ResourceManager.GetString("UsuarioSenhaExpirada", resourceCulture);
             }
         }
         

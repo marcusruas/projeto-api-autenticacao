@@ -195,6 +195,9 @@
   <data name="RegraNegocioErroValidacao" xml:space="preserve">
     <value>Houve erros de validação. Favor verificar notificações.</value>
   </data>
+  <data name="UsuarioBloqueado" xml:space="preserve">
+    <value>Usuario está bloqueado</value>
+  </data>
   <data name="UsuarioFalhaConfirmacaoSenha" xml:space="preserve">
     <value>Senha e confirmação de senha não são iguais, verifique os dados.</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="UsuarioPessoaNaoEncontrada" xml:space="preserve">
     <value>Pessoa do usuário não encontrada.</value>
+  </data>
+  <data name="UsuarioSenhaExpirada" xml:space="preserve">
+    <value>Senha do usuário informado está expirada.</value>
   </data>
   <data name="UsuarioSucessoAtualizacao" xml:space="preserve">
     <value>Usuário foi atualizado com sucesso!</value>
