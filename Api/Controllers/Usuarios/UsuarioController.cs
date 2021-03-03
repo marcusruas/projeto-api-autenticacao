@@ -3,7 +3,6 @@ using Infraestrutura.Servico.Usuario.Interface;
 using MandradePkgs.Autenticacao.Estrutura.Token;
 using MandradePkgs.Retornos;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Api.Controllers.Usuarios
 {
     [Route("/usuarios")]

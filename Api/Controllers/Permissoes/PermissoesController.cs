@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Infraestrutura.Servico.Permissao.Interface;
 using Infraestrutura.Servico.Permissao.Entidade;
 using System.Collections.Generic;
-using Api.PkgAuth;
+using MandradePkgs.Autenticacao.Estrutura.Filtros;
 
 namespace Api.Controllers.usuarios
 {
@@ -24,7 +24,6 @@ namespace Api.Controllers.usuarios
 
         [HttpGet]
         [Route("/usuarios/permissoes")]
-        [EuAutorizo("A72EF0D6-B240-412A-B2C9-21A9C214508A")]
         public RespostaApi<List<PermissaoDto>> Get(string nome) =>
             RespostaPadrao(_servico.ListarPermissoes(nome));
 
@@ -34,7 +33,6 @@ namespace Api.Controllers.usuarios
             RespostaPadrao(_servico.PesquisarPermissaoPorId(permissao));
 
         [HttpGet]
-        [EuAutorizo("A72EF0D6-B240-412A-B2C9-21A9C214508A")]
         [Route("/usuarios/{usuario}/permissoes")]
         public RespostaApi<List<PermissaoDto>> ListarPermissoesUsuario(int usuario) =>
             RespostaPadrao(_servico.ListarPermissoesUsuario(usuario));
